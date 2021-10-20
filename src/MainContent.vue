@@ -6,7 +6,7 @@
     <app-bar />
     <navigation-drawer />
     <v-divider />
-    <v-main>
+    <v-main class="main-content">
       <router-view />
     </v-main>
   </v-app>
@@ -37,3 +37,9 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.main-content {
+  height: 100vh !important;
+}
+</style>

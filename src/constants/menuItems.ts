@@ -11,11 +11,11 @@ const MenuItems: MenuItem[] = [
     children: []
   },
   {
-    name: PageNames.Page1,
-    icon: "mdi-chart-box-outline",
+    name: PageNames.SplitView,
+    icon: "mdi-view-column-outline",
     showIcon: true,
-    title: "Page 1",
-    route: "/page1",
+    title: "Split view",
+    route: "/splitview",
     children: []
   },
   {

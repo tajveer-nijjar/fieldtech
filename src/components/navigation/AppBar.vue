@@ -2,7 +2,6 @@
   <v-app-bar
     app
     flat
-    underline
     clipped-left
     :color="$vuetify.theme.dark ? 'black' : 'white'"
     class="cnx-app-bar"
@@ -16,6 +15,11 @@
     </template>
     <app-name class="mr-6" />
     <v-spacer />
+    <!-- Action button exmaples -->
+    <v-btn icon>
+      <v-icon>mdi-help-circle-outline</v-icon>
+    </v-btn>
+    <!---->
     <v-progress-linear
       indeterminate
       absolute

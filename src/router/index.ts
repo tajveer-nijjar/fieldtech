@@ -21,9 +21,9 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/page1",
-    name: PageNames.Page1,
-    component: () => import("@/views/PageOne.vue")
+    path: "/splitview",
+    name: PageNames.SplitView,
+    component: () => import("@/views/PageSplitView.vue")
   },
   {
     path: "/page2",
