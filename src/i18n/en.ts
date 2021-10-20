@@ -4,5 +4,5 @@ import { en } from "vuetify/src/locale";
 // https://vuetifyjs.com/en/features/internationalization/
 export default {
   ...en,
-  websiteName: "Cloud Website"
+  websiteName: "Cloud Website Template"
 };

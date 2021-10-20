@@ -1,13 +1,14 @@
+import { PageNames } from "@/constants";
+import Home from "@/views/Home.vue";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
+    name: PageNames.Home,
     component: Home
   },
   {
@@ -18,6 +19,21 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/page1",
+    name: PageNames.Page1,
+    component: () => import("@/views/PageOne.vue")
+  },
+  {
+    path: "/page2",
+    name: PageNames.Page2,
+    component: () => import("@/views/PageTwo.vue")
+  },
+  {
+    path: "/profile",
+    name: PageNames.ProfileSettings,
+    component: () => import("@/views/ProfileSettings.vue")
   }
 ];
 
