@@ -24,7 +24,7 @@
         <template v-slot:right>
           <div
             ref="content"
-            class="pa-3 fill-height overflow-y-auto overflow-x-hidden"
+            class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden"
           >
             <v-row
               :key="`content-item-${index}`"
