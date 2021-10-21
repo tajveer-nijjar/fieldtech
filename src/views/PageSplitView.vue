@@ -1,7 +1,7 @@
 <template>
   <split-view>
     <template v-slot:left>
-      <toolbar-page title="Split View">
+      <toolbar-view title="Split View">
         <template v-slot:extension>
           <v-tabs color="accent">
             <v-tab>Tab 1</v-tab>
@@ -17,17 +17,20 @@
           />
         </template>
         <template v-slot:actions>
-          <v-btn icon color="accent">
-            <v-icon>mdi-refresh</v-icon>
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
-      </toolbar-page>
+      </toolbar-view>
     </template>
     <template v-slot:right>
       <v-responsive
         width="100%"
         height="100%"
-        class="blue-grey lighten-5"
+        :class="[
+          { 'blue-grey lighten-5': !$vuetify.theme.dark },
+          { black: $vuetify.theme.dark }
+        ]"
         content-class="pa-3 overflow-y-auto"
       >
         <v-row>
@@ -55,8 +58,8 @@
 <script lang="ts">
 import Vue from "vue";
 import SplitView from "./templates/page/SplitView.vue";
-import ToolbarPage from "./templates/page/ToolbarPage.vue";
+import ToolbarView from "./templates/page/ToolbarView.vue";
 export default Vue.extend({
-  components: { SplitView, ToolbarPage }
+  components: { SplitView, ToolbarView }
 });
 </script>

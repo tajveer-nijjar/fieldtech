@@ -1,16 +1,26 @@
 <template>
   <v-responsive height="100%" width="100%">
     <v-row no-gutters class="fill-height">
-      <v-col cols="12" md="5" lg="4" xl="3" class="fill-height">
+      <v-col
+        cols="12"
+        md="5"
+        lg="4"
+        xl="3"
+        class="fill-height"
+        v-if="
+          $vuetify.breakpoint.mdAndUp ||
+          ($vuetify.breakpoint.smAndDown && !persistentRight)
+        "
+      >
         <slot name="left" />
       </v-col>
       <v-col
-        cols="0"
+        cols="12"
         md="7"
         lg="8"
         xl="9"
         class="fill-height"
-        v-if="$vuetify.breakpoint.mdAndUp"
+        v-if="$vuetify.breakpoint.mdAndUp || persistentRight"
       >
         <slot name="right" />
       </v-col>
@@ -20,5 +30,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+export default Vue.extend({
+  props: {
+    persistentRight: Boolean
+  }
+});
 </script>

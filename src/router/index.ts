@@ -26,9 +26,9 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/PageSplitView.vue")
   },
   {
-    path: "/page2",
-    name: PageNames.Page2,
-    component: () => import("@/views/PageTwo.vue")
+    path: "/settings",
+    name: PageNames.Settings,
+    component: () => import("@/views/PageSettingsView.vue")
   },
   {
     path: "/profile",
@@ -40,7 +40,12 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
+  // makes sure scrolling to top of page
+  // https://router.vuejs.org/guide/advanced/scroll-behavior.html
+  scrollBehavior: () => {
+    return { x: 0, y: 0 };
+  }
 });
 
 export default router;

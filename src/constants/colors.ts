@@ -20,7 +20,7 @@ export const Black = colors.grey.darken4;
 export const White = "#FFFFFF";
 
 // Dark
-export const PrimaryDark = colors.lightBlue.darken2;
+export const AccentDark = colors.lightBlue.darken2;
 export const SecondaryBlack = "#303030";
 
 // For images
@@ -90,7 +90,7 @@ export const ThemeColorLight = {
 
 export const ThemeColorDark = {
   primary: Primary,
-  accent: Accent,
+  accent: AccentDark,
   error: Error,
   cnxGreen: CnxGreen,
   cnxGreenLight1: CnxGreenLight1,

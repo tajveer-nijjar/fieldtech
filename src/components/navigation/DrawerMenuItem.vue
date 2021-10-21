@@ -1,7 +1,6 @@
 <template>
   <v-list-item
     link
-    color="accent"
     :to="item.route"
     :disabled="disabled || isBusy"
     @click="closeDrawer()"

@@ -7,19 +7,22 @@
     <v-toolbar
       flat
       dense
-      :extended="hasExtension"
+      :extended="!!$slots.extension"
       :extension-height="extentionHeight"
       :color="$vuetify.theme.dark ? 'black' : 'white'"
       class="fill-width cnx-toolbar flex-grow-0 fill-width"
     >
+      <v-btn icon @click="handleNavButtonClicked()" v-if="showNavButton">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-toolbar-title class="font-weight-light" v-if="title">
         {{ title }}
       </v-toolbar-title>
-      <template v-if="hasActions">
+      <template v-if="!!$slots.actions">
         <v-spacer />
         <slot name="actions" />
       </template>
-      <template v-slot:extension v-if="hasExtension">
+      <template v-slot:extension v-if="!!$slots.extension">
         <slot name="extension" />
       </template>
     </v-toolbar>
@@ -33,15 +36,13 @@
 import Vue from "vue";
 export default Vue.extend({
   props: {
+    showNavButton: Boolean,
     title: String,
     extentionHeight: { type: Number, default: 40 }
   },
-  computed: {
-    hasExtension(): boolean {
-      return !!this.$slots.extension;
-    },
-    hasActions(): boolean {
-      return !!this.$slots.actions;
+  methods: {
+    handleNavButtonClicked(): void {
+      this.$emit("nav");
     }
   }
 });

@@ -3,7 +3,7 @@
     <v-list-item
       single-line
       color="accent"
-      active-class="primary--text"
+      active-class="accent--text"
       class="px-2"
       :to="{ name: pageNames.ProfileSettings }"
       @click="closeDrawer()"

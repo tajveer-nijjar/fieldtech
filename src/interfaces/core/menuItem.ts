@@ -5,5 +5,7 @@ export default interface MenuItem {
   title: string;
   subtitle?: string;
   route: string;
+  hash?: string;
+  query?: string;
   children: MenuItem[];
 }

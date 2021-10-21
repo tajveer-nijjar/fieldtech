@@ -6,7 +6,7 @@
     touchless
     stateless
     floating
-    color="grey lighten-4"
+    :color="$vuetify.theme.dark ? 'secondaryBlack' : 'grey lighten-4'"
     :permanent="permanentDrawer"
     :temporary="smAndDown"
     :width="drawerWidth"
@@ -17,9 +17,15 @@
       height="100%"
       content-class="d-flex flex-column overflow-hidden"
     >
-      <div class="flex-grow-0">
-        <drawer-header v-if="smAndDown" />
-        <v-divider class="mb-2 mx-3 white" />
+      <div class="flex-grow-0" v-if="smAndDown">
+        <drawer-header />
+        <v-divider
+          :class="[
+            'mb-2 mx-3',
+            { white: !$vuetify.theme.dark },
+            { black: $vuetify.theme.dark }
+          ]"
+        />
       </div>
       <div class="flex-grow-1 overflow-y-auto">
         <v-list nav :dense="!smAndDown" :disabled="isBusy">
@@ -33,7 +39,7 @@
               </v-list-item-content>
             </v-list-item>
           </template>
-          <v-list-item-group color="primary" v-else>
+          <v-list-item-group color="accent" v-else>
             <template v-for="(item, index) in menuItems">
               <drawer-menu-item
                 v-if="item.children.length === 0"
@@ -52,7 +58,13 @@
         </v-list>
       </div>
       <div class="flex-grow-0">
-        <v-divider class="mx-3 white" />
+        <v-divider
+          :class="[
+            'mb-2 mx-3',
+            { white: !$vuetify.theme.dark },
+            { black: $vuetify.theme.dark }
+          ]"
+        />
         <drawer-profile />
       </div>
     </v-responsive>

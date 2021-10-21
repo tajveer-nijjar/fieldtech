@@ -6,9 +6,10 @@
     :color="$vuetify.theme.dark ? 'black' : 'white'"
     class="cnx-app-bar"
   >
-    <v-btn icon @click="openDrawer()" v-if="$vuetify.breakpoint.smAndDown">
-      <v-icon>mdi-menu</v-icon>
-    </v-btn>
+    <v-app-bar-nav-icon
+      @click="openDrawer()"
+      v-if="$vuetify.breakpoint.smAndDown"
+    />
     <template v-if="$vuetify.breakpoint.lgAndUp">
       <logo />
       <v-divider vertical inset class="mx-3 grey lighten-3" />
@@ -16,8 +17,9 @@
     <app-name class="mr-6" />
     <v-spacer />
     <!-- Action button exmaples -->
-    <v-btn icon>
-      <v-icon>mdi-help-circle-outline</v-icon>
+    <v-btn icon @click="handleThemeClicked()">
+      <v-icon v-if="$vuetify.theme.dark">mdi-lightbulb</v-icon>
+      <v-icon v-else>mdi-lightbulb-on</v-icon>
     </v-btn>
     <!---->
     <v-progress-linear
@@ -54,6 +56,9 @@ export default Vue.extend({
     ]),
     openDrawer() {
       this.setDrawerVisibility(!this.isDrawerOpened);
+    },
+    handleThemeClicked() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     }
   }
 });

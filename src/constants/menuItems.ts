@@ -14,16 +14,16 @@ const MenuItems: MenuItem[] = [
     name: PageNames.SplitView,
     icon: "mdi-view-column-outline",
     showIcon: true,
-    title: "Split view",
+    title: "Split View",
     route: "/splitview",
     children: []
   },
   {
-    name: PageNames.Page2,
-    icon: "mdi-map-legend",
+    name: PageNames.Settings,
+    icon: "mdi-table-cog",
     showIcon: true,
-    title: "Page 2",
-    route: "/page2",
+    title: "Settings View",
+    route: "/settings",
     children: []
   }
 ];
