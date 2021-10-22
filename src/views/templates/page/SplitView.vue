@@ -3,24 +3,21 @@
     <v-row no-gutters class="fill-height">
       <v-col
         cols="12"
-        md="5"
-        lg="4"
-        xl="3"
+        :md="nav ? 4 : 5"
+        :lg="nav ? 3 : 4"
+        :xl="3"
         class="fill-height"
-        v-if="
-          $vuetify.breakpoint.mdAndUp ||
-          ($vuetify.breakpoint.smAndDown && !persistentRight)
-        "
+        v-if="showLeft"
       >
         <slot name="left" />
       </v-col>
       <v-col
         cols="12"
-        md="7"
-        lg="8"
-        xl="9"
+        :md="nav ? 8 : 7"
+        :lg="nav ? 9 : 8"
+        :xl="9"
         class="fill-height"
-        v-if="$vuetify.breakpoint.mdAndUp || persistentRight"
+        v-if="showRight"
       >
         <slot name="right" />
       </v-col>
@@ -32,7 +29,36 @@
 import Vue from "vue";
 export default Vue.extend({
   props: {
-    persistentRight: Boolean
+    persistentRight: Boolean,
+    nav: Boolean
+  },
+  computed: {
+    showLeft(): boolean {
+      if (this.$slots.left == null) {
+        return false;
+      }
+
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return true;
+      }
+
+      if (this.$vuetify.breakpoint.smAndDown) {
+        if (this.persistentRight) {
+          return false;
+        }
+
+        if (this.nav) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+    showRight(): boolean {
+      return (
+        this.$vuetify.breakpoint.mdAndUp || this.persistentRight || this.nav
+      );
+    }
   }
 });
 </script>

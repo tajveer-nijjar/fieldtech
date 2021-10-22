@@ -1,15 +1,17 @@
 <template>
   <settings-view :menuItems="menuItems">
     <template v-slot:actions>
-      <v-btn text disabled small class="mr-3">Cancel</v-btn>
-      <v-btn depressed disabled rounded small width="96">Save</v-btn>
+      <v-btn icon color="accent">
+        <v-icon>mdi-edit</v-icon>
+      </v-btn>
     </template>
     <template v-slot:group1>
       <setting-group />
     </template>
     <template v-slot:group2><setting-group /></template>
-    <template v-slot:group3><setting-group /></template>
-    <template v-slot:group4><setting-group /></template>
+    <template v-slot:group3><setting-group :repeat="1" /></template>
+    <template v-slot:group4><setting-group :repeat="1" /></template>
+    <template v-slot:group5><setting-group :repeat="1" /></template>
   </settings-view>
 </template>
 
@@ -51,8 +53,16 @@ export default Vue.extend({
         {
           name: PageNames.Settings,
           title: "Setting group 4",
+          subtitle:
+            "This group cannot be selected on the navigation programmatically on PC",
           route: this.$route.path,
           hash: "group4"
+        },
+        {
+          name: PageNames.Settings,
+          title: "Setting group 5",
+          route: this.$route.path,
+          hash: "group5"
         }
       ] as MenuItem[]
     };

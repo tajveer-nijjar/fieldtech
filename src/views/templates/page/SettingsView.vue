@@ -1,39 +1,52 @@
 <template>
-  <toolbar-view title="Settings">
+  <toolbar-view title="Settings" :extentionHeight="32">
     <template v-slot:actions v-if="!!$slots.actions">
       <slot name="actions" />
     </template>
+    <template v-slot:extension v-if="$vuetify.breakpoint.smAndDown">
+      <v-tabs :value="tabIndex" center-active show-arrows color="accent">
+        <v-tab
+          :value="index"
+          :key="`tab-${index}`"
+          v-for="(item, index) in menuItems"
+          @click="handleItemClicked(item)"
+          class="text-caption font-weight-medium"
+        >
+          {{ item.title }}
+        </v-tab>
+      </v-tabs>
+    </template>
     <template v-slot:content>
-      <split-view persistent-right>
+      <split-view nav>
         <template v-slot:left>
-          <v-list dense nav>
-            <v-list-item
-              link
-              :key="index"
-              v-for="(item, index) in menuItems"
-              @click="handleItemClicked(item)"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ item.title }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+          <div>
+            <v-tabs :value="tabIndex" vertical color="accent" slider-size="4">
+              <v-tab
+                :value="index"
+                :key="`tab-${index}`"
+                v-for="(item, index) in menuItems"
+                @click="handleItemClicked(item)"
+                class="vertical-tab pl-8 text-caption font-weight-medium"
+              >
+                {{ item.title }}
+              </v-tab>
+            </v-tabs>
+          </div>
         </template>
         <template v-slot:right>
           <div
             ref="content"
             class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden"
+            @scroll="contentScrollListener"
           >
             <v-row
               :key="`content-item-${index}`"
               :ref="getSlotNameByIndex(index)"
               v-for="(item, index) in menuItems"
             >
-              <v-col cols="12" lg="7">
+              <v-col cols="12" lg="8" xl="7">
                 <div>
-                  <div class="text-subtitle-2 small-line-height">
+                  <div class="text-subtitle-2 small-line-height text-uppercase">
                     {{ item.title }}
                   </div>
                   <div
@@ -72,13 +85,25 @@ export default Vue.extend({
       default: () => new Array<MenuItem>()
     }
   },
+  data() {
+    return {
+      tabIndex: 0,
+      activeIndex: 0,
+      isAutoScrolling: false, // For programmatical scrollings
+      isScrolling: false, // For manual scrollings
+      scrollTimeout: null as any,
+      contentRef: null as null | HTMLElement
+    };
+  },
   computed: {
     hash(): string {
       return this.$route.hash;
     }
   },
   mounted() {
+    this.contentRef = this.$refs.content as HTMLElement;
     this.scrollToHash(this.hash);
+    this.tabIndex = this.activeIndex = this.getHashIndex(this.hash);
   },
   methods: {
     checkActive(item: MenuItem): boolean {
@@ -86,7 +111,7 @@ export default Vue.extend({
         this.$route.name === item.name &&
         this.$route.hash != null &&
         item.hash != null &&
-        this.$route.hash.includes(item.hash)
+        this.isSameHash(this.hash, item.hash)
       );
     },
     getSlotNameByIndex(index: number): string {
@@ -118,29 +143,144 @@ export default Vue.extend({
         }
       }
 
-      const contentEl = this.$refs.content as HTMLElement;
-
-      if (!contentEl) {
+      if (!this.contentRef) {
         return;
       }
 
-      contentEl.scrollTo({
+      this.isAutoScrolling = true;
+      this.contentRef.scrollTo({
         top: offsetTop,
         behavior: "smooth"
       });
     },
     scrollToHash(hash: string): void {
-      const item = this.menuItems.find(
-        (item) => item.hash != null && hash.includes(item.hash)
+      const item = this.menuItems.find((item) =>
+        this.isSameHash(hash, item.hash)
       );
 
       this.scrollToItem(item);
+    },
+    contentScrollListener(e: Event): void {
+      const target = e.target as HTMLElement;
+      this.isScrolling = true;
+
+      if (!target) {
+        this.isScrolling = false;
+        return;
+      }
+
+      const scrollTop = target.scrollTop;
+      let activeIndex = 0;
+
+      // has scrolled to the bottom
+      if (scrollTop === 0) {
+        activeIndex = 0;
+      } else if (
+        scrollTop + target.clientHeight === target.scrollHeight &&
+        !this.isAutoScrolling
+      ) {
+        activeIndex = this.menuItems.length - 1;
+      } else {
+        for (let index = 0; index < this.menuItems.length; index++) {
+          const item = this.menuItems[index];
+
+          if (!item.hash) {
+            continue;
+          }
+
+          const elements = this.$refs[item.hash] as HTMLElement[];
+          const element = elements[0];
+
+          if (!element) {
+            continue;
+          }
+
+          // more than a half of the element is visible
+          const itemCenterOffset =
+            element.offsetTop + element.clientHeight / 3 - scrollTop;
+
+          if (itemCenterOffset >= 0) {
+            activeIndex = index;
+            break;
+          }
+
+          // the whole element is inside of the view
+          if (
+            element.offsetTop - scrollTop >= 0 &&
+            element.offsetTop + element.clientHeight <= target.clientHeight
+          ) {
+            activeIndex = index;
+            break;
+          }
+        }
+      }
+
+      this.activeIndex = activeIndex;
+
+      if (this.isAutoScrolling) {
+        if (this.scrollTimeout) {
+          clearTimeout(this.scrollTimeout);
+        }
+
+        this.scrollTimeout = setTimeout(() => {
+          this.isScrolling = false;
+          this.isAutoScrolling = false;
+        }, 300);
+
+        return;
+      }
+
+      this.tabIndex = this.activeIndex;
+    },
+    getHashIndex(hash: string): number {
+      const index = this.menuItems.findIndex((item) =>
+        this.isSameHash(hash, item.hash)
+      );
+      return index < 0 ? 0 : index;
+    },
+    isSameHash(
+      hash1: string | null | undefined,
+      hash2: string | null | undefined
+    ): boolean {
+      if (!hash1 || !hash2) {
+        return false;
+      }
+
+      return hash1.includes(hash2) || hash2.includes(hash1);
     }
   },
   watch: {
-    hash: function (val: string) {
-      this.scrollToHash(val);
+    isScrolling(newVal: boolean, oldVal) {
+      // Scrolling has stopped
+      if (!newVal && oldVal) {
+        if (!this.isAutoScrolling) {
+          this.tabIndex = this.activeIndex = this.getHashIndex(this.hash);
+        } else {
+          this.tabIndex = this.activeIndex;
+        }
+      }
+    },
+    tabIndex(tabIndex: number) {
+      if (this.isAutoScrolling) {
+        return;
+      }
+
+      const item = this.menuItems[tabIndex];
+
+      if (this.isSameHash(this.hash, item.hash)) {
+        return;
+      }
+
+      this.$router.push({ name: item.name, hash: "#" + item.hash });
     }
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.vertical-tab {
+  &.v-tab {
+    justify-content: start !important;
+  }
+}
+</style>

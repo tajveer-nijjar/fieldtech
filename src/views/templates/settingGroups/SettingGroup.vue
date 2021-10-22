@@ -3,7 +3,7 @@
     dense
     :color="$vuetify.theme.dark ? 'secondaryBlack' : 'grey lighten-5'"
   >
-    <template v-for="index in 5">
+    <template v-for="index in repeat">
       <setting-group-item
         :title="`Text field ${index} option`"
         subtitle="Text field option description"
@@ -32,7 +32,7 @@
         ]"
       />
     </template>
-    <template v-for="index in 4">
+    <template v-for="index in repeat">
       <setting-group-item
         :title="`Switch ${index} option`"
         subtitle="switch option description"
@@ -64,6 +64,9 @@
 import Vue from "vue";
 import SettingGroupItem from "./SettingGroupItem.vue";
 export default Vue.extend({
-  components: { SettingGroupItem }
+  components: { SettingGroupItem },
+  props: {
+    repeat: { type: Number, default: 5 }
+  }
 });
 </script>
