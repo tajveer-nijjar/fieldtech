@@ -37,9 +37,10 @@
           <div
             ref="content"
             class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden"
-            @scroll="contentScrollListener"
+            v-scroll.self="contentScrollListener"
           >
             <v-row
+              :id="item.hash"
               :key="`content-item-${index}`"
               :ref="getSlotNameByIndex(index)"
               v-for="(item, index) in menuItems"
@@ -133,24 +134,14 @@ export default Vue.extend({
       });
     },
     scrollToItem(item: MenuItem | null | undefined): void {
-      let offsetTop = 0;
-
-      if (item && item.hash) {
-        const elements = this.$refs[item.hash] as HTMLElement[];
-
-        if (elements) {
-          offsetTop = elements[0].offsetTop;
-        }
-      }
-
-      if (!this.contentRef) {
+      if (!item || !item.hash || !this.contentRef) {
         return;
       }
-
       this.isAutoScrolling = true;
-      this.contentRef.scrollTo({
-        top: offsetTop,
-        behavior: "smooth"
+      this.$vuetify.goTo("#" + item.hash, {
+        easing: "easeInOutQuart",
+        container: this.contentRef,
+        offset: -48
       });
     },
     scrollToHash(hash: string): void {
