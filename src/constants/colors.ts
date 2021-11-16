@@ -1,9 +1,5 @@
 import colors from "vuetify/lib/util/colors";
 
-export const Primary = "#a5c56d";
-export const Secondary = "#d8f89d";
-export const Accent = "#28629b";
-export const Bg1 = "#F1F2EF";
 export const CnxGreen = "#a5c56d";
 export const CnxGreenLight1 = "#d2e2b6";
 export const CnxGreenLight2 = "#e9f0da";
@@ -18,6 +14,12 @@ export const LightGrey2 = colors.grey.lighten3;
 
 export const Black = colors.grey.darken4;
 export const White = "#FFFFFF";
+
+// Light
+export const Primary = CnxGreen;
+export const Secondary = "#d8f89d";
+export const Accent = "#28629b";
+export const Bg1 = "#F1F2EF";
 
 // Dark
 export const AccentDark = colors.lightBlue.darken2;
