@@ -1,5 +1,9 @@
 <template>
-  <v-container fluid fill-height class="grey lighten-5">
+  <v-container
+    fluid
+    fill-height
+    :class="[{ 'grey lighten-5': !$vuetify.theme.dark }]"
+  >
     <v-row justify="center">
       <v-col cols="6">
         <v-list>

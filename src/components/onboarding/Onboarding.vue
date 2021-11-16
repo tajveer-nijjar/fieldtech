@@ -25,12 +25,8 @@
           <v-item v-for="n in features.length" :key="n">
             <v-icon
               x-small
-              :color="
-                n - 1 === slide
-                  ? 'light-green darken-1'
-                  : 'light-green lighten-4'
-              "
-              class="mr-1"
+              color="light-green darken-1"
+              :class="['mr-1 nav-dot', { suppressed: n - 1 !== slide }]"
               @click="() => (slide = n - 1)"
             >
               circle
@@ -156,3 +152,11 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.nav-dot {
+  &.suppressed {
+    opacity: 0.2;
+  }
+}
+</style>
