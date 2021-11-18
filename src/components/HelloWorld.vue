@@ -31,6 +31,19 @@
         </v-list>
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <v-col cols="6">
+        <v-responsive height="300">
+          <time-picker />
+          <v-text-field
+            rounded
+            filled
+            label="hello"
+            prepend-inner-icon="mdi-clock-outline"
+          />
+        </v-responsive>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -38,7 +51,8 @@
 import Vue from "vue";
 import Onboarding from "./onboarding/Onboarding.vue";
 import OnboardingDialog from "./onboarding/OnboardingDialog.vue";
+import TimePicker from "./timePicker/TimePicker.vue";
 export default Vue.extend({
-  components: { OnboardingDialog, Onboarding }
+  components: { OnboardingDialog, Onboarding, TimePicker }
 });
 </script>

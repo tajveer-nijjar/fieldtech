@@ -1,0 +1,17 @@
+.borderless-textfield {
+  &.v-text-field {
+    .v-input__control {
+      .v-input__slot {
+        &:before,
+        &:after {
+          border-style: none;
+        }
+
+        .v-input__prepend-inner {
+          margin-top: 19px;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
