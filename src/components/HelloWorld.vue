@@ -50,7 +50,7 @@
                   filled
                   readonly
                   clearable
-                  :value="time"
+                  :value="timeRangeStrs[0]"
                   label="Time picker"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   v-bind="attrs"
@@ -60,7 +60,7 @@
               </template>
               <v-card>
                 <v-card-text>
-                  <time-picker v-model="time" />
+                  <time-picker v-model="timeRange[0]" />
                 </v-card-text>
               </v-card>
             </v-menu>
@@ -105,6 +105,7 @@
 </template>
 
 <script lang="ts">
+import { DateUtils } from "@/utils";
 import Vue from "vue";
 import Onboarding from "./onboarding/Onboarding.vue";
 import OnboardingDialog from "./onboarding/OnboardingDialog.vue";
@@ -114,13 +115,17 @@ export default Vue.extend({
   components: { OnboardingDialog, Onboarding, TimePicker, TimeRangePicker },
   data() {
     return {
-      time: "",
-      timeRange: ["10:00 AM", "6:00 PM"]
+      timeRange: [new Date(2021, 11, 22, 6, 30), new Date(2021, 11, 22, 15, 30)]
     };
   },
   computed: {
+    timeRangeStrs(): string[] {
+      return this.timeRange.map((time) =>
+        DateUtils.formatTime(time, "without seconds")
+      );
+    },
     timeRangeFormatted(): string {
-      return this.timeRange.join(" - ");
+      return this.timeRangeStrs.join(" - ");
     }
   }
 });

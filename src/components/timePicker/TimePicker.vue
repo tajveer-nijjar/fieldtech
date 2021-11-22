@@ -68,14 +68,17 @@
 
 <script lang="ts">
 import moment from "moment";
-import Vue from "vue";
+import Vue, { PropType } from "vue";
 
 const TimeoutTime = 150;
 const TimeFormat = "h:mm A";
 
 export default Vue.extend({
   props: {
-    value: String
+    value: {
+      type: Date as PropType<Date>,
+      default: () => moment().startOf("day").toDate()
+    }
   },
   data() {
     return {
@@ -205,24 +208,18 @@ export default Vue.extend({
       this.time = moment(this.time).add(minute, "minute").valueOf();
     },
     input() {
-      this.$emit("input", moment(this.time).format(TimeFormat));
+      this.$emit("input", moment(this.time).toDate());
     },
     resetTime() {
       this.time = moment().startOf("day").valueOf();
     },
     getValue() {
-      if (!this.value || this.value.trim().length === 0) {
+      if (!this.value) {
         this.resetTime();
         return;
       }
 
-      this.time = moment(this.value, [
-        TimeFormat,
-        "h:mm a",
-        "hh:mm",
-        "H:mm",
-        "HH:mm"
-      ]).valueOf();
+      this.time = this.value.getTime();
     }
   },
   watch: {

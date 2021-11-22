@@ -17,17 +17,15 @@ import Vue, { PropType } from "vue";
 import TimePicker from "./TimePicker.vue";
 import moment from "moment";
 
-const TimeFormat = "h:mm A";
-
 export default Vue.extend({
   components: { TimePicker },
   props: {
-    value: { type: Array as PropType<string[]>, default: () => [] }
+    value: { type: Array as PropType<Date[]>, default: () => [] }
   },
   data() {
     return {
-      startTime: "",
-      endTime: ""
+      startTime: null as Date | null,
+      endTime: null as Date | null
     };
   },
   mounted() {
@@ -36,15 +34,15 @@ export default Vue.extend({
   methods: {
     getValue() {
       if (!this.value || this.value.length === 0) {
-        this.startTime = moment().startOf("day").format(TimeFormat);
-        this.endTime = moment().startOf("day").format(TimeFormat);
+        this.startTime = moment().startOf("day").toDate();
+        this.endTime = moment().startOf("day").toDate();
         return;
       }
 
       this.startTime = this.value[0];
       this.endTime = this.value[1]
         ? this.value[1]
-        : moment().startOf("day").format(TimeFormat);
+        : moment().startOf("day").toDate();
     },
     input() {
       this.$emit("input", [this.startTime, this.endTime]);
