@@ -1,14 +1,17 @@
 <template>
   <div>
     <v-row no-gutters>
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <v-subheader class="text-uppercase text-caption">
           Start Time
         </v-subheader>
         <time-picker :value="startTime" @input="inputStartTime" />
       </v-col>
-      <v-divider vertical />
-      <v-col cols="6">
+      <v-divider vertical v-if="$vuetify.breakpoint.mdAndUp" />
+      <v-col cols="12" v-else>
+        <v-divider class="my-3" />
+      </v-col>
+      <v-col cols="12" md="6">
         <v-subheader
           :class="[
             'text-uppercase text-caption',

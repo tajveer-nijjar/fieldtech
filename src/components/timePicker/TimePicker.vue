@@ -4,7 +4,7 @@
       <div class="time d-flex flex-column align-center">
         <v-btn
           icon
-          @click="addHour(1)"
+          @click="handleHourUpClicked()"
           @mousedown="handleHourUpMouseDown()"
           @mouseup="handleHourUpMouseUp()"
         >
@@ -17,15 +17,18 @@
             'text-center rounded-lg no-line-height',
             { 'text-h5': !dense },
             { dense: dense },
-            { 'error-time red lighten-5': error },
-            { 'grey lighten-3': !error }
+            { 'error-time': error },
+            { 'red lighten-5': error && !$vuetify.theme.dark },
+            { 'dark brown darken-4': error && $vuetify.theme.dark },
+            { 'grey lighten-3': !error && !$vuetify.theme.dark },
+            { 'dark white--text': !error && $vuetify.theme.dark }
           ]"
           @focus="handleHourFocused"
           @blur="handleHourBlurred"
         />
         <v-btn
           icon
-          @click="addHour(-1)"
+          @click="handleHourDownClicked()"
           @mousedown="handleHourDownMouseDown()"
           @mouseup="handleHourDownMouseUp()"
         >
@@ -33,14 +36,19 @@
         </v-btn>
       </div>
       <span
-        :class="[{ 'mx-2 text-h3': !dense }, { 'mx-1 text-h6': dense }]"
+        :class="[
+          { 'mx-2 text-h3': !dense },
+          { 'mx-1 text-h6': dense },
+          { 'white--text': $vuetify.theme.dark }
+        ]"
         style="margin-top: -4px"
-        >:</span
       >
+        :
+      </span>
       <div class="time d-flex flex-column align-center">
         <v-btn
           icon
-          @click="addMinute(1)"
+          @click="handleMinuteUpClicked()"
           @mousedown="handleMinuteUpMouseDown()"
           @mouseup="handleMinuteUpMouseUp()"
         >
@@ -53,15 +61,18 @@
             'text-center rounded-lg no-line-height',
             { 'text-h5': !dense },
             { dense: dense },
-            { 'error-time red lighten-5': error },
-            { 'grey lighten-3': !error }
+            { 'error-time': error },
+            { 'red lighten-5': error && !$vuetify.theme.dark },
+            { 'dark brown darken-4': error && $vuetify.theme.dark },
+            { 'grey lighten-3': !error && !$vuetify.theme.dark },
+            { 'dark white--text': !error && $vuetify.theme.dark }
           ]"
           @focus="handleMinuteFocused"
           @blur="handleMinuteBlurred"
         />
         <v-btn
           icon
-          @click="addMinute(-1)"
+          @click="handleMinuteDownClicked()"
           @mousedown="handleMinuteDownMouseDown()"
           @mouseup="handleMinuteDownMouseUp()"
         >
@@ -171,11 +182,19 @@ export default Vue.extend({
 
       this.isHourFocused = false;
     },
+    handleHourUpClicked() {
+      clearInterval(this.timer);
+      this.addHour(1);
+    },
     handleHourUpMouseDown() {
       this.timer = setInterval(() => this.addHour(1), TimeoutTime);
     },
     handleHourUpMouseUp() {
       clearInterval(this.timer);
+    },
+    handleHourDownClicked() {
+      clearInterval(this.timer);
+      this.addHour(-1);
     },
     handleHourDownMouseDown() {
       this.timer = setInterval(() => this.addHour(-1), TimeoutTime);
@@ -199,11 +218,19 @@ export default Vue.extend({
 
       this.isMinuteFocused = false;
     },
+    handleMinuteUpClicked() {
+      clearInterval(this.timer);
+      this.addMinute(1);
+    },
     handleMinuteUpMouseDown() {
       this.timer = setInterval(() => this.addMinute(1), TimeoutTime);
     },
     handleMinuteUpMouseUp() {
       clearInterval(this.timer);
+    },
+    handleMinuteDownClicked() {
+      clearInterval(this.timer);
+      this.addMinute(-1);
     },
     handleMinuteDownMouseDown() {
       this.timer = setInterval(() => this.addMinute(-1), TimeoutTime);
@@ -287,6 +314,24 @@ export default Vue.extend({
     &:focus {
       border-color: $accent-color !important;
       color: $accent-color;
+    }
+
+    &.dark {
+      background-color: black;
+      border-color: black !important;
+
+      &.error-time {
+        border-color: #3e2723 !important;
+      }
+
+      &:focus {
+        border-color: $accent-color-dark !important;
+        color: $accent-color-dark !important;
+      }
+
+      &::selection {
+        background-color: #263238;
+      }
     }
   }
 

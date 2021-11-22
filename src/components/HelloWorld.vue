@@ -7,7 +7,7 @@
     <v-responsive height="100%" max-height="640" class="overflow-y-auto">
       <v-responsive height="1200">
         <v-row justify="center">
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <v-list>
               <v-list-item>
                 <v-list-item-content>
@@ -34,7 +34,7 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <time-picker-menu dense v-model="time">
               <template #activator="{ on, attrs, display }">
                 <v-text-field
@@ -54,7 +54,7 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <time-range-picker-menu v-model="timeRange">
               <template #activator="{ on, attrs, display }">
                 <v-text-field

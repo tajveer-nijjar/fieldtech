@@ -5,9 +5,10 @@
     transition="scale-transition"
     offset-y
     :max-width="640"
-    :min-width="320"
+    :min-width="480"
     :nudge-top="30"
     rounded="lg"
+    v-if="$vuetify.breakpoint.lgAndUp"
   >
     <template #activator="{ on, attrs }">
       <slot
@@ -19,7 +20,7 @@
       />
     </template>
     <v-card>
-      <v-card-text>
+      <v-card-text class="px-0">
         <time-range-picker
           v-model="range"
           @endTimeError="(error) => (endTimeError = error)"
@@ -28,6 +29,26 @@
       </v-card-text>
     </v-card>
   </v-menu>
+  <v-dialog v-model="menu" :max-width="320" content-class="rounded-lg" v-else>
+    <template #activator="{ on, attrs }">
+      <slot
+        name="activator"
+        :on="on"
+        :attrs="attrs"
+        :display="display"
+        :error="endTimeError"
+      />
+    </template>
+    <v-card>
+      <v-card-text class="pa-3">
+        <time-range-picker
+          v-model="range"
+          @endTimeError="(error) => (endTimeError = error)"
+          :key="menu"
+        />
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
