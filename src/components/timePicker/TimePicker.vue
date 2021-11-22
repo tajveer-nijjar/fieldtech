@@ -12,9 +12,10 @@
         </v-btn>
         <input
           v-model="hour"
-          type="number"
+          maxlength="2"
           class="text-center text-h5 rounded-lg grey lighten-3 no-line-height"
-          @focus="$event.target.select()"
+          @focus="handleHourFocused"
+          @blur="handleHourBlurred"
         />
         <v-btn
           icon
@@ -37,9 +38,10 @@
         </v-btn>
         <input
           v-model="minute"
-          type="number"
+          maxlength="2"
           class="text-center text-h5 rounded-lg grey lighten-3 no-line-height"
-          @focus="$event.target.select()"
+          @focus="handleMinuteFocused"
+          @blur="handleMinuteBlurred"
         />
         <v-btn
           icon
@@ -65,8 +67,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import moment from "moment";
+import Vue from "vue";
 
 const TimeoutTime = 150;
 const TimeFormat = "h:mm A";
@@ -78,6 +80,8 @@ export default Vue.extend({
   data() {
     return {
       time: 0,
+      isHourFocused: false,
+      isMinuteFocused: false,
       timer: null as any
     };
   },
@@ -86,38 +90,34 @@ export default Vue.extend({
   },
   computed: {
     hour: {
-      get: function (): string | number {
+      get: function (): string {
         return moment(this.time).format("h");
       },
-      set: function (hour: string | number) {
-        hour = typeof hour === "string" ? hour.toInt() : hour;
+      set: function (value: string) {
+        let hour = value.toInt();
 
         if (hour < 1) {
           hour = 1;
+        } else if (hour < 12) {
+          hour = this.period ? hour : hour + 12;
+        } else if (hour >= 12) {
+          hour = this.period ? 0 : 12;
         }
 
-        if (hour >= 24) {
-          hour = 24;
-        }
-
-        this.time = moment(this.time)
-          .hour(this.period ? hour : hour + 12)
-          .valueOf();
+        this.time = moment(this.time).hour(hour).valueOf();
       }
     },
     minute: {
-      get: function (): string | number {
-        return moment(this.time).format("mm");
+      get: function (): string {
+        return moment(this.time).format(this.isMinuteFocused ? "m" : "mm");
       },
-      set: function (minute: number | string) {
-        minute = typeof minute === "string" ? minute.toInt() : minute;
+      set: function (value: string) {
+        let minute = value.toInt();
 
         if (minute < 1) {
           return;
-        }
-
-        if (minute >= 60) {
-          minute = 60;
+        } else if (minute > 59) {
+          minute = 59;
         }
 
         this.time = moment(this.time).minute(minute).valueOf();
@@ -135,6 +135,16 @@ export default Vue.extend({
     }
   },
   methods: {
+    // Hour input
+    handleHourFocused(event: Event) {
+      setTimeout(() => {
+        (event.target as HTMLInputElement).select();
+      }, 100);
+      this.isHourFocused = true;
+    },
+    handleHourBlurred() {
+      this.isHourFocused = false;
+    },
     handleHourUpMouseDown() {
       this.timer = setInterval(() => this.addHour(1), TimeoutTime);
     },
@@ -146,6 +156,16 @@ export default Vue.extend({
     },
     handleHourDownMouseUp() {
       clearInterval(this.timer);
+    },
+    // Minute input
+    handleMinuteFocused(event: Event) {
+      setTimeout(() => {
+        (event.target as HTMLInputElement).select();
+      }, 100);
+      this.isMinuteFocused = true;
+    },
+    handleMinuteBlurred() {
+      this.isMinuteFocused = false;
     },
     handleMinuteUpMouseDown() {
       this.timer = setInterval(() => this.addMinute(1), TimeoutTime);
@@ -159,18 +179,40 @@ export default Vue.extend({
     handleMinuteDownMouseUp() {
       clearInterval(this.timer);
     },
+    // General
     addHour(hour: number) {
+      if (this.isHourFocused) {
+        return;
+      }
+
+      if (moment(this.time).hour() + hour >= 24) {
+        this.time = moment(this.time).hour(0).valueOf();
+        return;
+      }
+
       this.time = moment(this.time).add(hour, "hour").valueOf();
     },
     addMinute(minute: number) {
+      if (this.isMinuteFocused) {
+        return;
+      }
+
+      if (moment(this.time).minute() + minute >= 60) {
+        this.time = moment(this.time).minute(0).valueOf();
+        return;
+      }
+
       this.time = moment(this.time).add(minute, "minute").valueOf();
     },
     input() {
       this.$emit("input", moment(this.time).format(TimeFormat));
     },
+    resetTime() {
+      this.time = moment().startOf("day").valueOf();
+    },
     getValue() {
       if (!this.value || this.value.trim().length === 0) {
-        this.time = moment().startOf("day").valueOf();
+        this.resetTime();
         return;
       }
 
