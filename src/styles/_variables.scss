@@ -13,7 +13,8 @@ $cnx-green-color: #a5c56d;
 $cnx-green-light1: #d2e2b6;
 
 $warning-color: #ffc107;
-$late-color: #ff5722;
+$error-color: #ff5722;
+$late-color: $error-color;
 $very-late-color: #e91e63;
 
 $black-color: #212121;

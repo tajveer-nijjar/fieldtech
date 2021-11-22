@@ -13,7 +13,13 @@
         <input
           v-model="hour"
           maxlength="2"
-          class="text-center text-h5 rounded-lg grey lighten-3 no-line-height"
+          :class="[
+            'text-center rounded-lg no-line-height',
+            { 'text-h5': !dense },
+            { dense: dense },
+            { 'error-time red lighten-5': error },
+            { 'grey lighten-3': !error }
+          ]"
           @focus="handleHourFocused"
           @blur="handleHourBlurred"
         />
@@ -26,7 +32,11 @@
           <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
       </div>
-      <span class="mx-2 text-h3" style="margin-top: -4px">:</span>
+      <span
+        :class="[{ 'mx-2 text-h3': !dense }, { 'mx-1 text-h6': dense }]"
+        style="margin-top: -4px"
+        >:</span
+      >
       <div class="time d-flex flex-column align-center">
         <v-btn
           icon
@@ -39,7 +49,13 @@
         <input
           v-model="minute"
           maxlength="2"
-          class="text-center text-h5 rounded-lg grey lighten-3 no-line-height"
+          :class="[
+            'text-center rounded-lg no-line-height',
+            { 'text-h5': !dense },
+            { dense: dense },
+            { 'error-time red lighten-5': error },
+            { 'grey lighten-3': !error }
+          ]"
           @focus="handleMinuteFocused"
           @blur="handleMinuteBlurred"
         />
@@ -57,10 +73,10 @@
         mandatory
         dense
         color="accent"
-        class="ml-3 rounded-lg flex-column"
+        :class="['ml-3 rounded-lg', { 'flex-column vertical-toggle': !dense }]"
       >
-        <v-btn :value="true" small class="rounded-lg">AM</v-btn>
-        <v-btn :value="false" small class="border-0">PM</v-btn>
+        <v-btn :value="true" small>AM</v-btn>
+        <v-btn :value="false" small>PM</v-btn>
       </v-btn-toggle>
     </div>
   </div>
@@ -71,14 +87,15 @@ import moment from "moment";
 import Vue, { PropType } from "vue";
 
 const TimeoutTime = 150;
-const TimeFormat = "h:mm A";
 
 export default Vue.extend({
   props: {
     value: {
       type: Date as PropType<Date>,
       default: () => moment().startOf("day").toDate()
-    }
+    },
+    dense: Boolean,
+    error: Boolean
   },
   data() {
     return {
@@ -99,8 +116,8 @@ export default Vue.extend({
       set: function (value: string) {
         let hour = value.toInt();
 
-        if (hour < 1) {
-          hour = 1;
+        if (hour < 0) {
+          hour = 0;
         } else if (hour < 12) {
           hour = this.period ? hour : hour + 12;
         } else if (hour >= 12) {
@@ -118,7 +135,7 @@ export default Vue.extend({
         let minute = value.toInt();
 
         if (minute < 1) {
-          return;
+          minute = 0;
         } else if (minute > 59) {
           minute = 59;
         }
@@ -145,7 +162,13 @@ export default Vue.extend({
       }, 100);
       this.isHourFocused = true;
     },
-    handleHourBlurred() {
+    handleHourBlurred(event: Event) {
+      const target = event.target as HTMLInputElement;
+
+      if (!target.value || target.value.length === 0) {
+        target.value = this.hour;
+      }
+
       this.isHourFocused = false;
     },
     handleHourUpMouseDown() {
@@ -167,7 +190,13 @@ export default Vue.extend({
       }, 100);
       this.isMinuteFocused = true;
     },
-    handleMinuteBlurred() {
+    handleMinuteBlurred(event: Event) {
+      const target = event.target as HTMLInputElement;
+
+      if (!target.value || target.value.length === 0) {
+        target.value = this.minute;
+      }
+
       this.isMinuteFocused = false;
     },
     handleMinuteUpMouseDown() {
@@ -240,40 +269,46 @@ export default Vue.extend({
   input {
     width: 56px;
     height: 56px;
+    border-style: solid !important;
+    -webkit-transition: 300ms;
+    transition: 300ms;
+    outline: none;
 
-    &[type="number"] {
-      -moz-appearance: textfield;
+    &.dense {
+      width: 32px;
+      height: 32px;
     }
 
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    &.error-time {
+      border-color: $error-color !important;
+      color: $error-color;
     }
 
     &:focus {
-      outline-color: $accent-color;
+      border-color: $accent-color !important;
       color: $accent-color;
     }
   }
 
   .v-btn-toggle {
-    .v-btn.v-btn:first-child {
-      border-top-left-radius: inherit !important;
-      border-top-right-radius: inherit !important;
-      border-bottom-left-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-      border-right-width: thin !important;
-      border-bottom-width: 0 !important;
-    }
+    &.vertical-toggle {
+      .v-btn.v-btn:first-child {
+        border-top-left-radius: inherit !important;
+        border-top-right-radius: inherit !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-right-width: thin !important;
+        border-bottom-width: 0 !important;
+      }
 
-    .v-btn.v-btn:last-child {
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-      border-bottom-left-radius: inherit !important;
-      border-bottom-right-radius: inherit !important;
-      border-left-width: thin !important;
-      border-top-width: 0 !important;
+      .v-btn.v-btn:last-child {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-left-radius: inherit !important;
+        border-bottom-right-radius: inherit !important;
+        border-left-width: thin !important;
+        border-top-width: 0 !important;
+      }
     }
   }
 }

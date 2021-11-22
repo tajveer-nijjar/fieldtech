@@ -35,22 +35,14 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="6">
-            <v-menu
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              :max-width="640"
-              :min-width="320"
-              :nudge-top="30"
-              rounded="lg"
-            >
-              <template #activator="{ on, attrs }">
+            <time-picker-menu dense v-model="time">
+              <template #activator="{ on, attrs, display }">
                 <v-text-field
                   rounded
                   filled
                   readonly
                   clearable
-                  :value="timeRangeStrs[0]"
+                  :value="display"
                   label="Time picker"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   v-bind="attrs"
@@ -58,32 +50,19 @@
                   class="rounded-lg"
                 />
               </template>
-              <v-card>
-                <v-card-text>
-                  <time-picker v-model="timeRange[0]" />
-                </v-card-text>
-              </v-card>
-            </v-menu>
+            </time-picker-menu>
           </v-col>
         </v-row>
         <v-row justify="center">
           <v-col cols="6">
-            <v-menu
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              :max-width="640"
-              :min-width="320"
-              :nudge-top="30"
-              rounded="lg"
-            >
-              <template #activator="{ on, attrs }">
+            <time-range-picker-menu v-model="timeRange">
+              <template #activator="{ on, attrs, display }">
                 <v-text-field
                   rounded
                   filled
                   readonly
                   clearable
-                  :value="timeRangeFormatted"
+                  :value="display"
                   label="Time range picker"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   v-bind="attrs"
@@ -91,12 +70,7 @@
                   class="rounded-lg"
                 />
               </template>
-              <v-card>
-                <v-card-text>
-                  <time-range-picker v-model="timeRange" />
-                </v-card-text>
-              </v-card>
-            </v-menu>
+            </time-range-picker-menu>
           </v-col>
         </v-row>
       </v-responsive>
@@ -105,28 +79,24 @@
 </template>
 
 <script lang="ts">
-import { DateUtils } from "@/utils";
 import Vue from "vue";
 import Onboarding from "./onboarding/Onboarding.vue";
 import OnboardingDialog from "./onboarding/OnboardingDialog.vue";
-import TimePicker from "./timePicker/TimePicker.vue";
-import TimeRangePicker from "./timePicker/TimeRangePicker.vue";
+import TimePickerMenu from "./timePicker/TimePickerMenu.vue";
+import TimeRangePickerMenu from "./timePicker/TimeRangePickerMenu.vue";
+
 export default Vue.extend({
-  components: { OnboardingDialog, Onboarding, TimePicker, TimeRangePicker },
+  components: {
+    OnboardingDialog,
+    Onboarding,
+    TimePickerMenu,
+    TimeRangePickerMenu
+  },
   data() {
     return {
-      timeRange: [new Date(2021, 11, 22, 6, 30), new Date(2021, 11, 22, 15, 30)]
+      time: new Date(2021, 11, 22, 17, 45),
+      timeRange: [] as Date[]
     };
-  },
-  computed: {
-    timeRangeStrs(): string[] {
-      return this.timeRange.map((time) =>
-        DateUtils.formatTime(time, "without seconds")
-      );
-    },
-    timeRangeFormatted(): string {
-      return this.timeRangeStrs.join(" - ");
-    }
   }
 });
 </script>
