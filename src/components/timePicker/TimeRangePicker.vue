@@ -5,7 +5,11 @@
         <v-subheader class="text-uppercase text-caption">
           Start Time
         </v-subheader>
-        <time-picker :value="startTime" @input="inputStartTime" />
+        <time-picker
+          :value="startTime"
+          @input="inputStartTime"
+          @focused="handleStartTimeFocused()"
+        />
       </v-col>
       <v-divider vertical v-if="$vuetify.breakpoint.mdAndUp" />
       <v-col cols="12" v-else>
@@ -24,6 +28,7 @@
           :error="endTimeError"
           :value="endTime"
           @input="inputEndTime"
+          @focused="handleEndTimeFocused()"
         />
       </v-col>
     </v-row>
@@ -60,23 +65,50 @@ export default Vue.extend({
   },
   methods: {
     getValue() {
-      this.startTime = this.value[0]
-        ? new Date(this.value[0])
-        : moment().startOf("day").toDate();
-      this.endTime = this.value[1]
-        ? new Date(this.value[1])
-        : moment().startOf("day").toDate();
+      this.startTime = this.value[0] ? new Date(this.value[0]) : null;
+      this.endTime = this.value[1] ? new Date(this.value[1]) : null;
     },
-    inputStartTime(time: Date) {
+    inputStartTime(time: Date | null) {
       this.startTime = time;
       this.input();
     },
-    inputEndTime(time: Date) {
+    inputEndTime(time: Date | null) {
       this.endTime = time;
       this.input();
     },
+    handleStartTimeFocused() {
+      if (!this.startTime && this.endTime) {
+        const endTime = moment(this.endTime.getTime());
+        const endHour = endTime.hour();
+        let hour = endHour - 1;
+        let minute = endTime.minute();
+
+        if (endHour - 1 <= 0) {
+          hour = minute = 0;
+        }
+
+        this.startTime = endTime.hour(hour).minute(minute).toDate();
+      }
+    },
+    handleEndTimeFocused() {
+      if (this.startTime && !this.endTime) {
+        const startTime = moment(this.startTime.getTime());
+        const startHour = startTime.hour();
+        let hour = startHour + 1;
+        let minute = startTime.minute();
+
+        if (startHour + 1 >= 24) {
+          hour = 23;
+          minute = 59;
+        }
+
+        this.endTime = startTime.hour(hour).minute(minute).toDate();
+      }
+    },
     input() {
-      this.$emit("input", [this.startTime, this.endTime]);
+      if (this.startTime && this.endTime) {
+        this.$emit("input", [this.startTime, this.endTime]);
+      }
     }
   },
   watch: {

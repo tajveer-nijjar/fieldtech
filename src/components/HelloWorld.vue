@@ -43,6 +43,7 @@
                   readonly
                   clearable
                   :value="display"
+                  @click:clear="time = null"
                   label="Time picker"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   v-bind="attrs"
@@ -63,6 +64,7 @@
                   readonly
                   clearable
                   :value="display"
+                  @click:clear="timeRange = []"
                   label="Time range picker"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   v-bind="attrs"

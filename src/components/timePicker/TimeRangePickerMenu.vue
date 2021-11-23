@@ -8,7 +8,7 @@
     :min-width="480"
     :nudge-top="30"
     rounded="lg"
-    v-if="$vuetify.breakpoint.lgAndUp"
+    v-if="$vuetify.breakpoint.mdAndUp"
   >
     <template #activator="{ on, attrs }">
       <slot
@@ -24,7 +24,7 @@
         <time-range-picker
           v-model="range"
           @endTimeError="(error) => (endTimeError = error)"
-          :key="menu"
+          v-if="menu"
         />
       </v-card-text>
     </v-card>
@@ -44,7 +44,7 @@
         <time-range-picker
           v-model="range"
           @endTimeError="(error) => (endTimeError = error)"
-          :key="menu"
+          v-if="menu"
         />
       </v-card-text>
     </v-card>
