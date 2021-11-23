@@ -56,7 +56,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12" md="6">
-            <time-range-picker-menu v-model="timeRange">
+            <time-range-picker-menu :stepHour="6" v-model="timeRange">
               <template #activator="{ on, attrs, display }">
                 <v-text-field
                   rounded

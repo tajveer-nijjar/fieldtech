@@ -88,8 +88,8 @@
         color="accent"
         :class="['ml-3 rounded-lg', { 'flex-column vertical-toggle': !dense }]"
       >
-        <v-btn :value="true" small>AM</v-btn>
-        <v-btn :value="false" small>PM</v-btn>
+        <v-btn :value="true" small :disabled="time === 0">AM</v-btn>
+        <v-btn :value="false" small :disabled="time === 0">PM</v-btn>
       </v-btn-toggle>
     </div>
   </div>
@@ -108,7 +108,12 @@ export default Vue.extend({
       default: () => moment().startOf("minute").toDate()
     },
     dense: Boolean,
-    error: Boolean
+    error: Boolean,
+    enableInit: { type: Boolean, default: true },
+    initValue: {
+      type: Date as PropType<Date>,
+      default: () => moment().startOf("minute").toDate()
+    }
   },
   data() {
     return {
@@ -127,7 +132,7 @@ export default Vue.extend({
   computed: {
     hour: {
       get: function (): string {
-        return !this.value ? "" : moment(this.time).format("h");
+        return this.time === 0 ? "" : moment(this.time).format("h");
       },
       set: function (value: string) {
         if (value.length === 0) {
@@ -149,7 +154,7 @@ export default Vue.extend({
     },
     minute: {
       get: function (): string {
-        return !this.value
+        return this.time === 0
           ? ""
           : moment(this.time).format(this.isMinuteFocused ? "m" : "mm");
       },
@@ -171,7 +176,7 @@ export default Vue.extend({
     },
     period: {
       get: function (): boolean {
-        return !this.value ? true : moment(this.time).hour() < 12;
+        return this.time === 0 ? true : moment(this.time).hour() < 12;
       },
       set: function (isAm: boolean) {
         this.time = moment(this.time)
@@ -185,7 +190,7 @@ export default Vue.extend({
     handleHourFocused(event: Event) {
       this.clearTimer();
 
-      if (!this.value) {
+      if (this.time === 0) {
         this.resetTime();
       } else {
         setTimeout(() => {
@@ -231,7 +236,7 @@ export default Vue.extend({
     handleMinuteFocused(event: Event) {
       this.clearTimer();
 
-      if (!this.value) {
+      if (this.time === 0) {
         this.resetTime();
       } else {
         setTimeout(() => {
@@ -279,7 +284,7 @@ export default Vue.extend({
         return;
       }
 
-      if (!this.value) {
+      if (this.time === 0) {
         this.resetTime();
         return;
       }
@@ -303,7 +308,7 @@ export default Vue.extend({
         return;
       }
 
-      if (!this.value) {
+      if (this.time === 0) {
         this.resetTime();
         return;
       }
@@ -340,10 +345,22 @@ export default Vue.extend({
     },
     getValue() {
       if (!this.value) {
+        if (!this.enableInit) {
+          return;
+        }
+
+        if (this.initValue) {
+          this.time = moment(this.initValue.getTime())
+            .startOf("minute")
+            .valueOf();
+          return;
+        }
+
+        this.resetTime();
         return;
       }
 
-      this.time = this.value.getTime();
+      this.time = moment(this.value.getTime()).startOf("minute").valueOf();
     }
   },
   watch: {

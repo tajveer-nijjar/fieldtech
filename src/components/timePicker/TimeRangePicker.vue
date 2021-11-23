@@ -7,6 +7,8 @@
         </v-subheader>
         <time-picker
           :value="startTime"
+          :enableInit="enableInit"
+          :initValue="initStartTime"
           @input="inputStartTime"
           @focused="handleStartTimeFocused()"
         />
@@ -27,6 +29,7 @@
         <time-picker
           :error="endTimeError"
           :value="endTime"
+          :enableInit="false"
           @input="inputEndTime"
           @focused="handleEndTimeFocused()"
         />
@@ -43,7 +46,9 @@ import moment from "moment";
 export default Vue.extend({
   components: { TimePicker },
   props: {
-    value: { type: Array as PropType<Date[]>, default: () => [] }
+    value: { type: Array as PropType<Date[]>, default: () => [] },
+    enableInit: { type: Boolean, default: true },
+    stepHour: { type: Number, default: 1 }
   },
   data() {
     return {
@@ -61,6 +66,22 @@ export default Vue.extend({
       }
 
       return moment(this.endTime.getTime()).diff(this.startTime.getTime()) < 0;
+    },
+    initStartTime(): Date {
+      return moment().startOf("minute").toDate();
+    },
+    initEndTime(): Date | null {
+      const startTime = moment(this.initStartTime.getTime());
+      const startHour = startTime.hour();
+      let hour = startHour + this.stepHour;
+      let minute = startTime.minute();
+
+      if (startHour + this.stepHour >= 24) {
+        hour = 23;
+        minute = 59;
+      }
+
+      return startTime.hour(hour).minute(minute).toDate();
     }
   },
   methods: {
@@ -80,10 +101,10 @@ export default Vue.extend({
       if (!this.startTime && this.endTime) {
         const endTime = moment(this.endTime.getTime());
         const endHour = endTime.hour();
-        let hour = endHour - 1;
+        let hour = endHour - this.stepHour;
         let minute = endTime.minute();
 
-        if (endHour - 1 <= 0) {
+        if (endHour - this.stepHour <= 0) {
           hour = minute = 0;
         }
 
@@ -94,14 +115,12 @@ export default Vue.extend({
       if (this.startTime && !this.endTime) {
         const startTime = moment(this.startTime.getTime());
         const startHour = startTime.hour();
-        let hour = startHour + 1;
+        let hour = startHour + this.stepHour;
         let minute = startTime.minute();
-
-        if (startHour + 1 >= 24) {
+        if (startHour + this.stepHour >= 24) {
           hour = 23;
           minute = 59;
         }
-
         this.endTime = startTime.hour(hour).minute(minute).toDate();
       }
     },
