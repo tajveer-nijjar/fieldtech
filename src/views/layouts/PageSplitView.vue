@@ -57,8 +57,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import SplitView from "./templates/page/SplitView.vue";
-import ToolbarView from "./templates/page/ToolbarView.vue";
+import SplitView from "../templates/page/SplitView.vue";
+import ToolbarView from "../templates/page/ToolbarView.vue";
 export default Vue.extend({
   components: { SplitView, ToolbarView }
 });

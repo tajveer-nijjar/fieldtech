@@ -19,8 +19,8 @@
 import { PageNames } from "@/constants";
 import { MenuItem } from "@/interfaces/core";
 import Vue from "vue";
-import SettingsView from "./templates/page/SettingsView.vue";
-import SettingGroup from "./templates/settingGroups/SettingGroup.vue";
+import SettingsView from "../templates/page/SettingsView.vue";
+import SettingGroup from "../templates/settingGroups/SettingGroup.vue";
 
 export default Vue.extend({
   components: {
@@ -31,27 +31,27 @@ export default Vue.extend({
     return {
       menuItems: [
         {
-          name: PageNames.Settings,
+          name: this.$route.name,
           title: "Setting group 1",
           subtitle: "Description for setting group 1",
           route: this.$route.path,
           hash: "group1"
         },
         {
-          name: PageNames.Settings,
+          name: this.$route.name,
           title: "Setting group 2",
           subtitle: "Description for setting group 2",
           route: this.$route.path,
           hash: "group2"
         },
         {
-          name: PageNames.Settings,
+          name: this.$route.name,
           title: "Setting group 3",
           route: this.$route.path,
           hash: "group3"
         },
         {
-          name: PageNames.Settings,
+          name: this.$route.name,
           title: "Setting group 4",
           subtitle:
             "This group cannot be selected on the navigation programmatically on PC",
@@ -59,7 +59,7 @@ export default Vue.extend({
           hash: "group4"
         },
         {
-          name: PageNames.Settings,
+          name: this.$route.name,
           title: "Setting group 5",
           route: this.$route.path,
           hash: "group5"

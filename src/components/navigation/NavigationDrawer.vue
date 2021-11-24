@@ -11,7 +11,7 @@
     :temporary="smAndDown"
     :width="drawerWidth"
     :height="drawerHeight"
-    :mini-variant="$vuetify.breakpoint.mdOnly || $vuetify.breakpoint.lgOnly"
+    :mini-variant="miniVariant"
   >
     <v-responsive
       height="100%"
@@ -128,6 +128,9 @@ export default Vue.extend({
     },
     drawerWidth(): string | number {
       return this.smAndDown ? "100%" : 256;
+    },
+    miniVariant(): boolean {
+      return false; //this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.lgOnly
     }
   },
   methods: {

@@ -11,20 +11,46 @@ const MenuItems: MenuItem[] = [
     children: []
   },
   {
-    name: PageNames.SplitView,
-    icon: "mdi-view-column-outline",
+    name: PageNames.Components,
+    icon: "mdi-chart-bubble",
     showIcon: true,
-    title: "Split View",
-    route: "/splitview",
-    children: []
+    title: "Components",
+    route: "/components",
+    children: [
+      {
+        name: "Onboarding",
+        title: "Onboarding",
+        route: "/components/onboarding",
+        children: []
+      },
+      {
+        name: "Timerpicker",
+        title: "Timepicker",
+        route: "/components/timepicker",
+        children: []
+      }
+    ]
   },
   {
-    name: PageNames.Settings,
-    icon: "mdi-table-cog",
+    name: PageNames.Layouts,
+    icon: "mdi-view-dashboard-outline",
     showIcon: true,
-    title: "Settings View",
-    route: "/settings",
-    children: []
+    title: "Layouts",
+    route: "/layouts",
+    children: [
+      {
+        name: "Splitted View",
+        title: "Splitted View",
+        route: "/layouts/splitview",
+        children: []
+      },
+      {
+        name: "Navigable Settings",
+        title: "Navigable Settings",
+        route: "/layouts/settings",
+        children: []
+      }
+    ]
   }
 ];
 
