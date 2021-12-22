@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import ConnectionStatus from "../components/ConnectionStatus.vue";
+import ConnectionStatus from "./layouts/ConnectionStatus.vue";
 
 export default Vue.extend({
   name: "Home",

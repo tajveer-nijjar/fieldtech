@@ -20,40 +20,40 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
-  {
-    name: PageNames.Components,
-    path: "/components",
-    component: () => import("@/views/Page.vue"),
-    children: [
-      {
-        name: "Onboarding",
-        path: "onboarding",
-        component: () => import("@/views/components/Onboarding.vue")
-      },
-      {
-        name: "Timepicker",
-        path: "timepicker",
-        component: () => import("@/views/components/Timepicker.vue")
-      }
-    ]
-  },
-  {
-    name: PageNames.Layouts,
-    path: "/layouts",
-    component: () => import("@/views/Page.vue"),
-    children: [
-      {
-        name: "SplittedView",
-        path: "splitview",
-        component: () => import("@/views/layouts/PageSplitView.vue")
-      },
-      {
-        name: "NavigableSettings",
-        path: "settings",
-        component: () => import("@/views/layouts/PageSettingsView.vue")
-      }
-    ]
-  },
+  // {
+  //   name: PageNames.Components,
+  //   path: "/components",
+  //   component: () => import("@/views/Page.vue"),
+  //   children: [
+  //     {
+  //       name: "Onboarding",
+  //       path: "onboarding",
+  //       component: () => import("@/views/components/Onboarding.vue")
+  //     },
+  //     {
+  //       name: "Timepicker",
+  //       path: "timepicker",
+  //       component: () => import("@/views/components/Timepicker.vue")
+  //     }
+  //   ]
+  // },
+  // {
+  //   name: PageNames.Layouts,
+  //   path: "/layouts",
+  //   component: () => import("@/views/Page.vue"),
+  //   children: [
+  //     {
+  //       name: "SplittedView",
+  //       path: "splitview",
+  //       component: () => import("@/views/layouts/PageSplitView.vue")
+  //     },
+  //     {
+  //       name: "NavigableSettings",
+  //       path: "settings",
+  //       component: () => import("@/views/layouts/PageSettingsView.vue")
+  //     }
+  //   ]
+  // },
   {
     path: "/profile",
     name: PageNames.ProfileSettings,
