@@ -3,7 +3,7 @@ module.exports = {
   chainWebpack: (config) => {
     config.performance.maxEntrypointSize(5000000).maxAssetSize(5000000);
     config.plugin("html").tap((args) => {
-      args[0].title = "Cloud Website Template";
+      args[0].title = "FieldTech";
       return args;
     });
   },
