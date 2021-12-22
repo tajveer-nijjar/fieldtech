@@ -3,54 +3,52 @@ import { MenuItem } from "@/interfaces/core";
 
 const MenuItems: MenuItem[] = [
   {
-    name: PageNames.Home,
+    name: PageNames.ConnectionStatus,
     icon: "mdi-briefcase-clock",
     showIcon: true,
-    title: "Home",
+    title: PageNames.ConnectionStatus,
     route: "/",
     children: []
   },
   {
-    name: PageNames.Components,
-    icon: "mdi-chart-bubble",
+    name: PageNames.VehicleConfigurations,
+    icon: "mdi-briefcase-clock",
     showIcon: true,
-    title: "Components",
-    route: "/components",
-    children: [
-      {
-        name: "Onboarding",
-        title: "Onboarding",
-        route: "/components/onboarding",
-        children: []
-      },
-      {
-        name: "Timerpicker",
-        title: "Timepicker",
-        route: "/components/timepicker",
-        children: []
-      }
-    ]
+    title: PageNames.VehicleConfigurations,
+    route: "/vehicle-configuraitons",
+    children: []
   },
   {
-    name: PageNames.Layouts,
-    icon: "mdi-view-dashboard-outline",
+    name: PageNames.Volume,
+    icon: "mdi-briefcase-clock",
     showIcon: true,
-    title: "Layouts",
-    route: "/layouts",
-    children: [
-      {
-        name: "Splitted View",
-        title: "Splitted View",
-        route: "/layouts/splitview",
-        children: []
-      },
-      {
-        name: "Navigable Settings",
-        title: "Navigable Settings",
-        route: "/layouts/settings",
-        children: []
-      }
-    ]
+    title: PageNames.Volume,
+    route: "/volume",
+    children: []
+  },
+  {
+    name: PageNames.MonitorControl,
+    icon: "mdi-briefcase-clock",
+    showIcon: true,
+    title: PageNames.MonitorControl,
+    route: "/monitor-control",
+    children: []
+  },
+  {
+    name: PageNames.Logs,
+    icon: "mdi-briefcase-clock",
+    showIcon: true,
+    title: PageNames.Logs,
+    route: "/logs",
+    children: []
+  },
+  {
+    name: PageNames.ConfigurationFiles,
+    icon: "mdi-briefcase-clock",
+    showIcon: true,
+    title: PageNames.ConfigurationFiles,
+    route: "/configuration-files",
+    children: []
   }
 ];
 
