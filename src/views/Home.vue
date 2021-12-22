@@ -1,16 +1,16 @@
 <template>
-  <hello-world />
+  <ConnectionStatus />
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "../components/HelloWorld.vue";
+import ConnectionStatus from "../components/ConnectionStatus.vue";
 
 export default Vue.extend({
   name: "Home",
 
   components: {
-    HelloWorld
+    ConnectionStatus
   }
 });
 </script>
