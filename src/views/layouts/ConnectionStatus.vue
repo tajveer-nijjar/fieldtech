@@ -24,10 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Onboarding from "../../components/onboarding/Onboarding.vue";
-import OnboardingDialog from "../../components/onboarding/OnboardingDialog.vue";
-import TimePickerMenu from "../../components/timePicker/TimePickerMenu.vue";
-import TimeRangePickerMenu from "../../components/timePicker/TimeRangePickerMenu.vue";
+
 import StatusCard from "../../components/StatusCard.vue";
 
 export default Vue.extend({
