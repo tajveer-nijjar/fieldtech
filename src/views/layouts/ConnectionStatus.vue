@@ -1,33 +1,37 @@
 <template>
-  <v-container
-    fluid
-    fill-height
+  <div
+    class="page-container"
     :class="[{ 'grey lighten-5': !$vuetify.theme.dark }]"
   >
-    <v-responsive height="100%" max-height="640" class="overflow-y-auto">
-      <v-responsive height="1200">
-        <v-row justify="center">
-          <v-col cols="12" md="6">
-            <v-list>
-              <v-list-item>
-                <v-list-item-content>
-                  <status-card />
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+    <div class="content">
+      <v-container>
+        <v-row>
+          <v-col cols="3" class="px-6">
+            <status-card />
+          </v-col>
+          <v-col cols="3" class="px-6">
+            <status-card />
+          </v-col>
+          <v-col cols="3" class="px-6">
+            <status-card />
           </v-col>
         </v-row>
-      </v-responsive>
-    </v-responsive>
-  </v-container>
+      </v-container>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
 import StatusCard from "../../components/StatusCard.vue";
+import { mapActions, mapState } from "vuex";
+import { Namespaces, StoreActions } from "@/constants";
 
 export default Vue.extend({
+  async created() {
+    await this.getCellularStatus();
+  },
   components: {
     StatusCard
   },
@@ -36,6 +40,27 @@ export default Vue.extend({
       time: new Date(2021, 11, 22, 17, 45),
       timeRange: [] as Date[]
     };
+  },
+  methods: {
+    ...mapActions(Namespaces.connectionStatus, [
+      StoreActions.sendCellularNetworkHubRequest
+    ]),
+    async getCellularStatus() {
+      var status = await this.sendCellularNetworkHubRequest();
+    }
   }
 });
 </script>
+<style lang="scss" scoped>
+.page-container {
+  height: 100%;
+  padding-top: 32px;
+  border: 1px solid red;
+}
+
+.content {
+  border: 1px solid green;
+  width: 1000px;
+  margin: 0 auto;
+}
+</style>
