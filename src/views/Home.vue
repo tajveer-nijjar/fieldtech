@@ -1,5 +1,5 @@
 <template>
-  <ConnectionStatus />
+  <connection-status />
 </template>
 
 <script lang="ts">
