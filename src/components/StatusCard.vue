@@ -51,10 +51,10 @@ export default Vue.extend({
           iconName = "mdi-stethoscope";
           break;
         case ViewConstants.IrisAPC:
-          iconName = "";
+          iconName = "$apcIcon";
           break;
         case ViewConstants.IrisAPC2:
-          iconName = "";
+          iconName = "$apcIcon";
           break;
         case ViewConstants.PassengerCounter:
           iconName = "mdi-door-sliding";
