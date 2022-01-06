@@ -61,10 +61,14 @@
             <status-card :title="irisApc" />
           </v-col>
           <v-col cols="3">
-            <status-card :title="passengerCount" />
+            <status-card :title="passengerCount" moreInfo="0" />
           </v-col>
           <v-col cols="3">
-            <status-card :title="passengerCount" subTitle="192.168.100.108" />
+            <status-card
+              :title="passengerCount"
+              subTitle="192.168.100.108"
+              moreInfo="2"
+            />
           </v-col>
         </v-row>
         <!-- end Hardware row  -->

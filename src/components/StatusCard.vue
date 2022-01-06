@@ -6,6 +6,10 @@
           <v-icon large color="black"> {{ calculatedIcon }}</v-icon>
         </div>
 
+        <div class="more-info">
+          <p>{{ moreInfo !== "0" ? moreInfo : "?" }}</p>
+        </div>
+
         <v-card-title class="card-title no-marign-no-padding">
           {{ title }}
         </v-card-title>
@@ -43,7 +47,8 @@ export default Vue.extend({
     title: String,
     subTitle: String,
     text: String,
-    icon: String
+    icon: String,
+    moreInfo: String
   },
   computed: {
     calculatedIcon: function () {
@@ -111,6 +116,13 @@ export default Vue.extend({
 
 .icon-container {
   margin-bottom: $margin-medium;
+}
+
+.more-info {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: $font-size-heading2;
 }
 
 .card-title {
