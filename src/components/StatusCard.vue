@@ -1,13 +1,23 @@
 <template>
-  <v-card max-height="250" height="200" class="rounded-xl" outlined>
+  <v-card max-height="250" height="200" width="190" class="rounded-xl" outlined>
     <div class="container">
       <div class="content">
         <div class="icon-container">
           <v-icon large color="black"> {{ calculatedIcon }}</v-icon>
         </div>
-        <p class="text-subtitle2 card-title">{{ title }}</p>
-        <p class="text-caption card-subtitle2">{{ subTitle2 }}</p>
-        <p class="card-subtitle">{{ subTitle }}</p>
+
+        <v-card-title class="card-title no-marign-no-padding">
+          {{ title }}
+        </v-card-title>
+        <v-card-text class="card-text no-marign-no-padding">
+          {{ text }}
+        </v-card-text>
+        <v-card-subtitle class="card-subtitle no-marign-no-padding">
+          {{ subTitle }}
+        </v-card-subtitle>
+        <!-- <p class="text-subtitle2 card-title">{{ title }}</p>
+        <p class="text-caption card-subtitle2">{{ text }}</p>
+        <p class="card-subtitle">{{ subTitle }}</p> -->
         <div class="status-icon">
           <status-dot-icon />
         </div>
@@ -32,7 +42,7 @@ export default Vue.extend({
   props: {
     title: String,
     subTitle: String,
-    subTitle2: String,
+    text: String,
     icon: String
   },
   computed: {
@@ -82,7 +92,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 
-p {
+.no-marign-no-padding {
   padding: 0;
   margin: 0;
 }
@@ -104,17 +114,21 @@ p {
 }
 
 .card-title {
-  font-size: 14px !important;
+  font-size: $font-size-title !important;
   font-weight: 600;
+  line-height: 1rem;
+  margin-bottom: $margin-small;
 }
 
 .card-subtitle {
-  font-size: 12px !important;
+  font-size: $font-size-subtitle !important;
+  line-height: 1rem;
 }
 
-.card-subtitle2 {
-  font-size: 12px !important;
+.card-text {
+  font-size: $font-size-subtitle !important;
   color: $secondary-icon-color;
+  line-height: 1rem;
 }
 
 .status-icon {

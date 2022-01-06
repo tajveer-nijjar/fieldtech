@@ -4,19 +4,25 @@
     :class="[{ 'grey lighten-5': !$vuetify.theme.dark }]"
   >
     <div class="content">
+      <div class="heading">
+        <div class="container">
+          <p class="text-p heading">Medius #622310521 Vehicle 751</p>
+        </div>
+      </div>
+
       <v-container>
         <v-row>
-          <v-col cols="3" class="px-6">
+          <v-col cols="3">
             <status-card
               :title="cellularNetwork"
               subTitle="Signal strong (8)"
-              subTitle2="Cubic farebox tablet"
+              text="Cubic farebox tablet"
             />
           </v-col>
-          <v-col cols="3" class="px-6">
+          <v-col cols="3">
             <status-card :title="gps" />
           </v-col>
-          <v-col cols="3" class="px-6">
+          <v-col cols="3">
             <status-card :title="router" />
           </v-col>
         </v-row>
@@ -57,6 +63,17 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
+.container {
+  margin: 0;
+  padding: 0;
+}
+
+p.heading {
+  font-size: $font-size-heading1 !important;
+  font-weight: 400;
+}
+
 .page-container {
   height: 100%;
   padding-top: 32px;

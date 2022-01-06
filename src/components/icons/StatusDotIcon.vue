@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="circle-container">
+    <div class="circle-container d-inline-block">
       <div class="outer-circle">
         <div class="inner-circle"></div>
       </div>
     </div>
-    <div class="connection-status">
+    <div class="connection-status d-inline-block">
       <p class="status-text">CONNECTED</p>
     </div>
   </div>
@@ -23,7 +23,7 @@ p {
   border-radius: 10px;
   height: 20px;
   width: 20px;
-  display: inline-block;
+  // display: inline-block;
   //   display: flex;
   //   justify-content: center;
   //   align-items: center;
@@ -49,7 +49,7 @@ p {
 }
 
 .connection-status {
-  display: inline-block;
+  // display: inline-block;
   margin-left: $margin-large;
 }
 
