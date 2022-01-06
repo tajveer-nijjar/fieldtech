@@ -18,13 +18,22 @@
             <status-card
               :title="cellularNetwork"
               subTitle="Signal strong (8)"
+              :isConnected="true"
             />
           </v-col>
           <v-col cols="3">
-            <status-card :title="gps" :subTitle="coordinates" />
+            <status-card
+              :title="gps"
+              :subTitle="coordinates"
+              :isConnected="true"
+            />
           </v-col>
           <v-col cols="3">
-            <status-card :title="router" subTitle="192.168.100.1" />
+            <status-card
+              :title="router"
+              subTitle="192.168.100.1"
+              :isConnected="true"
+            />
           </v-col>
         </v-row>
         <!-- end Network row  -->
@@ -33,20 +42,33 @@
         <h4 class="row-heading">Service</h4>
         <v-row>
           <v-col cols="3">
-            <status-card :title="server" subTitle="192.168.100.105" />
+            <status-card
+              :title="server"
+              subTitle="192.168.100.105"
+              :isConnected="true"
+            />
           </v-col>
           <v-col cols="3">
-            <status-card :title="mdt" subTitle="192.168.100.101" />
+            <status-card
+              :title="mdt"
+              subTitle="192.168.100.101"
+              :isConnected="true"
+            />
           </v-col>
           <v-col cols="3">
             <status-card
               :title="dcu"
               subTitle="192.168.100.104"
               text="Cubic farebox tablet"
+              :isConnected="true"
             />
           </v-col>
           <v-col cols="3">
-            <status-card :title="vehicleDiagnostics" subTitle="9600 Bd" />
+            <status-card
+              :title="vehicleDiagnostics"
+              subTitle="9600 Bd"
+              :isConnected="true"
+            />
           </v-col>
         </v-row>
         <!-- end Services row  -->
@@ -55,19 +77,28 @@
         <h4 class="row-heading">Hardware</h4>
         <v-row>
           <v-col cols="3">
-            <status-card :title="irisApc" subTitle="192.168.100.106" />
+            <status-card
+              :title="irisApc"
+              subTitle="192.168.100.106"
+              :isConnected="true"
+            />
           </v-col>
           <v-col cols="3">
-            <status-card :title="irisApc" />
+            <status-card :title="irisApc" :isConnected="false" />
           </v-col>
           <v-col cols="3">
-            <status-card :title="passengerCount" moreInfo="0" />
+            <status-card
+              :title="passengerCount"
+              moreInfo="0"
+              :isConnected="false"
+            />
           </v-col>
           <v-col cols="3">
             <status-card
               :title="passengerCount"
               subTitle="192.168.100.108"
               moreInfo="2"
+              :isConnected="true"
             />
           </v-col>
         </v-row>

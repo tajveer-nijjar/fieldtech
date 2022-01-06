@@ -1,6 +1,6 @@
 <template>
   <v-card max-height="250" height="190" width="180" class="rounded-xl" outlined>
-    <div class="container">
+    <div class="container" :class="[{ 'connection-error': !isConnected }]">
       <div class="content">
         <div class="icon-container">
           <v-icon large color="black"> {{ calculatedIcon }}</v-icon>
@@ -19,11 +19,8 @@
         <v-card-subtitle class="card-subtitle no-marign-no-padding">
           {{ subTitle }}
         </v-card-subtitle>
-        <!-- <p class="text-subtitle2 card-title">{{ title }}</p>
-        <p class="text-caption card-subtitle2">{{ text }}</p>
-        <p class="card-subtitle">{{ subTitle }}</p> -->
         <div class="status-icon">
-          <status-dot-icon />
+          <status-dot-icon :isConnected="isConnected" />
         </div>
       </div>
     </div>
@@ -48,7 +45,8 @@ export default Vue.extend({
     subTitle: String,
     text: String,
     icon: String,
-    moreInfo: String
+    moreInfo: String,
+    isConnected: Boolean
   },
   computed: {
     calculatedIcon: function () {
@@ -146,5 +144,10 @@ export default Vue.extend({
 .status-icon {
   position: absolute;
   bottom: 20px;
+}
+
+.connection-error {
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid red;
 }
 </style>
