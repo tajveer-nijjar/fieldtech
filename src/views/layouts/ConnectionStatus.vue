@@ -7,13 +7,13 @@
       <v-container>
         <v-row>
           <v-col cols="3" class="px-6">
-            <status-card />
+            <status-card :title="cellularNetwork" subTitle="" />
           </v-col>
           <v-col cols="3" class="px-6">
-            <status-card />
+            <status-card :title="gps" />
           </v-col>
           <v-col cols="3" class="px-6">
-            <status-card />
+            <status-card :title="router" />
           </v-col>
         </v-row>
       </v-container>
@@ -26,7 +26,7 @@ import Vue from "vue";
 
 import StatusCard from "../../components/StatusCard.vue";
 import { mapActions, mapState } from "vuex";
-import { Namespaces, StoreActions } from "@/constants";
+import { Namespaces, StoreActions, ViewConstants } from "@/constants";
 
 export default Vue.extend({
   async created() {
@@ -37,8 +37,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      time: new Date(2021, 11, 22, 17, 45),
-      timeRange: [] as Date[]
+      cellularNetwork: ViewConstants.CellularNetwork,
+      gps: ViewConstants.Gps,
+      router: ViewConstants.Router
     };
   },
   methods: {
