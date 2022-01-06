@@ -1,5 +1,5 @@
 <template>
-  <v-card max-height="250" height="200" width="190" class="rounded-xl" outlined>
+  <v-card max-height="250" height="190" width="180" class="rounded-xl" outlined>
     <div class="container">
       <div class="content">
         <div class="icon-container">
