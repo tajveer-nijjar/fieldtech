@@ -1,14 +1,25 @@
 <template>
   <div class="container">
-    <div class="outer-circle">
-      <div class="inner-circle"></div>
+    <div class="circle-container">
+      <div class="outer-circle">
+        <div class="inner-circle"></div>
+      </div>
+    </div>
+    <div class="connection-status">
+      <p class="status-text">CONNECTED</p>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.container {
+@import "@/styles/variables.scss";
+p {
+  padding: 0;
   margin: 0;
-  padding: 4px;
+}
+
+.circle-container {
+  margin: 0;
+  padding: 0;
   border-radius: 10px;
   height: 20px;
   width: 20px;
@@ -21,7 +32,7 @@
 .outer-circle {
   margin: 0 auto;
   display: block;
-  background: rgba(143, 182, 72, 0.3);
+  background: $status-icon-green-transluscent;
   border-radius: 16px;
   height: 24px;
   width: 24px;
@@ -34,6 +45,16 @@
   height: 10px;
   width: 10px;
   border-radius: 10px;
-  background: rgba(143, 182, 72, 1);
+  background: $status-icon-green;
+}
+
+.connection-status {
+  display: inline-block;
+  margin-left: $margin-large;
+}
+
+.status-text {
+  color: $status-icon-green;
+  font-size: 14px;
 }
 </style>

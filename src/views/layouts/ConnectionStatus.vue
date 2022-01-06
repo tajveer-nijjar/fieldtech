@@ -7,7 +7,11 @@
       <v-container>
         <v-row>
           <v-col cols="3" class="px-6">
-            <status-card :title="cellularNetwork" subTitle="" />
+            <status-card
+              :title="cellularNetwork"
+              subTitle="Signal strong (8)"
+              subTitle2="Cubic farebox tablet"
+            />
           </v-col>
           <v-col cols="3" class="px-6">
             <status-card :title="gps" />
@@ -56,11 +60,9 @@ export default Vue.extend({
 .page-container {
   height: 100%;
   padding-top: 32px;
-  border: 1px solid red;
 }
 
 .content {
-  border: 1px solid green;
   width: 1000px;
   margin: 0 auto;
 }

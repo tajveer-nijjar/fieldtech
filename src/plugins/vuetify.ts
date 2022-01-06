@@ -4,6 +4,7 @@ import "@mdi/font/css/materialdesignicons.css";
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
 import ApcIcon from "@/components/icons/ApcIcon.vue";
+import MDTIcon from "@/components/icons/MDTIcon.vue";
 
 Vue.use(Vuetify);
 
@@ -13,6 +14,9 @@ export default new Vuetify({
     values: {
       apcIcon: {
         component: ApcIcon
+      },
+      mdtIcon: {
+        component: MDTIcon
       }
     }
   },
