@@ -3,7 +3,7 @@
     <div class="container" :class="[{ 'connection-error': !isConnected }]">
       <div class="content">
         <div class="icon-container">
-          <v-icon large color="black"> {{ calculatedIcon }}</v-icon>
+          <v-icon large color="black"> {{ computedIcon }} </v-icon>
         </div>
 
         <div class="more-info">
@@ -49,7 +49,7 @@ export default Vue.extend({
     isConnected: Boolean
   },
   computed: {
-    calculatedIcon: function () {
+    computedIcon: function () {
       let iconName = "";
       switch (this.title) {
         case ViewConstants.CellularNetwork:
