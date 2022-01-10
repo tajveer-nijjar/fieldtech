@@ -15,7 +15,7 @@ const MenuItems: MenuItem[] = [
     icon: "mdi-briefcase-clock",
     showIcon: true,
     title: PageNames.VehicleConfigurations,
-    route: "/vehicle-configuraitons",
+    route: "/vehicle-configurations",
     children: []
   },
   {
