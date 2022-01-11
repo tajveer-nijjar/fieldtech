@@ -1,5 +1,5 @@
 <template>
-  <toolbar-view title="Settings" :extentionHeight="32">
+  <toolbar-view :title="title" :extentionHeight="32">
     <template v-slot:actions v-if="!!$slots.actions">
       <slot name="actions" />
     </template>
@@ -84,7 +84,8 @@ export default Vue.extend({
     menuItems: {
       type: Array as PropType<MenuItem[]>,
       default: () => new Array<MenuItem>()
-    }
+    },
+    title: String
   },
   data() {
     return {
