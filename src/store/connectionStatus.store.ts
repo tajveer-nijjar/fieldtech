@@ -51,7 +51,7 @@ const actions: ActionTree<ConnectionStatusStoreState, RootState> = {
   }
 };
 
-const messageStore: Module<ConnectionStatusStoreState, RootState> = {
+const connectionStatusStore: Module<ConnectionStatusStoreState, RootState> = {
   namespaced: true,
   state: state,
   mutations: mutations,
@@ -59,4 +59,4 @@ const messageStore: Module<ConnectionStatusStoreState, RootState> = {
   actions: actions
 };
 
-export default messageStore;
+export default connectionStatusStore;
