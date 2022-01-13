@@ -8,6 +8,7 @@ import * as StoreActions from "./storeActions";
 import * as StoreGetters from "./storeGetters";
 import * as SingalRConst from "./signalR";
 import * as ViewConstants from "./viewConstants";
+import * as StoreMutationTypes from "./storeMutationTypes";
 
 export {
   Colors,
@@ -18,6 +19,7 @@ export {
   StoreActions,
   StoreGetters,
   SingalRConst,
-  ViewConstants
+  ViewConstants,
+  StoreMutationTypes
 };
 export default Constants;

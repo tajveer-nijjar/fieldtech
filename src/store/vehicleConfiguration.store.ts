@@ -5,18 +5,34 @@ import {
   SingalRConst,
   StoreActions,
   StoreGetters,
-  Store
+  Store,
+  StoreMutationTypes
 } from "@/constants";
 import { ApiRequestData } from "@/models/system";
 import { VehicleConfigurationService, SignalRService } from "@/services";
 import { CellularNetworkRequestType } from "@/types/requestTypes";
 import axios from "axios";
+import { VehicleConfiguration } from "@/models/core";
 
-export interface IVehicleConfigurationStoreState {}
+export interface IVehicleConfigurationStoreState {
+  [Store.States.VehicleConfigurationStoreStates
+    .vehicleConfiguration]: VehicleConfiguration;
+}
 
-const state: IVehicleConfigurationStoreState = {};
+const state: IVehicleConfigurationStoreState = {
+  [Store.States.VehicleConfigurationStoreStates.vehicleConfiguration]:
+    new VehicleConfiguration()
+};
 
-const mutations: MutationTree<IVehicleConfigurationStoreState> = {};
+const mutations: MutationTree<IVehicleConfigurationStoreState> = {
+  [StoreMutationTypes.GET_VEHICLE_CONFIGURATION](
+    state,
+    vehicleConfiguration: VehicleConfiguration
+  ) {
+    debugger;
+    state.vehicleConfiguration = vehicleConfiguration;
+  }
+};
 
 const getters: GetterTree<IVehicleConfigurationStoreState, RootState> = {};
 
@@ -27,9 +43,9 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
     commit,
     rootGetters
   }) {
-    const x =
+    const vehicleConfiguration =
       await VehicleConfigurationService.getVehicleConfigurationListAsync();
-    debugger;
+    commit(StoreMutationTypes.GET_VEHICLE_CONFIGURATION, vehicleConfiguration);
   }
 };
 

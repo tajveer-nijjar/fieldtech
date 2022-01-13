@@ -7,7 +7,6 @@ export async function getVehicleConfigurationListAsync(): Promise<
   VehicleConfiguration[]
 > {
   const url = new URL(`http://localhost:90/api/VehicleConfiguration`);
-  debugger;
 
   return await HttpService.get<VehicleConfiguration>(url.toString());
 }
