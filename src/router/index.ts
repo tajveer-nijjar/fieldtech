@@ -1,7 +1,9 @@
+import Vue from "vue";
+
 import { PageNames } from "@/constants";
 import Home from "@/views/Home.vue";
-import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import VehicleConfigurations from "@/views/vehicleConfiguration/VehicleConfigurations.vue";
 
 Vue.use(VueRouter);
 
@@ -14,8 +16,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/vehicle-configurations",
     name: PageNames.VehicleConfigurations,
-    component: () =>
-      import("@/views/vehicleConfiguration/VehicleConfigurations.vue")
+    component: VehicleConfigurations
     // component: () => import("@/views/Page.vue")
   }
 ];

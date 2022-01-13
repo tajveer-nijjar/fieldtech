@@ -8,23 +8,33 @@ import {
   Store
 } from "@/constants";
 import { ApiRequestData } from "@/models/system";
-import { SignalRService } from "@/services";
+import { VehicleConfigurationService, SignalRService } from "@/services";
 import { CellularNetworkRequestType } from "@/types/requestTypes";
+import axios from "axios";
 
-export interface VehicleConfigurationStoreState {}
+export interface IVehicleConfigurationStoreState {}
 
-const state: VehicleConfigurationStoreState = {};
+const state: IVehicleConfigurationStoreState = {};
 
-const mutations: MutationTree<VehicleConfigurationStoreState> = {};
+const mutations: MutationTree<IVehicleConfigurationStoreState> = {};
 
-const getters: GetterTree<VehicleConfigurationStoreState, RootState> = {};
+const getters: GetterTree<IVehicleConfigurationStoreState, RootState> = {};
 
-const actions: ActionTree<VehicleConfigurationStoreState, RootState> = {
-  [StoreActions.sendCellularNetworkHubRequest]({ state, rootGetters }) {}
+const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
+  async [StoreActions.getVehicleConfigurationAsync]({
+    state,
+    dispatch,
+    commit,
+    rootGetters
+  }) {
+    const x =
+      await VehicleConfigurationService.getVehicleConfigurationListAsync();
+    debugger;
+  }
 };
 
 const vehicleConfigurationStore: Module<
-  VehicleConfigurationStoreState,
+  IVehicleConfigurationStoreState,
   RootState
 > = {
   namespaced: true,

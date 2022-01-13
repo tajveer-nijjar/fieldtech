@@ -1,3 +1,5 @@
 import SignalRService from "./signalR.service";
+import * as VehicleConfigurationService from "./vehicleConfiguration.service";
+import * as HttpService from "./base.service";
 
-export { SignalRService };
+export { SignalRService, HttpService, VehicleConfigurationService };

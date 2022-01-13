@@ -1,6 +1,6 @@
 export const Root = "Root";
 export const Home = "Home";
-export const ProfileSettings = "UserSettings";
+export const ProfileSettings = "ProfileSettings";
 export const NotFound = "NotFound";
 export const NoContent = "NoContent";
 
