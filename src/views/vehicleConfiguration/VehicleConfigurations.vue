@@ -1,6 +1,7 @@
 <template>
   <div>
     <toolbar-view title="Vehicle Configuration" />
+
     <split-view nav>
       <template v-slot:left>
         <div>
@@ -41,7 +42,9 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <slot :name="getSlotNameByIndex(index)" />
+                <component :is="getSlotNameByIndex(index)"></component>
+
+                <!-- <slot :name="getSlotNameByIndex(index)" /> -->
               </v-card>
             </v-col>
           </v-row>
@@ -74,7 +77,16 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 import SettingsView from "../templates/page/SettingsView.vue";
 import SettingGroup from "../templates/settingGroups/SettingGroup.vue";
-import Avf2 from "./components/Avf.vue";
+import Avf from "./components/Avf.vue";
+import Can1 from "./components/Can1.vue";
+import CanMultiplexer from "./components/CanMultiplexer.vue";
+import Common from "./components/Common.vue";
+import Ethernet from "./components/Ethernet.vue";
+import Tracking from "./components/Tracking.vue";
+import VehicleDiagnostics from "./components/VehicleDiagnostics.vue";
+import Wifi from "./components/Wifi.vue";
+import ServiceStatus from "./components/ServiceStatus.vue";
+
 import { MenuItem } from "@/interfaces/core";
 import ToolbarView from "@/views/templates/page/ToolbarView.vue";
 import SplitView from "@/views/templates/page/SplitView.vue";
@@ -88,9 +100,17 @@ export default Vue.extend({
   components: {
     // SettingsView,
     // SettingGroup,
-    // Avf2
+    Avf,
     ToolbarView,
-    SplitView
+    SplitView,
+    Can1,
+    CanMultiplexer,
+    Common,
+    Ethernet,
+    Tracking,
+    VehicleDiagnostics,
+    Wifi,
+    ServiceStatus
   },
   data() {
     return {
@@ -100,6 +120,7 @@ export default Vue.extend({
       isScrolling: false, // For manual scrollings
       scrollTimeout: null as any,
       contentRef: null as null | HTMLElement,
+      comp: "avf",
       menuItems: [
         {
           name: this.$route.name,
@@ -135,7 +156,7 @@ export default Vue.extend({
           title: "Vehicle Diagnostics",
           subtitle: "Configuratin used by tracking service",
           route: this.$route.path,
-          hash: "diagnostics"
+          hash: "vehicleDiagnostics"
         },
         {
           name: this.$route.name,
@@ -153,7 +174,7 @@ export default Vue.extend({
           name: this.$route.name,
           title: "Can1",
           route: this.$route.path,
-          hash: "can"
+          hash: "can1"
         },
         {
           name: this.$route.name,

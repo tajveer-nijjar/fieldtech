@@ -1,9 +1,9 @@
 <template>
-  <div>AVF abcd</div>
+  <div>CanMultiplexer abcd</div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "Avf"
+  name: "CanMultiplexer"
 });
 </script>

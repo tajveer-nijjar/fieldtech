@@ -1,9 +1,9 @@
 <template>
-  <div>AVF abcd</div>
+  <div>Ethernet abcd</div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "Avf"
+  name: "Ethernet"
 });
 </script>

@@ -29,7 +29,6 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
     state,
     vehicleConfiguration: VehicleConfiguration
   ) {
-    debugger;
     state.vehicleConfiguration = vehicleConfiguration;
   }
 };
