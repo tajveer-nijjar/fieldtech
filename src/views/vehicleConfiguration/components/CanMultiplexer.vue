@@ -9,7 +9,6 @@
         <setting-group-item
           :title="`CanMultiplexer IP addresses`"
           subtitle="IP address of Iris sensor"
-          :key="`text-field-${index}`"
         >
           <!-- <v-text-field
             solo
@@ -25,7 +24,6 @@
           /> -->
         </setting-group-item>
         <v-divider
-          :key="`group-1-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -43,6 +41,11 @@ import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.v
 
 export default Vue.extend({
   name: "CanMultiplexer",
-  components: { SettingGroupItem }
+  components: { SettingGroupItem },
+  data() {
+    return {
+      index: 1
+    };
+  }
 });
 </script>

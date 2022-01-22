@@ -9,7 +9,6 @@
         <setting-group-item
           :title="`BiAmp IP address`"
           subtitle="IP address used by BiAmp"
-          :key="`text-field-${index}`"
         >
           <v-text-field
             solo
@@ -25,7 +24,6 @@
           />
         </setting-group-item>
         <v-divider
-          :key="`group-1-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -39,7 +37,6 @@
         <setting-group-item
           :title="`Bright sign IP address`"
           subtitle="IP address used by Bright sign"
-          :key="`text-field-${index}`"
         >
           <v-text-field
             solo
@@ -55,7 +52,6 @@
           />
         </setting-group-item>
         <v-divider
-          :key="`group-1-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -69,7 +65,6 @@
         <setting-group-item
           :title="`Darktronics sign IP address`"
           subtitle="IP address used by Darktronics sign"
-          :key="`text-field-${index}`"
         >
           <v-text-field
             solo
@@ -85,7 +80,6 @@
           />
         </setting-group-item>
         <v-divider
-          :key="`group-1-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -99,7 +93,6 @@
         <setting-group-item
           :title="`Iris IP addresses`"
           subtitle="IP address of Iris sensor"
-          :key="`text-field-${index}`"
         >
           <!-- <v-text-field
             solo
@@ -115,7 +108,6 @@
           /> -->
         </setting-group-item>
         <v-divider
-          :key="`group-1-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -126,15 +118,10 @@
 
       <!-- Cubic -->
       <template>
-        <setting-group-item
-          :title="`Cubic`"
-          subtitle=""
-          :key="`swtich-${index}`"
-        >
+        <setting-group-item :title="`Cubic`" subtitle="">
           <v-switch dense inset hide-details color="accent" />
         </setting-group-item>
         <v-divider
-          :key="`group-2-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -145,11 +132,10 @@
 
       <!-- Media -->
       <template>
-        <setting-group-item :title="`Media`" :key="`swtich-${index}`">
+        <setting-group-item :title="`Media`">
           <v-switch dense inset hide-details color="accent" />
         </setting-group-item>
         <v-divider
-          :key="`group-2-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -169,14 +155,10 @@
 
       <!-- Uta -->
       <template>
-        <setting-group-item
-          :title="`Uta enable RS232APC`"
-          :key="`swtich-${index}`"
-        >
+        <setting-group-item :title="`Uta enable RS232APC`">
           <v-switch dense inset hide-details color="accent" />
         </setting-group-item>
         <v-divider
-          :key="`group-2-divider-${index}`"
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark }
@@ -194,6 +176,11 @@ import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.v
 
 export default Vue.extend({
   name: "Avf",
-  components: { SettingGroupItem }
+  components: { SettingGroupItem },
+  data() {
+    return {
+      index: 0
+    };
+  }
 });
 </script>

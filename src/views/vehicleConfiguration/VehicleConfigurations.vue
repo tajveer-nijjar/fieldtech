@@ -10,6 +10,7 @@
               :value="index"
               :key="`tab-${index}`"
               v-for="(item, index) in menuItems"
+              @click="handleItemClicked(item)"
               class="vertical-tab pl-8 text-caption font-weight-medium a-tab"
             >
               {{ item.title }}
@@ -20,7 +21,13 @@
       <template v-slot:right>
         <div
           ref="content"
-          class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden"
+          class="
+            px-4
+            py-3
+            fill-height
+            overflow-y-auto overflow-x-hidden
+            right-container
+          "
           v-scroll.self="contentScrollListener"
         >
           <v-row
@@ -187,6 +194,16 @@ export default Vue.extend({
       ] as MenuItem[]
     };
   },
+  computed: {
+    hash(): string {
+      return this.$route.hash;
+    }
+  },
+  mounted() {
+    this.contentRef = this.$refs.content as HTMLElement;
+    this.scrollToHash(this.hash);
+    this.tabIndex = this.activeIndex = this.getHashIndex(this.hash);
+  },
   methods: {
     ...mapActions(Namespaces.vehicleConfiguration, [
       StoreActions.getVehicleConfigurationAsync
@@ -202,6 +219,57 @@ export default Vue.extend({
       }
 
       return item.hash;
+    },
+    handleItemClicked(item: MenuItem): void {
+      if (this.checkActive(item)) {
+        return;
+      }
+      this.$router.push({ name: item.name, hash: "#" + item.hash }, () => {
+        this.scrollToItem(item);
+      });
+    },
+    checkActive(item: MenuItem): boolean {
+      return (
+        this.$route.name === item.name &&
+        this.$route.hash != null &&
+        item.hash != null &&
+        this.isSameHash(this.hash, item.hash)
+      );
+    },
+    scrollToHash(hash: string): void {
+      const item = this.menuItems.find((item) =>
+        this.isSameHash(hash, item.hash)
+      );
+
+      this.scrollToItem(item);
+    },
+    isSameHash(
+      hash1: string | null | undefined,
+      hash2: string | null | undefined
+    ): boolean {
+      if (!hash1 || !hash2) {
+        return false;
+      }
+
+      return hash1.includes(hash2) || hash2.includes(hash1);
+    },
+    getHashIndex(hash: string): number {
+      const index = this.menuItems.findIndex((item) =>
+        this.isSameHash(hash, item.hash)
+      );
+      return index < 0 ? 0 : index;
+    },
+    scrollToItem(item: MenuItem | null | undefined): void {
+      if (!item || !item.hash || !this.contentRef) {
+        return;
+      }
+      this.isAutoScrolling = true;
+      debugger;
+      this.$vuetify.goTo("#" + item.hash, {
+        easing: "easeInOutQuart",
+        container: this.contentRef,
+        offset: -48
+      });
     },
     contentScrollListener(e: Event): void {
       const target = e.target as HTMLElement;
@@ -281,5 +349,9 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .a-tab {
   justify-content: start !important;
+}
+
+.right-container {
+  height: calc(100vh - 64px - 48px);
 }
 </style>
