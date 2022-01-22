@@ -58,7 +58,10 @@
                   </div>
                 </div>
                 <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                  <slot :name="getSlotNameByIndex(index)" />
+                  <!-- <slot :name="getSlotNameByIndex(index)" /> -->
+                  <!-- <slot name="avf" /> -->
+                  <!-- <slot name="canMultiplexer" /> -->
+                  <!-- <slot name="common" /> -->
                 </v-card>
               </v-col>
             </v-row>
