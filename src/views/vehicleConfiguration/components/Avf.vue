@@ -170,13 +170,17 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType } from "vue";
 
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
+import { VehicleConfiguration } from "@/models/core";
 
 export default Vue.extend({
   name: "Avf",
   components: { SettingGroupItem },
+  props: {
+    vehicleConfiguration: { type: Object as PropType<VehicleConfiguration> }
+  },
   data() {
     return {
       index: 0

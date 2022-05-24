@@ -51,7 +51,11 @@
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
                 <!-- <avf /> -->
 
-                <component :is="getSlotNameByIndex(index)"></component>
+                <component
+                  :is="getSlotNameByIndex(index)"
+                  :vehicleConfiguration="vehicleConfiguration"
+                  :avfData="avfData"
+                ></component>
 
                 <!-- <slot :name="getSlotNameByIndex(index)" /> -->
               </v-card>
@@ -101,6 +105,7 @@ import ToolbarView from "@/views/templates/page/ToolbarView.vue";
 import SplitView from "@/views/templates/page/SplitView.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
+import { Avf as AvfData, VehicleConfiguration } from "@/models/core";
 
 export default Vue.extend({
   name: "VehicleConfigurations",
@@ -199,6 +204,13 @@ export default Vue.extend({
     ...mapState([States.VehicleConfigurationStoreStates.vehicleConfiguration]),
     hash(): string {
       return this.$route.hash;
+    },
+    avfData(): AvfData {
+      var avfData =
+        this.vehicleConfiguration?.vehicleConfiguration?.vechicleConfiguration
+          ?.avf;
+      debugger;
+      return avfData;
     }
   },
   mounted() {
