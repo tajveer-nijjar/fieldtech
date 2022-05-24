@@ -100,6 +100,7 @@ import { MenuItem } from "@/interfaces/core";
 import ToolbarView from "@/views/templates/page/ToolbarView.vue";
 import SplitView from "@/views/templates/page/SplitView.vue";
 import { Namespaces, StoreActions } from "@/constants";
+import { States } from "@/constants/store";
 
 export default Vue.extend({
   name: "VehicleConfigurations",
@@ -195,6 +196,7 @@ export default Vue.extend({
     };
   },
   computed: {
+    ...mapState([States.VehicleConfigurationStoreStates.vehicleConfiguration]),
     hash(): string {
       return this.$route.hash;
     }
@@ -264,7 +266,6 @@ export default Vue.extend({
         return;
       }
       this.isAutoScrolling = true;
-      debugger;
       this.$vuetify.goTo("#" + item.hash, {
         easing: "easeInOutQuart",
         container: this.contentRef,
