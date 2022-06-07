@@ -173,13 +173,13 @@
 import Vue, { PropType } from "vue";
 
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
-import { VehicleConfiguration } from "@/models/core";
+import { Avf, VehicleConfiguration } from "@/models/core";
 
 export default Vue.extend({
   name: "Avf",
   components: { SettingGroupItem },
   props: {
-    vehicleConfiguration: { type: Object as PropType<VehicleConfiguration> }
+    avfData: { type: Object as PropType<Avf> }
   },
   data() {
     return {

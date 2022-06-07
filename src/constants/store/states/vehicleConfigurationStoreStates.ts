@@ -1,2 +1,2 @@
 export const avf = "avf";
-export const vehicleConfiguration = "vehicleConfiguration";
+export const vehicleConfigurationAllData = "vehicleConfigurationAllData";

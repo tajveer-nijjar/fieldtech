@@ -1,15 +1,15 @@
 import {
-  VehicleConfiguration,
+  VehicleConfiguration as VechicleConfiguration,
   FleetConfiguration,
   CanBitRate,
   WifiConfigurations,
   EthernetConfiguration,
   ServiceOption
 } from ".";
-import CanMultipleser from "./canMultiplexer";
+import CanMultiplexer from "./canMultiplexer";
 
 export default class VehicleConfigurationData {
-  VehicleConfiguration: VehicleConfiguration | null = null;
+  vechicleConfiguration: VechicleConfiguration | null = null;
   fleetConfiguration: FleetConfiguration | null = null;
   canBitRate: CanBitRate | null = null;
   wifiConfigurations: WifiConfigurations | null = null;

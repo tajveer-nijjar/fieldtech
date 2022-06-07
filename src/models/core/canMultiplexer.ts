@@ -1,3 +1,3 @@
-export default class CanMultipleser {
+export default class CanMultiplexer {
   canMultiPlex: string | null = null;
 }

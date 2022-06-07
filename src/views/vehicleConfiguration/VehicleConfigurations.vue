@@ -30,7 +30,139 @@
           "
           v-scroll.self="contentScrollListener"
         >
-          <v-row
+          <v-row id="avf">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Avf
+                </div>
+                <div class="text-caption text--secondary small-line-height">
+                  Configuration used by AVF Service
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <avf-component :avfData="avfData" />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="canMultiplexer">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  CanMultiplexer
+                </div>
+                <div class="text-caption text--secondary small-line-height">
+                  Confiugration used by CanMultiplexer Service
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <canMultiplexer-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="common">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Common
+                </div>
+                <div class="text-caption text--secondary small-line-height">
+                  Common configuration shared by all services on the vehicle
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <common-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="tracking">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Tracking
+                </div>
+                <div class="text-caption text--secondary small-line-height">
+                  Configuratin used by tracking service
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <tracking-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="vehicleDiagnostics">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Vehicle Diagnostics
+                </div>
+                <div class="text-caption text--secondary small-line-height">
+                  Configuratin used by tracking service
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <vehicleDiagnostics-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="ethernet">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Ethernet
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <ethernet-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="wifi">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Wifi
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <wifi-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="can1">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Can1
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <can1-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row id="serviceStatus">
+            <v-col cols="12" lg="8" xl="7">
+              <div>
+                <div class="text-subtitle-2 small-line-height text-uppercase">
+                  Service Status
+                </div>
+              </div>
+              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
+                <serviceStatus-component />
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <!-- <v-row
             :id="item.hash"
             :key="`content-item-${index}`"
             :ref="getSlotNameByIndex(index)"
@@ -49,18 +181,13 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <!-- <avf /> -->
-
                 <component
                   :is="getSlotNameByIndex(index)"
-                  :vehicleConfiguration="vehicleConfiguration"
                   :avfData="avfData"
                 ></component>
-
-                <!-- <slot :name="getSlotNameByIndex(index)" /> -->
               </v-card>
             </v-col>
-          </v-row>
+          </v-row> -->
         </div>
       </template>
     </split-view>
@@ -90,22 +217,23 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 import SettingsView from "../templates/page/SettingsView.vue";
 import SettingGroup from "../templates/settingGroups/SettingGroup.vue";
-import Avf from "./components/Avf.vue";
-import Can1 from "./components/Can1.vue";
-import CanMultiplexer from "./components/CanMultiplexer.vue";
-import Common from "./components/Common.vue";
-import Ethernet from "./components/Ethernet.vue";
-import Tracking from "./components/Tracking.vue";
-import VehicleDiagnostics from "./components/VehicleDiagnostics.vue";
-import Wifi from "./components/Wifi.vue";
-import ServiceStatus from "./components/ServiceStatus.vue";
+import AvfComponent from "./components/Avf.vue";
+import Can1Component from "./components/Can1.vue";
+import CanMultiplexerComponent from "./components/CanMultiplexer.vue";
+import CommonComponent from "./components/Common.vue";
+import EthernetComponent from "./components/Ethernet.vue";
+import TrackingComponent from "./components/Tracking.vue";
+import VehicleDiagnosticsComponent from "./components/VehicleDiagnostics.vue";
+import WifiComponent from "./components/Wifi.vue";
+import ServiceStatusComponent from "./components/ServiceStatus.vue";
 
 import { MenuItem } from "@/interfaces/core";
 import ToolbarView from "@/views/templates/page/ToolbarView.vue";
 import SplitView from "@/views/templates/page/SplitView.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
-import { Avf as AvfData, VehicleConfiguration } from "@/models/core";
+import { Avf, CanMultiplexer, VehicleConfiguration } from "@/models/core";
+import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
 export default Vue.extend({
   name: "VehicleConfigurations",
@@ -115,17 +243,17 @@ export default Vue.extend({
   components: {
     // SettingsView,
     // SettingGroup,
-    Avf,
+    AvfComponent,
     ToolbarView,
     SplitView,
-    Can1,
-    CanMultiplexer,
-    Common,
-    Ethernet,
-    Tracking,
-    VehicleDiagnostics,
-    Wifi,
-    ServiceStatus
+    Can1Component,
+    CanMultiplexerComponent,
+    CommonComponent,
+    EthernetComponent,
+    TrackingComponent,
+    VehicleDiagnosticsComponent,
+    WifiComponent,
+    ServiceStatusComponent
   },
   data() {
     return {
@@ -201,16 +329,26 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState([States.VehicleConfigurationStoreStates.vehicleConfiguration]),
+    ...mapState(Namespaces.vehicleConfiguration, [
+      States.VehicleConfigurationStoreStates.vehicleConfigurationAllData
+    ]),
     hash(): string {
       return this.$route.hash;
     },
-    avfData(): AvfData {
-      var avfData =
-        this.vehicleConfiguration?.vehicleConfiguration?.vechicleConfiguration
-          ?.avf;
-      debugger;
-      return avfData;
+    avfData(): Avf | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+      var avfData = vehicleConfigurationAllData?.vechicleConfiguration?.avf;
+      return avfData ?? null;
+    },
+    canMultiplexerData(): CanMultiplexer | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      var canMultiplexerData =
+        vehicleConfigurationAllData?.vechicleConfiguration?.canMultiplexer;
+
+      return canMultiplexerData ?? null;
     }
   },
   mounted() {
@@ -223,7 +361,7 @@ export default Vue.extend({
       StoreActions.getVehicleConfigurationAsync
     ]),
     async getVehicleConfiguration() {
-      var vehicleConfigruation = await this.getVehicleConfigurationAsync();
+      await this.getVehicleConfigurationAsync();
     },
     getSlotNameByIndex(index: number): string {
       const item = this.menuItems[index];

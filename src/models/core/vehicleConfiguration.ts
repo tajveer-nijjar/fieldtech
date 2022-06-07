@@ -6,11 +6,11 @@ import {
   Tracking,
   VehicleDiagnostics
 } from ".";
-import CanMultipleser from "./canMultiplexer";
+import CanMultiplexer from "./canMultiplexer";
 
-export default class VehicleConfiguration {
+export default class VechicleConfiguration {
   avf: Avf | null = null;
-  canMultiplexer: CanMultipleser | null = null;
+  canMultiplexer: CanMultiplexer | null = null;
   common: Common | null = null;
   gpsReplacer: GpsReplacer | null = null;
   j1587: J1587 | null = null;

@@ -16,11 +16,11 @@ import { VehicleConfiguration } from "@/models/core";
 
 export interface IVehicleConfigurationStoreState {
   [Store.States.VehicleConfigurationStoreStates
-    .vehicleConfiguration]: VehicleConfiguration;
+    .vehicleConfigurationAllData]: VehicleConfiguration;
 }
 
 const state: IVehicleConfigurationStoreState = {
-  [Store.States.VehicleConfigurationStoreStates.vehicleConfiguration]:
+  [Store.States.VehicleConfigurationStoreStates.vehicleConfigurationAllData]:
     new VehicleConfiguration()
 };
 
@@ -29,8 +29,7 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
     state,
     vehicleConfiguration: VehicleConfiguration
   ) {
-    debugger;
-    state.vehicleConfiguration = vehicleConfiguration;
+    state.vehicleConfigurationAllData = vehicleConfiguration;
   }
 };
 

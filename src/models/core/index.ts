@@ -5,7 +5,7 @@ import GpsReplacer from "./gpsReplacer";
 import J1587 from "./j1587";
 import Tracking from "./tracking";
 import VehicleDiagnostics from "./vehicleDiagnostics";
-import VehicleConfiguration from "./vehicleConfiguration";
+import VechicleConfiguration from "./vehicleConfiguration";
 import FleetConfiguration from "./fleetConfiguration";
 import CanBitRate from "./canBitRate";
 import WifiConfigurations from "./wifiConfigurations";
@@ -20,7 +20,7 @@ export {
   J1587,
   Tracking,
   VehicleDiagnostics,
-  VehicleConfiguration,
+  VechicleConfiguration as VehicleConfiguration,
   FleetConfiguration,
   CanBitRate,
   WifiConfigurations,
