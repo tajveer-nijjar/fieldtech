@@ -21,6 +21,8 @@
             placeholder="BiAmp IP address"
             direction="right"
             class="text-body-2 rounded-lg"
+            v-model="avfData.biAmpAddress"
+            v-if="avfData"
           />
         </setting-group-item>
         <v-divider
@@ -49,6 +51,8 @@
             placeholder="Bright sign IP address"
             direction="right"
             class="text-body-2 rounded-lg"
+            v-model="avfData.brightSignAddress"
+            v-if="avfData"
           />
         </setting-group-item>
         <v-divider
@@ -77,6 +81,8 @@
             placeholder="Darktronics sign IP address"
             direction="right"
             class="text-body-2 rounded-lg"
+            v-model="avfData.daktronicsAddress"
+            v-if="avfData"
           />
         </setting-group-item>
         <v-divider
@@ -119,7 +125,31 @@
       <!-- Cubic -->
       <template>
         <setting-group-item :title="`Cubic`" subtitle="">
-          <v-switch dense inset hide-details color="accent" />
+          <v-switch
+            dense
+            inset
+            hide-details
+            color="accent"
+            v-model="avfData.enableCubic"
+            v-if="avfData"
+          />
+        </setting-group-item>
+        <setting-group-item
+          :title="`CubicCan port`"
+          :classes="`pl-lg-12 subgroup-height`"
+          subtitle="can0 for radio bus, vcan0 for cellular bus"
+        >
+          <v-select
+            :items="cubicCanPortItems"
+            class="text-body-2 cubicCanPort-select"
+            background-color="grey lighten-3"
+            dense
+            filled
+            solo
+            flat
+            v-model="calculateCubicCanPort"
+            v-if="avfData"
+          ></v-select>
         </setting-group-item>
         <v-divider
           :class="[
@@ -133,7 +163,28 @@
       <!-- Media -->
       <template>
         <setting-group-item :title="`Media`">
-          <v-switch dense inset hide-details color="accent" />
+          <v-switch
+            dense
+            inset
+            hide-details
+            color="accent"
+            v-model="avfData.enableMedia"
+            v-if="avfData"
+          />
+        </setting-group-item>
+        <setting-group-item
+          :title="`Full width heading`"
+          :classes="`ml-lg-12 subgroup-height`"
+          subtitle="Show full-width destination in media player if enabled"
+        >
+          <v-switch
+            dense
+            inset
+            hide-details
+            color="accent"
+            v-model="avfData.fullWidthHeading"
+            v-if="avfData"
+          />
         </setting-group-item>
         <v-divider
           :class="[
@@ -146,9 +197,17 @@
 
       <!-- Vehicle type -->
       <setting-group-item title="Vehicle type">
-        <v-btn-toggle mandatory dense rounded color="accent">
-          <v-btn small>Bus</v-btn>
-          <v-btn small>Ferry</v-btn>
+        <v-btn-toggle
+          v-model="avfData.isFerry"
+          mandatory
+          dense
+          rounded
+          color="accent"
+          v-if="avfData"
+        >
+          <!-- @change="avfData.isFerry = isFerry === 0 ? false : true" -->
+          <v-btn small @click="vehicleTypeChanged">Bus</v-btn>
+          <v-btn small @click="vehicleTypeChanged">Ferry</v-btn>
         </v-btn-toggle>
       </setting-group-item>
       <!-- End Vehicle type -->
@@ -156,7 +215,14 @@
       <!-- Uta -->
       <template>
         <setting-group-item :title="`Uta enable RS232APC`">
-          <v-switch dense inset hide-details color="accent" />
+          <v-switch
+            dense
+            inset
+            hide-details
+            color="accent"
+            v-model="avfData.utaEnableRs232APC"
+            v-if="avfData"
+          />
         </setting-group-item>
         <v-divider
           :class="[
@@ -183,8 +249,36 @@ export default Vue.extend({
   },
   data() {
     return {
-      index: 0
+      index: 0,
+      cubicCanPortItems: ["can0", "vcan0"]
     };
+  },
+  computed: {
+    calculateCubicCanPort(): string {
+      return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
+    }
+  },
+  methods: {
+    vehicleTypeChanged(isFerry: number) {
+      debugger;
+      if (isFerry === 0) {
+        debugger;
+        this.avfData.isFerry = false;
+      } else if (isFerry === 1) {
+        debugger;
+        this.avfData.isFerry = true;
+      }
+      debugger;
+    }
   }
 });
 </script>
+<style lang="scss" scoped>
+.cubicCanPort-select {
+  width: 200px !important;
+}
+
+.subgroup-height {
+  height: 60px !important;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item two-line>
+  <v-list-item two-line :class="classes">
     <v-list-item-icon v-if="icon">
       <v-icon>icon</v-icon>
     </v-list-item-icon>
@@ -23,7 +23,8 @@ export default Vue.extend({
   props: {
     title: String,
     subtitle: String,
-    icon: String
+    icon: String,
+    classes: String
   }
 });
 </script>
