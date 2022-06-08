@@ -205,9 +205,8 @@
           color="accent"
           v-if="avfData"
         >
-          <!-- @change="avfData.isFerry = isFerry === 0 ? false : true" -->
-          <v-btn small @click="vehicleTypeChanged">Bus</v-btn>
-          <v-btn small @click="vehicleTypeChanged">Ferry</v-btn>
+          <v-btn small :value="false">Bus</v-btn>
+          <v-btn small :value="true">Ferry</v-btn>
         </v-btn-toggle>
       </setting-group-item>
       <!-- End Vehicle type -->
@@ -260,7 +259,6 @@ export default Vue.extend({
   },
   methods: {
     vehicleTypeChanged(isFerry: number) {
-      debugger;
       if (isFerry === 0) {
         debugger;
         this.avfData.isFerry = false;
