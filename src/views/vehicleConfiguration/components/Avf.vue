@@ -100,18 +100,6 @@
           :title="`Iris IP addresses`"
           subtitle="IP address of Iris sensor"
         >
-          <!-- <v-text-field
-            solo
-            flat
-            :background-color="$vuetify.theme.dark ? 'black' : 'grey lighten-3'"
-            dense
-            hide-details
-            single-line
-            filled
-            placeholder="Darktronics sign IP address"
-            direction="right"
-            class="text-body-2 rounded-lg"
-          /> -->
         </setting-group-item>
         <v-divider
           :class="[
@@ -257,18 +245,7 @@ export default Vue.extend({
       return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
     }
   },
-  methods: {
-    vehicleTypeChanged(isFerry: number) {
-      if (isFerry === 0) {
-        debugger;
-        this.avfData.isFerry = false;
-      } else if (isFerry === 1) {
-        debugger;
-        this.avfData.isFerry = true;
-      }
-      debugger;
-    }
-  }
+  methods: {}
 });
 </script>
 <style lang="scss" scoped>

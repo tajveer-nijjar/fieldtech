@@ -73,7 +73,7 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <common-component />
+                <common-component :commonData="commonData" />
               </v-card>
             </v-col>
           </v-row>
@@ -232,7 +232,12 @@ import ToolbarView from "@/views/templates/page/ToolbarView.vue";
 import SplitView from "@/views/templates/page/SplitView.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
-import { Avf, CanMultiplexer, VehicleConfiguration } from "@/models/core";
+import {
+  Avf,
+  Common,
+  CanMultiplexer,
+  VehicleConfiguration
+} from "@/models/core";
 import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
 export default Vue.extend({
@@ -340,6 +345,12 @@ export default Vue.extend({
         this.vehicleConfigurationAllData;
       var avfData = vehicleConfigurationAllData?.vechicleConfiguration?.avf;
       return avfData ?? null;
+    },
+    commonData(): Common | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+      var common = vehicleConfigurationAllData?.vechicleConfiguration?.common;
+      return common ?? null;
     },
     canMultiplexerData(): CanMultiplexer | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
