@@ -105,7 +105,9 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <vehicleDiagnostics-component />
+                <vehicleDiagnostics-component
+                  :vehicleDiagnosticsData="vehicleDiagnosticsData"
+                />
               </v-card>
             </v-col>
           </v-row>
@@ -237,7 +239,7 @@ import {
   Common,
   Tracking,
   CanMultiplexer,
-  VehicleConfiguration
+  VehicleDiagnostics
 } from "@/models/core";
 import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
@@ -368,6 +370,15 @@ export default Vue.extend({
         vehicleConfigurationAllData?.vechicleConfiguration?.canMultiplexer;
 
       return canMultiplexerData ?? null;
+    },
+    vehicleDiagnosticsData(): VehicleDiagnostics | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      let vehicleDiagnosticsData =
+        vehicleConfigurationAllData?.vechicleConfiguration?.vehicleDiagnostics;
+
+      return vehicleDiagnosticsData ?? null;
     }
   },
   mounted() {
@@ -468,8 +479,13 @@ export default Vue.extend({
           if (!item.hash) {
             continue;
           }
-
+          debugger;
           const elements = this.$refs[item.hash] as HTMLElement[];
+
+          if (!elements) {
+            return;
+          }
+
           const element = elements[0];
 
           if (!element) {

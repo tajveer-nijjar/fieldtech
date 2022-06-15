@@ -162,7 +162,7 @@
         </setting-group-item>
         <setting-group-item
           :title="`Full width heading`"
-          :classes="`ml-lg-12 subgroup-height`"
+          :classes="`pl-lg-12 subgroup-height`"
           subtitle="Show full-width destination in media player if enabled"
         >
           <v-switch
@@ -184,19 +184,28 @@
       <!-- End Media -->
 
       <!-- Vehicle type -->
-      <setting-group-item title="Vehicle type">
-        <v-btn-toggle
-          v-model="avfData.isFerry"
-          mandatory
-          dense
-          rounded
-          color="accent"
-          v-if="avfData"
-        >
-          <v-btn small :value="false">Bus</v-btn>
-          <v-btn small :value="true">Ferry</v-btn>
-        </v-btn-toggle>
-      </setting-group-item>
+      <template>
+        <setting-group-item title="Vehicle type">
+          <v-btn-toggle
+            v-model="avfData.isFerry"
+            mandatory
+            dense
+            rounded
+            color="accent"
+            v-if="avfData"
+          >
+            <v-btn small :value="false">Bus</v-btn>
+            <v-btn small :value="true">Ferry</v-btn>
+          </v-btn-toggle>
+        </setting-group-item>
+        <v-divider
+          :class="[
+            { 'grey lighten-3': !$vuetify.theme.dark },
+            { black: $vuetify.theme.dark }
+          ]"
+        />
+      </template>
+
       <!-- End Vehicle type -->
 
       <!-- Uta -->
@@ -211,12 +220,6 @@
             v-if="avfData"
           />
         </setting-group-item>
-        <v-divider
-          :class="[
-            { 'grey lighten-3': !$vuetify.theme.dark },
-            { black: $vuetify.theme.dark }
-          ]"
-        />
       </template>
       <!-- End Uta -->
     </v-list>

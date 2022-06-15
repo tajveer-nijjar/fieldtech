@@ -76,13 +76,6 @@
             v-if="trackingData"
           />
         </setting-group-item>
-
-        <v-divider
-          :class="[
-            { 'grey lighten-3': !$vuetify.theme.dark },
-            { black: $vuetify.theme.dark }
-          ]"
-        />
       </template>
       <!-- End MQTT -->
     </v-list>
