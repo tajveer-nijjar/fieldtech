@@ -120,7 +120,7 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <ethernet-component />
+                <ethernet-component :ethernetData="ethernetData" />
               </v-card>
             </v-col>
           </v-row>
@@ -239,7 +239,8 @@ import {
   Common,
   Tracking,
   CanMultiplexer,
-  VehicleDiagnostics
+  VehicleDiagnostics,
+  Ethernet
 } from "@/models/core";
 import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
@@ -379,6 +380,14 @@ export default Vue.extend({
         vehicleConfigurationAllData?.vechicleConfiguration?.vehicleDiagnostics;
 
       return vehicleDiagnosticsData ?? null;
+    },
+    ethernetData(): Ethernet | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      let ethernetData = vehicleConfigurationAllData?.ethernetConfiguration;
+
+      return ethernetData ?? null;
     }
   },
   mounted() {
@@ -479,7 +488,6 @@ export default Vue.extend({
           if (!item.hash) {
             continue;
           }
-          debugger;
           const elements = this.$refs[item.hash] as HTMLElement[];
 
           if (!elements) {
