@@ -4,8 +4,9 @@
       dense
       :color="$vuetify.theme.dark ? 'secondaryBlack' : 'grey lighten-5'"
     >
-      <template
-        ><setting-group-item :title="`Host name`">
+      <!-- Host name -->
+      <template>
+        <setting-group-item :title="`Host name`">
           <v-text-field
             solo
             flat
@@ -28,8 +29,11 @@
           ]"
         />
       </template>
-      <template
-        ><setting-group-item :title="`IP address`">
+      <!-- End Host name -->
+
+      <!-- IP Address -->
+      <template>
+        <setting-group-item :title="`IP address`">
           <v-text-field
             solo
             flat
@@ -52,8 +56,11 @@
           ]"
         />
       </template>
-      <template
-        ><setting-group-item :title="`Gateway`">
+      <!-- End IP Address -->
+
+      <!-- Gateway -->
+      <template>
+        <setting-group-item :title="`Gateway`">
           <v-text-field
             solo
             flat
@@ -70,6 +77,7 @@
           />
         </setting-group-item>
       </template>
+      <!-- End Gateway -->
     </v-list>
   </div>
 </template>

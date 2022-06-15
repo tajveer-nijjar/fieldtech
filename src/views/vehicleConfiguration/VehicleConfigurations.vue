@@ -133,7 +133,7 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <wifi-component />
+                <wifi-component :wifiData="wifiData" />
               </v-card>
             </v-col>
           </v-row>
@@ -163,62 +163,16 @@
               </v-card>
             </v-col>
           </v-row>
-
-          <!-- <v-row
-            :id="item.hash"
-            :key="`content-item-${index}`"
-            :ref="getSlotNameByIndex(index)"
-            v-for="(item, index) in menuItems"
-          >
-            <v-col cols="12" lg="8" xl="7">
-              <div>
-                <div class="text-subtitle-2 small-line-height text-uppercase">
-                  {{ item.title }}
-                </div>
-                <div
-                  class="text-caption text--secondary small-line-height"
-                  v-if="item.subtitle"
-                >
-                  {{ item.subtitle }}
-                </div>
-              </div>
-              <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <component
-                  :is="getSlotNameByIndex(index)"
-                  :avfData="avfData"
-                ></component>
-              </v-card>
-            </v-col>
-          </v-row> -->
         </div>
       </template>
     </split-view>
-
-    <!-- <settings-view :menuItems="menuItems" title="Vehicle Configuration">
-      <template v-slot:actions>
-        <v-btn icon color="accent">
-          <v-icon>mdi-edit</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:avf><setting-group /></template>
-      <template v-slot:canMultiplexer><setting-group /></template>
-      <template v-slot:common><setting-group :repeat="1" /></template>
-      <template v-slot:tracking><setting-group :repeat="1" /></template>
-      <template v-slot:diagnostics><setting-group :repeat="1" /></template>
-      <template v-slot:ethernet><setting-group :repeat="1" /></template>
-      <template v-slot:wifi><setting-group :repeat="1" /></template>
-      <template v-slot:can><setting-group :repeat="1" /></template>
-      <template v-slot:serviceStatus><setting-group :repeat="1" /></template>
-    </settings-view> -->
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
-import SettingsView from "../templates/page/SettingsView.vue";
-import SettingGroup from "../templates/settingGroups/SettingGroup.vue";
 import AvfComponent from "./components/Avf.vue";
 import Can1Component from "./components/Can1.vue";
 import CanMultiplexerComponent from "./components/CanMultiplexer.vue";
@@ -240,7 +194,8 @@ import {
   Tracking,
   CanMultiplexer,
   VehicleDiagnostics,
-  Ethernet
+  EthernetConfiguration,
+  WifiConfigurations
 } from "@/models/core";
 import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
@@ -250,8 +205,6 @@ export default Vue.extend({
     await this.getVehicleConfiguration();
   },
   components: {
-    // SettingsView,
-    // SettingGroup,
     AvfComponent,
     ToolbarView,
     SplitView,
@@ -381,13 +334,21 @@ export default Vue.extend({
 
       return vehicleDiagnosticsData ?? null;
     },
-    ethernetData(): Ethernet | null {
+    ethernetData(): EthernetConfiguration | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
         this.vehicleConfigurationAllData;
 
       let ethernetData = vehicleConfigurationAllData?.ethernetConfiguration;
 
       return ethernetData ?? null;
+    },
+    wifiData(): WifiConfigurations | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      let wifiData = vehicleConfigurationAllData?.wifiConfigurations;
+
+      return wifiData ?? null;
     }
   },
   mounted() {
