@@ -44,7 +44,7 @@
             hide-details
             single-line
             filled
-            placeholder="Darktronics sign IP address"
+            placeholder="Comms Address"
             direction="right"
             class="text-body-2 rounded-lg"
             v-model="commonData.commsAddress"

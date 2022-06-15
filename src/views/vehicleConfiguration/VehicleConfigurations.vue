@@ -89,7 +89,7 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <tracking-component />
+                <tracking-component :trackingData="trackingData" />
               </v-card>
             </v-col>
           </v-row>
@@ -235,6 +235,7 @@ import { States } from "@/constants/store";
 import {
   Avf,
   Common,
+  Tracking,
   CanMultiplexer,
   VehicleConfiguration
 } from "@/models/core";
@@ -351,6 +352,13 @@ export default Vue.extend({
         this.vehicleConfigurationAllData;
       var common = vehicleConfigurationAllData?.vechicleConfiguration?.common;
       return common ?? null;
+    },
+    trackingData(): Tracking | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+      var tracking =
+        vehicleConfigurationAllData?.vechicleConfiguration?.tracking;
+      return tracking ?? null;
     },
     canMultiplexerData(): CanMultiplexer | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
