@@ -146,7 +146,7 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <can1-component />
+                <can1-component :can1Data="can1Data" />
               </v-card>
             </v-col>
           </v-row>
@@ -159,7 +159,9 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <serviceStatus-component />
+                <serviceStatus-component
+                  :serviceOptionData="serviceOptionData"
+                />
               </v-card>
             </v-col>
           </v-row>
@@ -195,7 +197,9 @@ import {
   CanMultiplexer,
   VehicleDiagnostics,
   EthernetConfiguration,
-  WifiConfigurations
+  WifiConfigurations,
+  CanBitRate,
+  ServiceOption
 } from "@/models/core";
 import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
@@ -349,6 +353,22 @@ export default Vue.extend({
       let wifiData = vehicleConfigurationAllData?.wifiConfigurations;
 
       return wifiData ?? null;
+    },
+    can1Data(): CanBitRate | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      let canBitRate = vehicleConfigurationAllData?.canBitRate;
+
+      return canBitRate ?? null;
+    },
+    serviceOptionData(): ServiceOption | null {
+      const vehicleConfigurationAllData: VehicleConfigurationData =
+        this.vehicleConfigurationAllData;
+
+      let serviceOption = vehicleConfigurationAllData?.serviceOption;
+
+      return serviceOption ?? null;
     }
   },
   mounted() {
