@@ -1,6 +1,11 @@
 <template>
   <div>
-    <toolbar-view title="Vehicle Configuration" />
+    <toolbar-view title="Vehicle Configuration">
+      <v-btn rounded plain small>Cancel</v-btn>
+      <v-btn rounded color="primary" small @click="saveVehicleConfiguration()">
+        Save
+      </v-btn>
+    </toolbar-view>
 
     <split-view nav>
       <template v-slot:left>
@@ -304,19 +309,19 @@ export default Vue.extend({
     avfData(): Avf | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
         this.vehicleConfigurationAllData;
-      var avfData = vehicleConfigurationAllData?.vechicleConfiguration?.avf;
+      let avfData = vehicleConfigurationAllData?.vechicleConfiguration?.avf;
       return avfData ?? null;
     },
     commonData(): Common | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
         this.vehicleConfigurationAllData;
-      var common = vehicleConfigurationAllData?.vechicleConfiguration?.common;
+      let common = vehicleConfigurationAllData?.vechicleConfiguration?.common;
       return common ?? null;
     },
     trackingData(): Tracking | null {
       const vehicleConfigurationAllData: VehicleConfigurationData =
         this.vehicleConfigurationAllData;
-      var tracking =
+      let tracking =
         vehicleConfigurationAllData?.vechicleConfiguration?.tracking;
       return tracking ?? null;
     },
@@ -324,7 +329,7 @@ export default Vue.extend({
       const vehicleConfigurationAllData: VehicleConfigurationData =
         this.vehicleConfigurationAllData;
 
-      var canMultiplexerData =
+      let canMultiplexerData =
         vehicleConfigurationAllData?.vechicleConfiguration?.canMultiplexer;
 
       return canMultiplexerData ?? null;
@@ -378,11 +383,18 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions(Namespaces.vehicleConfiguration, [
-      StoreActions.getVehicleConfigurationAsync
+      StoreActions.getVehicleConfigurationAsync,
+      StoreActions.saveVehicleConfigurationAsync
     ]),
     async getVehicleConfiguration() {
       await this.getVehicleConfigurationAsync();
     },
+    async saveVehicleConfiguration() {
+      let vehicleConfig = this.vehicleConfigurationAllData;
+      await this.saveVehicleConfigurationAsync(vehicleConfig);
+      debugger;
+    },
+
     getSlotNameByIndex(index: number): string {
       const item = this.menuItems[index];
 

@@ -141,7 +141,7 @@ export default Vue.extend({
       StoreActions.sendCellularNetworkHubRequest
     ]),
     async getCellularStatus() {
-      var status = await this.sendCellularNetworkHubRequest();
+      let status = await this.sendCellularNetworkHubRequest();
     }
   }
 });

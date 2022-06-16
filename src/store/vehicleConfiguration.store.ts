@@ -45,6 +45,16 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
     const vehicleConfiguration =
       await VehicleConfigurationService.getVehicleConfigurationListAsync();
     commit(StoreMutationTypes.GET_VEHICLE_CONFIGURATION, vehicleConfiguration);
+  },
+  async [StoreActions.saveVehicleConfigurationAsync](
+    { state, dispatch, commit, rootGetters },
+    vehicleConfiguration
+  ) {
+    const x = vehicleConfiguration;
+    await VehicleConfigurationService.saveVehicleConfigurationAsync(
+      vehicleConfiguration
+    );
+    debugger;
   }
 };
 

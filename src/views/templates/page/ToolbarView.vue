@@ -17,6 +17,10 @@
         <v-toolbar-title class="font-weight-light" v-if="title">
           {{ title }}
         </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <div>
+          <slot />
+        </div>
       </v-toolbar>
     </v-card>
   </div>

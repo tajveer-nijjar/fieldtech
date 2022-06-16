@@ -1,9 +1,16 @@
 import axios from "axios";
 
-export async function get<T>(path: string): Promise<T[]>;
-export async function get<T>(path: string): Promise<T[]> {
+export async function getAsync<T>(path: string): Promise<T[]>;
+export async function getAsync<T>(path: string): Promise<T[]> {
   const response = await axios.get(path);
   return response.data;
+}
+
+export async function postAsync<T>(path: string, content: T): Promise<any> {
+  debugger;
+
+  const x = await axios.post(path, content);
+  debugger;
 }
 
 function getHeaders() {
