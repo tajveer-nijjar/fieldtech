@@ -1,3 +1,4 @@
 import ApiRequestData from "./apiRequestData";
+import CnxError from "./cnxError";
 
-export { ApiRequestData };
+export { ApiRequestData, CnxError };
