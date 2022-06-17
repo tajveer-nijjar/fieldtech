@@ -10,7 +10,6 @@ export async function getAsync<T>(path: string): Promise<T[]> {
 }
 
 export async function postAsync<T>(path: string, content: T): Promise<any> {
-  debugger;
   try {
     const response = await fetch(
       path,
@@ -31,8 +30,6 @@ export async function postAsync<T>(path: string, content: T): Promise<any> {
 function getHeaders() {
   const headers = new Headers();
   headers.append("Content-Type", "application/json;charset=utf-8");
-  headers.append("Access-Control-Allow-Origin", "http://localhost:90");
-  headers.append("Access-Control-Allow-Credentials", "true");
 
   return headers;
 }
