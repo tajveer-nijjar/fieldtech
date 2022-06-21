@@ -2,7 +2,13 @@
   <div>
     <toolbar-view title="Vehicle Configuration">
       <v-btn rounded plain small>Cancel</v-btn>
-      <v-btn rounded color="primary" small @click="saveVehicleConfiguration()">
+      <v-btn
+        rounded
+        color="primary"
+        small
+        @click="saveVehicleConfiguration()"
+        :showProgressBar="isBusy"
+      >
         Save
       </v-btn>
     </toolbar-view>
@@ -301,8 +307,13 @@ export default Vue.extend({
   },
   computed: {
     ...mapState(Namespaces.vehicleConfiguration, [
-      States.VehicleConfigurationStoreStates.vehicleConfigurationAllData
+      States.VehicleConfigurationStoreStates.vehicleConfigurationAllData,
+      States.VehicleConfigurationStoreStates.isBusy
     ]),
+    ...mapState(Namespaces.vehicleConfiguration, {
+      vehicleConfigurationStoreBusy:
+        States.VehicleConfigurationStoreStates.isBusy
+    }),
     hash(): string {
       return this.$route.hash;
     },
@@ -392,7 +403,6 @@ export default Vue.extend({
     async saveVehicleConfiguration() {
       let vehicleConfig = this.vehicleConfigurationAllData;
       await this.saveVehicleConfigurationAsync(vehicleConfig);
-      debugger;
     },
 
     getSlotNameByIndex(index: number): string {

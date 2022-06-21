@@ -13,23 +13,40 @@ import { VehicleConfigurationService, SignalRService } from "@/services";
 import { CellularNetworkRequestType } from "@/types/requestTypes";
 import axios from "axios";
 import { VehicleConfiguration } from "@/models/core";
+import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
 
 export interface IVehicleConfigurationStoreState {
   [Store.States.VehicleConfigurationStoreStates
     .vehicleConfigurationAllData]: VehicleConfiguration;
+  [Store.States.VehicleConfigurationStoreStates.isBusy]: boolean;
+  [Store.States.VehicleConfigurationStoreStates.errorMessage]: string;
 }
 
 const state: IVehicleConfigurationStoreState = {
   [Store.States.VehicleConfigurationStoreStates.vehicleConfigurationAllData]:
-    new VehicleConfiguration()
+    new VehicleConfiguration(),
+  [Store.States.VehicleConfigurationStoreStates.isBusy]: false,
+  [Store.States.VehicleConfigurationStoreStates.errorMessage]: ""
 };
 
 const mutations: MutationTree<IVehicleConfigurationStoreState> = {
-  [StoreMutationTypes.GET_VEHICLE_CONFIGURATION](
+  [StoreMutationTypes.START_GET_VEHICLE_CONFIGURATION](state) {
+    state.isBusy = true;
+  },
+
+  [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_SUCCESS](
     state,
     vehicleConfiguration: VehicleConfiguration
   ) {
     state.vehicleConfigurationAllData = vehicleConfiguration;
+  },
+
+  [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_FAILURE](state, errorMessage) {
+    state.errorMessage = errorMessage;
+  },
+
+  [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_FINISHED](state) {
+    state.isBusy = false;
   }
 };
 
@@ -42,10 +59,28 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
     commit,
     rootGetters
   }) {
-    const vehicleConfiguration =
-      await VehicleConfigurationService.getVehicleConfigurationListAsync();
-    commit(StoreMutationTypes.GET_VEHICLE_CONFIGURATION, vehicleConfiguration);
+    try {
+      commit(StoreMutationTypes.START_GET_VEHICLE_CONFIGURATION);
+      const vehicleConfiguration =
+        await VehicleConfigurationService.getVehicleConfigurationListAsync();
+      commit(
+        StoreMutationTypes.GET_VEHICLE_CONFIGURATION_SUCCESS,
+        vehicleConfiguration
+      );
+    } catch (e) {
+      const errorMessage =
+        "[VehicleConfiguration] Error happened while downloading Vehicle Configuration from the API.";
+      DebugUtils.error(errorMessage);
+      HttpUtils.showHttpError(e);
+      commit(
+        StoreMutationTypes.GET_VEHICLE_CONFIGURATION_FAILURE,
+        errorMessage
+      );
+    } finally {
+      commit(StoreMutationTypes.GET_VEHICLE_CONFIGURATION_FINISHED);
+    }
   },
+
   async [StoreActions.saveVehicleConfigurationAsync](
     { state, dispatch, commit, rootGetters },
     vehicleConfiguration

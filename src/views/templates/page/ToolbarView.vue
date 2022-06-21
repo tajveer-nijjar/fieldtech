@@ -6,6 +6,7 @@
       elevation="0"
       class="d-flex flex-column overflow-hidden"
     >
+      <v-progress-linear indeterminate color="primary" v-if="showProgressBar" />
       <v-toolbar
         flat
         dense
@@ -32,7 +33,8 @@ export default Vue.extend({
   props: {
     showNavButton: Boolean,
     title: String,
-    extentionHeight: { type: Number, default: 40 }
+    extentionHeight: { type: Number, default: 40 },
+    showProgressBar: Boolean
   },
   methods: {
     handleNavButtonClicked(): void {
