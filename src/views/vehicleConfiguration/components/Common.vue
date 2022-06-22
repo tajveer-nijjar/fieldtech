@@ -13,7 +13,7 @@
           <v-select
             :items="canServiceNameItems"
             class="text-body-2 cubicCanPort-select"
-            background-color="grey lighten-3"
+            :background-color="$vuetify.theme.dark ? 'black' : 'grey lighten-3'"
             dense
             filled
             solo
