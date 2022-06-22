@@ -1,14 +1,8 @@
 <template>
   <div>
-    <toolbar-view title="Vehicle Configuration">
+    <toolbar-view title="Vehicle Configuration" :showProgressBar="isBusy">
       <v-btn rounded plain small>Cancel</v-btn>
-      <v-btn
-        rounded
-        color="primary"
-        small
-        @click="saveVehicleConfiguration()"
-        :showProgressBar="isBusy"
-      >
+      <v-btn rounded color="primary" small @click="saveVehicleConfiguration()">
         Save
       </v-btn>
     </toolbar-view>
@@ -310,10 +304,6 @@ export default Vue.extend({
       States.VehicleConfigurationStoreStates.vehicleConfigurationAllData,
       States.VehicleConfigurationStoreStates.isBusy
     ]),
-    ...mapState(Namespaces.vehicleConfiguration, {
-      vehicleConfigurationStoreBusy:
-        States.VehicleConfigurationStoreStates.isBusy
-    }),
     hash(): string {
       return this.$route.hash;
     },

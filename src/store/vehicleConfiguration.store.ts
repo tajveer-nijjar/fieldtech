@@ -34,6 +34,7 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
     state.isBusy = true;
   },
 
+  //#region GET VEHICLE CONFIG
   [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_SUCCESS](
     state,
     vehicleConfiguration: VehicleConfiguration
@@ -47,7 +48,29 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
 
   [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_FINISHED](state) {
     state.isBusy = false;
+  },
+  //#endregion
+
+  //#region POST VEHICLE CONFIG
+  [StoreMutationTypes.START_POST_VEHICLE_CONFIGURATION](state) {
+    state.isBusy = true;
+  },
+
+  [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_SUCCESS](
+    state,
+    vehicleConfiguration: VehicleConfiguration
+  ) {
+    state.vehicleConfigurationAllData = vehicleConfiguration;
+  },
+
+  [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FAILURE](state, errorMessage) {
+    state.errorMessage = "errorMessage";
+  },
+
+  [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED](state) {
+    state.isBusy = false;
   }
+  //#endregion
 };
 
 const getters: GetterTree<IVehicleConfigurationStoreState, RootState> = {};
@@ -85,11 +108,25 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
     { state, dispatch, commit, rootGetters },
     vehicleConfiguration
   ) {
-    const x = vehicleConfiguration;
-    await VehicleConfigurationService.saveVehicleConfigurationAsync(
-      vehicleConfiguration
-    );
-    debugger;
+    try {
+      commit(StoreMutationTypes.START_POST_VEHICLE_CONFIGURATION);
+
+      const response =
+        await VehicleConfigurationService.saveVehicleConfigurationAsync(
+          vehicleConfiguration
+        );
+      commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_SUCCESS, response);
+    } catch (e) {
+      const errorMessage =
+        "[VehicleConfiguration] Error happened while saving Vehicle Configuration from the API.";
+      DebugUtils.error(errorMessage);
+      HttpUtils.showHttpError(e);
+
+      commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FAILURE);
+    } finally {
+      debugger;
+      commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED);
+    }
   }
 };
 
