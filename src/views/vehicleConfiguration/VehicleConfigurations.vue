@@ -1,8 +1,14 @@
 <template>
   <div>
     <toolbar-view title="Vehicle Configuration" :showProgressBar="isBusy">
-      <v-btn rounded plain small>Cancel</v-btn>
-      <v-btn rounded color="primary" small @click="saveVehicleConfiguration()">
+      <v-btn rounded plain small :disabled="isBusy">Cancel</v-btn>
+      <v-btn
+        rounded
+        color="primary"
+        small
+        @click="saveVehicleConfiguration()"
+        :disabled="isBusy"
+      >
         Save
       </v-btn>
     </toolbar-view>

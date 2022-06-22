@@ -124,7 +124,6 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
 
       commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FAILURE);
     } finally {
-      debugger;
       commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED);
     }
   }
