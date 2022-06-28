@@ -4,9 +4,9 @@
       :title="`Iris IP addresses`"
       subtitle="IP address of Iris sensor"
     >
-      <v-subheader>{{ this.irisAddresses.length }}</v-subheader>
+      <v-subheader>{{ this.ipAddresses.length }}</v-subheader>
     </setting-group-item>
-    <template v-for="(item, index) in irisAddresses">
+    <template v-for="(item, index) in ipAddresses">
       <div :key="index">
         <setting-group-item
           :isDense="true"
@@ -21,10 +21,15 @@
           :class="[
             { 'grey lighten-3': !$vuetify.theme.dark },
             { black: $vuetify.theme.dark },
-            `ml-lg-12`
+            `ml-lg-12`,
+            `mr-lg-6`
           ]"
         />
       </div>
+    </template>
+    <template>
+      <add-record-input-field-group-item />
+      <button-setting-group-item />
     </template>
   </div>
 </template>
@@ -33,15 +38,21 @@
 import Vue, { PropType } from "vue";
 
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
+import ButtonSettingGroupItem from "@/views/templates/settingGroups/ButtonSettingGroupItem.vue";
+import AddRecordInputFieldGroupItem from "@/views/templates/settingGroups/AddRecordInputFieldGroupItem.vue";
 
 export default Vue.extend({
-  components: { SettingGroupItem },
+  components: {
+    SettingGroupItem,
+    ButtonSettingGroupItem,
+    AddRecordInputFieldGroupItem
+  },
   props: {
     title: String,
     subtitle: String,
     icon: String,
     classes: String,
-    irisAddresses: Array as PropType<string[]>
+    ipAddresses: Array as PropType<string[]>
   }
 });
 </script>

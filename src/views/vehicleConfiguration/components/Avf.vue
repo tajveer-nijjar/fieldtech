@@ -99,7 +99,7 @@
         <MultipleSubItemsSettingGroupItem
           :title="`Iris IP addresses`"
           subtitle="IP address of Iris sensor"
-          :irisAddresses="calculateIrisAddressesArray"
+          :ipAddresses="calculateIrisAddressesArray"
           v-if="avfData"
         />
       </template>
@@ -251,7 +251,10 @@ import { Avf } from "@/models/core";
 
 export default Vue.extend({
   name: "Avf",
-  components: { SettingGroupItem, MultipleSubItemsSettingGroupItem },
+  components: {
+    SettingGroupItem,
+    MultipleSubItemsSettingGroupItem
+  },
   props: {
     avfData: { type: Object as PropType<Avf> }
   },
@@ -266,7 +269,15 @@ export default Vue.extend({
       return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
     },
     calculateIrisAddressesArray(): string[] {
-      var arr = "192.168.30.151,192.168.30.152,192.168.30.153".split(",");
+      var arr = "192.168.30.151, 192.168.30.152, "
+        //Converting into array
+        .split(",")
+        //Removing empty strings
+        .filter((address) => {
+          if (address.trim() !== "") {
+            return address;
+          }
+        });
       var x = arr.length;
       return arr;
       // var irisAddress = this.avfData.irisAddress || "";
