@@ -96,10 +96,28 @@
 
       <!-- Iris IP address -->
       <template>
+        <MultipleSubItemsSettingGroupItem
+          :title="`Iris IP addresses`"
+          subtitle="IP address of Iris sensor"
+          :irisAddresses="calculateIrisAddressesArray"
+          v-if="avfData"
+        />
+      </template>
+      <template>
         <setting-group-item
           :title="`Iris IP addresses`"
           subtitle="IP address of Iris sensor"
         >
+          <!-- <v-btn class="ma-2" plain> -->
+          <span>2</span>
+          <!-- <v-icon dark> mdi-chevron-down </v-icon> -->
+          <!-- </v-btn> -->
+        </setting-group-item>
+        <setting-group-item
+          :title="`192.168.30.151`"
+          :classes="`pl-lg-12 subgroup-height`"
+        >
+          <v-icon> mdi-dots-vertical </v-icon>
         </setting-group-item>
         <v-divider
           :class="[
@@ -205,7 +223,6 @@
           ]"
         />
       </template>
-
       <!-- End Vehicle type -->
 
       <!-- Uta -->
@@ -229,11 +246,12 @@
 import Vue, { PropType } from "vue";
 
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
+import MultipleSubItemsSettingGroupItem from "@/views/templates/settingGroups/MultipleSubItemsSettingGroupItem.vue";
 import { Avf } from "@/models/core";
 
 export default Vue.extend({
   name: "Avf",
-  components: { SettingGroupItem },
+  components: { SettingGroupItem, MultipleSubItemsSettingGroupItem },
   props: {
     avfData: { type: Object as PropType<Avf> }
   },
@@ -246,6 +264,14 @@ export default Vue.extend({
   computed: {
     calculateCubicCanPort(): string {
       return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
+    },
+    calculateIrisAddressesArray(): string[] {
+      var arr = "192.168.30.151,192.168.30.152,192.168.30.153".split(",");
+      var x = arr.length;
+      return arr;
+      // var irisAddress = this.avfData.irisAddress || "";
+      // var arr = irisAddress.split(",");
+      // return arr;
     }
   },
   methods: {}
