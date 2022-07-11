@@ -28,8 +28,15 @@
       </div>
     </template>
     <template>
-      <add-record-input-field-group-item />
-      <button-setting-group-item />
+      <AddRecordInputFieldGroupItem
+        v-if="showAddNewIpAddressTextView"
+        @onCloseButtonClick="onCloseButtonClick"
+        @onTickButtonClick="onTickButtonClick"
+      />
+      <ButtonSettingGroupItem
+        v-if="!showAddNewIpAddressTextView"
+        @onAddIpAddressButtonClicked="onAddIpAddressButtonClicked"
+      />
     </template>
   </div>
 </template>
@@ -47,12 +54,32 @@ export default Vue.extend({
     ButtonSettingGroupItem,
     AddRecordInputFieldGroupItem
   },
+  data() {
+    return {
+      showAddNewIpAddressTextView: false
+    };
+  },
   props: {
-    title: String,
-    subtitle: String,
-    icon: String,
-    classes: String,
-    ipAddresses: Array as PropType<string[]>
+    title: { type: String, default: undefined },
+    subtitle: { type: String, default: undefined },
+    icon: { type: String, default: undefined },
+    classes: { type: String, default: undefined },
+    ipAddresses: {
+      type: Array as PropType<string[]>,
+      default: () => new Array<string[]>()
+    }
+  },
+  methods: {
+    onAddIpAddressButtonClicked() {
+      debugger;
+      this.showAddNewIpAddressTextView = !this.showAddNewIpAddressTextView;
+    },
+    onCloseButtonClick() {
+      this.showAddNewIpAddressTextView = !this.showAddNewIpAddressTextView;
+    },
+    onTickButtonClick(text: string) {
+      this.$emit("onNewIPAddressAdded", text);
+    }
   }
 });
 </script>

@@ -101,6 +101,7 @@
           subtitle="IP address of Iris sensor"
           :ipAddresses="calculateIrisAddressesArray"
           v-if="avfData"
+          @onNewIPAddressAdded="onNewIPAddressAdded"
         />
       </template>
       <template>
@@ -261,7 +262,8 @@ export default Vue.extend({
   data() {
     return {
       index: 0,
-      cubicCanPortItems: ["can0", "vcan0"]
+      cubicCanPortItems: ["can0", "vcan0"],
+      irisIpAddresses: "192.168.30.151, 192.168.30.152, "
     };
   },
   computed: {
@@ -269,7 +271,7 @@ export default Vue.extend({
       return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
     },
     calculateIrisAddressesArray(): string[] {
-      var arr = "192.168.30.151, 192.168.30.152, "
+      var arr = this.irisIpAddresses
         //Converting into array
         .split(",")
         //Removing empty strings
@@ -278,14 +280,14 @@ export default Vue.extend({
             return address;
           }
         });
-      var x = arr.length;
       return arr;
-      // var irisAddress = this.avfData.irisAddress || "";
-      // var arr = irisAddress.split(",");
-      // return arr;
     }
   },
-  methods: {}
+  methods: {
+    onNewIPAddressAdded(text: string) {
+      this.irisIpAddresses = this.irisIpAddresses + text + ", ";
+    }
+  }
 });
 </script>
 <style lang="scss" scoped>
