@@ -285,6 +285,7 @@ export default Vue.extend({
   },
   methods: {
     onNewIPAddressAdded(text: string) {
+      debugger;
       this.irisIpAddresses = this.irisIpAddresses + text + ", ";
     }
   }

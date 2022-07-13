@@ -71,7 +71,6 @@ export default Vue.extend({
   },
   methods: {
     onAddIpAddressButtonClicked() {
-      debugger;
       this.showAddNewIpAddressTextView = !this.showAddNewIpAddressTextView;
     },
     onCloseButtonClick() {
