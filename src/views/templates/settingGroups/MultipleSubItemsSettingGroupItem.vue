@@ -13,9 +13,21 @@
           :classes="`pl-lg-12 subgroup-height`"
           :title="item"
         >
-          <v-btn icon>
-            <v-icon small> mdi-dots-vertical </v-icon>
-          </v-btn>
+          <v-menu top offset>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on">
+                <v-icon small> mdi-dots-vertical </v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item dense @click="editClicked(index)">
+                <v-list-item-title>Edit</v-list-item-title>
+              </v-list-item>
+              <v-list-item dense @click="deleteClicked(index)">
+                <v-list-item-title>Delete</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </setting-group-item>
         <v-divider
           :class="[
@@ -78,6 +90,12 @@ export default Vue.extend({
     },
     onTickButtonClick(text: string) {
       this.$emit("onNewIPAddressAdded", text);
+    },
+    editClicked(index: number) {
+      debugger;
+    },
+    deleteClicked(index: number) {
+      debugger;
     }
   }
 });
