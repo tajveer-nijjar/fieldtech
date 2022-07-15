@@ -19,6 +19,8 @@
           @change="onChange()"
           @keydown="onChange()"
           @click:clear="onClearClicked()"
+          :rules="[ipAddressTextFieldRules.correctEmail]"
+          :class="{ errorBorder: !isValidIpAddress }"
         />
       </v-list-item-title>
     </v-list-item-content>
@@ -26,7 +28,7 @@
       <v-btn
         icon
         @click="handleTickButtonClick"
-        :disabled="isTextFieldPrestine"
+        :disabled="isTextFieldPrestine || !this.isValidIpAddress"
         color="primary"
       >
         <v-icon> mdi-check </v-icon>
@@ -40,6 +42,13 @@
 
 <script lang="ts">
 import Vue from "vue";
+const checkIfIpAddressRegExp = (text: string): boolean => {
+  const regExp = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/g;
+  if (regExp.test(text)) {
+    return true;
+  }
+  return false;
+};
 export default Vue.extend({
   props: {
     icon: String,
@@ -50,23 +59,24 @@ export default Vue.extend({
   data() {
     return {
       isTextFieldPrestine: true,
-      text: ""
+      text: "",
+      isValidIpAddress: false,
+      ipAddressTextFieldRules: {
+        correctEmail: (value: string) => checkIfIpAddressRegExp(value)
+      }
     };
   },
   methods: {
     onBlur() {
-      if (this.text?.trim() === "") {
-        this.isTextFieldPrestine = true;
-      } else {
-        this.isTextFieldPrestine = false;
-      }
+      this.checkIfPristine();
     },
     onChange() {
-      if (this.text?.trim() === "") {
-        this.isTextFieldPrestine = true;
-      } else {
-        this.isTextFieldPrestine = false;
-      }
+      this.isValidIpAddress = checkIfIpAddressRegExp(this.text);
+      debugger;
+      this.checkIfPristine();
+    },
+    checkIfPristine() {
+      this.isTextFieldPrestine = this.text?.trim() === "" ? true : false;
     },
     handleCancelButtonClick() {
       this.$emit("onCloseButtonClick");
@@ -86,5 +96,9 @@ export default Vue.extend({
 
 .text-field {
   width: $text-field-width-standard !important;
+}
+
+.errorBorder {
+  border: 1px solid red !important;
 }
 </style>
