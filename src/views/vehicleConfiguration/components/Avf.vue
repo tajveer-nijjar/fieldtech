@@ -109,10 +109,7 @@
           :title="`Iris IP addresses`"
           subtitle="IP address of Iris sensor"
         >
-          <!-- <v-btn class="ma-2" plain> -->
           <span>2</span>
-          <!-- <v-icon dark> mdi-chevron-down </v-icon> -->
-          <!-- </v-btn> -->
         </setting-group-item>
         <setting-group-item
           :title="`192.168.30.151`"
@@ -262,8 +259,7 @@ export default Vue.extend({
   data() {
     return {
       index: 0,
-      cubicCanPortItems: ["can0", "vcan0"],
-      irisIpAddresses: "192.168.30.151, 192.168.30.152, "
+      cubicCanPortItems: ["can0", "vcan0"]
     };
   },
   computed: {
@@ -271,22 +267,25 @@ export default Vue.extend({
       return this.cubicCanPortItems[this.avfData.cubicCanPort ?? 0];
     },
     calculateIrisAddressesArray(): string[] {
-      var arr = this.irisIpAddresses
+      var arr = this.avfData.irisAddress
         //Converting into array
-        .split(",")
+        ?.split(",")
         //Removing empty strings
         .filter((address) => {
           if (address.trim() !== "") {
             return address;
           }
         });
-      return arr;
+      return arr ?? [];
     }
   },
   methods: {
     onNewIPAddressAdded(text: string) {
-      debugger;
-      this.irisIpAddresses = this.irisIpAddresses + text + ", ";
+      const regExp = /^,/;
+      var combinedText = `${this.avfData.irisAddress},${text}`
+        .replace(regExp, "") //Replacing ,
+        .trim();
+      this.avfData.irisAddress = combinedText;
     }
   }
 });

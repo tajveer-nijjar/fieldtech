@@ -21,6 +21,8 @@
           @click:clear="onClearClicked()"
           :rules="[ipAddressTextFieldRules.correctEmail]"
           :class="{ errorBorder: !isValidIpAddress }"
+          v-on:keyup.enter="onEnterPress"
+          v-on:keyup.esc="onEscPress"
         />
       </v-list-item-title>
     </v-list-item-content>
@@ -72,7 +74,6 @@ export default Vue.extend({
     },
     onChange() {
       this.isValidIpAddress = checkIfIpAddressRegExp(this.text);
-      debugger;
       this.checkIfPristine();
     },
     checkIfPristine() {
@@ -87,6 +88,15 @@ export default Vue.extend({
     handleTickButtonClick() {
       this.$emit("onTickButtonClick", this.text);
       this.text = "";
+    },
+    onEnterPress() {
+      if (this.isValidIpAddress) {
+        this.$emit("onTickButtonClick", this.text);
+        this.text = "";
+      }
+    },
+    onEscPress() {
+      this.$emit("onCloseButtonClick");
     }
   }
 });

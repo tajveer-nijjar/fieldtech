@@ -8,7 +8,8 @@
           small
           text
           @click="handleButtonClick()"
-          >Add IP Address</v-btn
+        >
+          Add IP Address</v-btn
         >
       </v-list-item-title>
     </v-list-item-content>
