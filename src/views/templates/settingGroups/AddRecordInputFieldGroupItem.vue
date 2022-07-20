@@ -31,7 +31,7 @@
         icon
         @click="handleTickButtonClick"
         :disabled="isTextFieldPrestine || !this.isValidIpAddress"
-        color="primary"
+        color="accent"
       >
         <v-icon> mdi-check </v-icon>
       </v-btn>

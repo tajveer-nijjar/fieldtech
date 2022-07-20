@@ -6,7 +6,7 @@
       elevation="0"
       class="d-flex flex-column overflow-hidden"
     >
-      <v-progress-linear indeterminate color="primary" v-if="showProgressBar" />
+      <v-progress-linear indeterminate color="accent" v-if="showProgressBar" />
       <v-toolbar
         flat
         dense

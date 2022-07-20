@@ -4,7 +4,7 @@
       <v-btn rounded plain small :disabled="isBusy">Cancel</v-btn>
       <v-btn
         rounded
-        color="primary"
+        color="accent"
         small
         @click="saveVehicleConfiguration()"
         :disabled="isBusy"
