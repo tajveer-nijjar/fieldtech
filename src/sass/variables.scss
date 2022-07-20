@@ -23,3 +23,11 @@ $font-size-heading1: 32px;
 $font-size-heading2: 28px;
 
 $text-field-width-standard: 200px;
+
+$headings:(
+    'h1':(
+        'size': $font-size-heading1,
+        'weight': 400,
+        'line-height': 3rem
+    )
+);

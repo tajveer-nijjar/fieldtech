@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 const checkIfIpAddressRegExp = (text: string): boolean => {
   const regExp = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/g;
   if (regExp.test(text)) {
