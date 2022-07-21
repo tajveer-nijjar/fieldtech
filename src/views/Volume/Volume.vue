@@ -113,17 +113,27 @@ import { mapActions, mapState } from "vuex";
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
-import { Namespaces } from "@/constants";
+import { Namespaces, StoreActions } from "@/constants";
 
 export default Vue.extend({
   name: "Volume",
-  async created() {},
+  async created() {
+    await this.getVolumeData();
+  },
   components: {
     ContentPage,
     PageHeader,
     SettingGroupItem
   },
-  methods: {}
+  methods: {
+    ...mapActions(Namespaces.volume, [
+      StoreActions.getVolumeDataAsync,
+      StoreActions.saveVolumeDataAsync
+    ]),
+    async getVolumeData() {
+      await this.getVolumeDataAsync();
+    }
+  }
 });
 </script>
 <style lang="scss" scoped>

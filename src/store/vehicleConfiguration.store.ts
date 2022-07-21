@@ -2,16 +2,12 @@ import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 import RootState from "@/interfaces/core/rootState";
 import {
   Namespaces,
-  SingalRConst,
   StoreActions,
   StoreGetters,
   Store,
   StoreMutationTypes
 } from "@/constants";
-import { ApiRequestData } from "@/models/system";
 import { VehicleConfigurationService, SignalRService } from "@/services";
-import { CellularNetworkRequestType } from "@/types/requestTypes";
-import axios from "axios";
 import { VehicleConfiguration } from "@/models/core";
 import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
 
