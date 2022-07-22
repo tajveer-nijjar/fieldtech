@@ -42,7 +42,7 @@ const actions: ActionTree<IVolumeStoreState, RootState> = {
       const errorMessage =
         "[VehicleConfiguration] Error happened while downloading Vehicle Configuration from the API.";
       DebugUtils.error(errorMessage);
-      HttpUtils.showHttpError(e);
+      HttpUtils.showHttpError(error);
     } finally {
       commit(StoreMutationTypes.GET_VOLUME_DATA_FINISHED);
     }
