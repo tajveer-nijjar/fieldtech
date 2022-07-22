@@ -36,15 +36,11 @@
                   >
                     <!-- Inside -->
                     <template>
-                      <setting-group-item :title="`Inside`">
-                        <v-slider
-                          hint="Inside volume"
-                          max="100"
-                          min="0"
-                          class="text-body-2 rounded-lg large-slider"
-                          color="accent"
-                        ></v-slider>
-                      </setting-group-item>
+                      <SliderSettingGroupItem
+                        :title="`Inside`"
+                        :hint="`Inside volume`"
+                        v-model="insideVolume"
+                      />
                       <v-divider
                         :class="[
                           { 'grey lighten-3': !$vuetify.theme.dark },
@@ -56,17 +52,11 @@
 
                     <!-- Outside -->
                     <template>
-                      <setting-group-item :title="`Outside`">
-                        <v-slider
-                          hint="Inside volume"
-                          max="100"
-                          min="0"
-                          class="text-body-2 rounded-lg large-slider"
-                          color="accent"
-                        ></v-slider>
-                        <!-- v-model="avfData.biAmpAddress"
-                          v-if="avfData" -->
-                      </setting-group-item>
+                      <SliderSettingGroupItem
+                        :title="`Outside`"
+                        :hint="`Outside volume`"
+                        v-model="outsideVolume"
+                      />
                       <v-divider
                         :class="[
                           { 'grey lighten-3': !$vuetify.theme.dark },
@@ -75,26 +65,13 @@
                       />
                     </template>
                     <!-- end Outside -->
+
                     <!-- Mic -->
-                    <template>
-                      <setting-group-item :title="`Mic`">
-                        <v-slider
-                          hint="Inside volume"
-                          max="100"
-                          min="0"
-                          class="text-body-2 rounded-lg large-slider"
-                          color="accent"
-                        ></v-slider>
-                        <!-- v-model="avfData.biAmpAddress"
-                          v-if="avfData" -->
-                      </setting-group-item>
-                      <v-divider
-                        :class="[
-                          { 'grey lighten-3': !$vuetify.theme.dark },
-                          { black: $vuetify.theme.dark }
-                        ]"
-                      />
-                    </template>
+                    <SliderSettingGroupItem
+                      :title="`Mic`"
+                      :hint="`Mic volume`"
+                      v-model="micVolume"
+                    />
                     <!-- end Mic -->
                   </v-list>
                 </v-card>
@@ -113,6 +90,7 @@ import { mapActions, mapState } from "vuex";
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
+import SliderSettingGroupItem from "@/views/templates/settingGroups/SliderSettingGroupItem.vue";
 import { Namespaces, StoreActions } from "@/constants";
 
 export default Vue.extend({
@@ -120,10 +98,17 @@ export default Vue.extend({
   async created() {
     await this.getVolumeData();
   },
+  data: function () {
+    return {
+      insideVolume: 20,
+      outsideVolume: 30,
+      micVolume: 10
+    };
+  },
   components: {
     ContentPage,
     PageHeader,
-    SettingGroupItem
+    SliderSettingGroupItem
   },
   methods: {
     ...mapActions(Namespaces.volume, [
