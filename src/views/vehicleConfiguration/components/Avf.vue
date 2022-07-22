@@ -104,26 +104,6 @@
           @onNewIPAddressAdded="onNewIPAddressAdded"
         />
       </template>
-      <template>
-        <setting-group-item
-          :title="`Iris IP addresses`"
-          subtitle="IP address of Iris sensor"
-        >
-          <span>2</span>
-        </setting-group-item>
-        <setting-group-item
-          :title="`192.168.30.151`"
-          :classes="`pl-lg-12 subgroup-height`"
-        >
-          <v-icon> mdi-dots-vertical </v-icon>
-        </setting-group-item>
-        <v-divider
-          :class="[
-            { 'grey lighten-3': !$vuetify.theme.dark },
-            { black: $vuetify.theme.dark }
-          ]"
-        />
-      </template>
       <!-- End Iris IP address -->
 
       <!-- Cubic -->
