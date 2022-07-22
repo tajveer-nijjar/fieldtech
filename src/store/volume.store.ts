@@ -8,6 +8,8 @@ import {
   StoreMutationTypes
 } from "@/constants";
 import Volume from "@/models/core/volume";
+import { VolumeService } from "@/services";
+import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
 
 export interface IVolumeStoreState {
   [Store.States.VolumeStoreStates.volumeData]: Volume;
@@ -25,7 +27,27 @@ const mutations: MutationTree<IVolumeStoreState> = {};
 
 const getters: GetterTree<IVolumeStoreState, RootState> = {};
 
-const actions: ActionTree<IVolumeStoreState, RootState> = {};
+const actions: ActionTree<IVolumeStoreState, RootState> = {
+  async [StoreActions.getVolumeDataAsync]({
+    state,
+    dispatch,
+    commit,
+    rootGetters
+  }) {
+    try {
+      commit(StoreMutationTypes.START_GET_VOLUME_DATA);
+      const volumeData = await VolumeService.getVolumeDataAsnyc();
+      commit(StoreMutationTypes.GET_VOLUME_DATA_SUCCESS, volumeData);
+    } catch (error) {
+      const errorMessage =
+        "[VehicleConfiguration] Error happened while downloading Vehicle Configuration from the API.";
+      DebugUtils.error(errorMessage);
+      HttpUtils.showHttpError(e);
+    } finally {
+      commit(StoreMutationTypes.GET_VOLUME_DATA_FINISHED);
+    }
+  }
+};
 
 const volumeStore: Module<IVolumeStoreState, RootState> = {
   namespaced: true,

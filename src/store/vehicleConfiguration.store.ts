@@ -7,7 +7,7 @@ import {
   Store,
   StoreMutationTypes
 } from "@/constants";
-import { VehicleConfigurationService, SignalRService } from "@/services";
+import { VehicleConfigurationService } from "@/services";
 import { VehicleConfiguration } from "@/models/core";
 import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
 

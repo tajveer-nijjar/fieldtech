@@ -89,7 +89,6 @@ import { mapActions, mapState } from "vuex";
 
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
-import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
 import SliderSettingGroupItem from "@/views/templates/settingGroups/SliderSettingGroupItem.vue";
 import { Namespaces, StoreActions } from "@/constants";
 

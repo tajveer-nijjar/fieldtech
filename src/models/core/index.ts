@@ -6,6 +6,7 @@ import J1587 from "./j1587";
 import Tracking from "./tracking";
 import VehicleDiagnostics from "./vehicleDiagnostics";
 import VechicleConfiguration from "./vehicleConfiguration";
+import Volume from "./volume";
 import FleetConfiguration from "./fleetConfiguration";
 import CanBitRate from "./canBitRate";
 import WifiConfigurations from "./wifiConfigurations";
@@ -21,6 +22,7 @@ export {
   Tracking,
   VehicleDiagnostics,
   VechicleConfiguration as VehicleConfiguration,
+  Volume,
   FleetConfiguration,
   CanBitRate,
   WifiConfigurations,
