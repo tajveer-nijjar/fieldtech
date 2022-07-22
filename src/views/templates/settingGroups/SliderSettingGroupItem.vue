@@ -1,16 +1,19 @@
 <template>
   <div>
     <setting-group-item :title="title">
-      <v-slider
-        :hint="hint"
-        max="100"
-        min="0"
-        class="text-body-2 rounded-lg large-slider"
-        color="accent"
-        track-color="orange"
-        :value="this.value"
-        @change="handleChange"
-      ></v-slider>
+      <div class="d-flex">
+        <v-slider
+          :hint="hint"
+          max="100"
+          min="0"
+          class="text-body-2 rounded-lg large-slider"
+          color="accent"
+          track-color="orange"
+          :value="this.value"
+          @change="handleChange"
+        ></v-slider>
+        <v-subheader class="slider-value">{{ value }}</v-subheader>
+      </div>
     </setting-group-item>
   </div>
 </template>
@@ -38,5 +41,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .large-slider {
   width: 183px !important;
+}
+.slider-value {
+  height: 36px !important;
 }
 </style>

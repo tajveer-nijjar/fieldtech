@@ -26,11 +26,11 @@ const state: IVehicleConfigurationStoreState = {
 };
 
 const mutations: MutationTree<IVehicleConfigurationStoreState> = {
+  //#region GET VEHICLE CONFIG
   [StoreMutationTypes.START_GET_VEHICLE_CONFIGURATION](state) {
     state.isBusy = true;
   },
 
-  //#region GET VEHICLE CONFIG
   [StoreMutationTypes.GET_VEHICLE_CONFIGURATION_SUCCESS](
     state,
     vehicleConfiguration: VehicleConfiguration

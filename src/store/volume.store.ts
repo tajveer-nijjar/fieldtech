@@ -23,7 +23,25 @@ const state: IVolumeStoreState = {
   [Store.States.Root.errorMessage]: ""
 };
 
-const mutations: MutationTree<IVolumeStoreState> = {};
+const mutations: MutationTree<IVolumeStoreState> = {
+  //#region GET VOLUME
+  [StoreMutationTypes.START_GET_VOLUME_DATA](state) {
+    state.isBusy = true;
+  },
+
+  [StoreMutationTypes.GET_VOLUME_DATA_SUCCESS](state, volume: Volume) {
+    state.volumeData = volume;
+  },
+
+  [StoreMutationTypes.GET_VOLUME_DATA_FAILURE](state, errorMessage) {
+    state.errorMessage = errorMessage;
+  },
+
+  [StoreMutationTypes.GET_VOLUME_DATA_FINISHED](state) {
+    state.isBusy = false;
+  }
+  //#endregion
+};
 
 const getters: GetterTree<IVolumeStoreState, RootState> = {};
 
@@ -43,6 +61,7 @@ const actions: ActionTree<IVolumeStoreState, RootState> = {
         "[VehicleConfiguration] Error happened while downloading Vehicle Configuration from the API.";
       DebugUtils.error(errorMessage);
       HttpUtils.showHttpError(error);
+      commit(StoreMutationTypes.GET_VOLUME_DATA_FAILURE);
     } finally {
       commit(StoreMutationTypes.GET_VOLUME_DATA_FINISHED);
     }

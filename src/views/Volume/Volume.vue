@@ -39,7 +39,7 @@
                       <SliderSettingGroupItem
                         :title="`Inside`"
                         :hint="`Inside volume`"
-                        v-model="insideVolume"
+                        v-model="volumeInternal"
                       />
                       <v-divider
                         :class="[
@@ -55,8 +55,9 @@
                       <SliderSettingGroupItem
                         :title="`Outside`"
                         :hint="`Outside volume`"
-                        v-model="outsideVolume"
+                        v-model="volumeExternal"
                       />
+                      <!-- v-model="outsideVolume" -->
                       <v-divider
                         :class="[
                           { 'grey lighten-3': !$vuetify.theme.dark },
@@ -70,8 +71,9 @@
                     <SliderSettingGroupItem
                       :title="`Mic`"
                       :hint="`Mic volume`"
-                      v-model="micVolume"
+                      v-model="volumeMicrophone"
                     />
+                    <!-- v-model="micVolume" -->
                     <!-- end Mic -->
                   </v-list>
                 </v-card>
@@ -91,18 +93,15 @@ import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SliderSettingGroupItem from "@/views/templates/settingGroups/SliderSettingGroupItem.vue";
 import { Namespaces, StoreActions } from "@/constants";
+import { States } from "@/constants/store";
 
 export default Vue.extend({
   name: "Volume",
   async created() {
-    await this.getVolumeData();
+    await this.getVolumeDataAsync();
   },
   data: function () {
-    return {
-      insideVolume: 20,
-      outsideVolume: 30,
-      micVolume: 10
-    };
+    return {};
   },
   components: {
     ContentPage,
@@ -113,9 +112,42 @@ export default Vue.extend({
     ...mapActions(Namespaces.volume, [
       StoreActions.getVolumeDataAsync,
       StoreActions.saveVolumeDataAsync
+    ])
+  },
+  computed: {
+    ...mapState(Namespaces.volume, [
+      States.VolumeStoreStates.volumeData,
+      States.Root.isBusy
     ]),
-    async getVolumeData() {
-      await this.getVolumeDataAsync();
+    volumeInternal: {
+      get: function () {
+        return this.volumeData?.avf?.volumeInternal;
+      },
+      set: function (newValue) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeInternal = newValue;
+        }
+      }
+    },
+    volumeExternal: {
+      get: function () {
+        return this.volumeData?.avf?.volumeExternal;
+      },
+      set: function (newValue) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeExternal = newValue;
+        }
+      }
+    },
+    volumeMicrophone: {
+      get: function () {
+        return this.volumeData?.avf?.volumeMicrophone;
+      },
+      set: function (newValue) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeMicrophone = newValue;
+        }
+      }
     }
   }
 });
