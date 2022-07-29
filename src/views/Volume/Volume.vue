@@ -57,7 +57,6 @@
                         :hint="`Outside volume`"
                         v-model="volumeExternal"
                       />
-                      <!-- v-model="outsideVolume" -->
                       <v-divider
                         :class="[
                           { 'grey lighten-3': !$vuetify.theme.dark },
@@ -68,13 +67,33 @@
                     <!-- end Outside -->
 
                     <!-- Mic -->
-                    <SliderSettingGroupItem
-                      :title="`Mic`"
-                      :hint="`Mic volume`"
-                      v-model="volumeMicrophone"
-                    />
-                    <!-- v-model="micVolume" -->
+                    <template>
+                      <SliderSettingGroupItem
+                        :title="`Mic`"
+                        :hint="`Mic volume`"
+                        v-model="volumeMicrophone"
+                      /><v-divider
+                        :class="[
+                          { 'grey lighten-3': !$vuetify.theme.dark },
+                          { black: $vuetify.theme.dark }
+                        ]"
+                      />
+                    </template>
                     <!-- end Mic -->
+
+                    <template>
+                      <SettingGroupItem>
+                        <v-btn
+                          rounded
+                          color="accent"
+                          small
+                          @click="saveVolume()"
+                          :disabled="isBusy"
+                        >
+                          Save
+                        </v-btn>
+                      </SettingGroupItem>
+                    </template>
                   </v-list>
                 </v-card>
               </v-col>
@@ -92,6 +111,7 @@ import { mapActions, mapState } from "vuex";
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SliderSettingGroupItem from "@/views/templates/settingGroups/SliderSettingGroupItem.vue";
+import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
 
@@ -100,54 +120,34 @@ export default Vue.extend({
   async created() {
     await this.getVolumeDataAsync();
   },
-  data: function () {
-    return {};
-  },
   components: {
     ContentPage,
     PageHeader,
-    SliderSettingGroupItem
+    SliderSettingGroupItem,
+    SettingGroupItem
   },
   methods: {
     ...mapActions(Namespaces.volume, [
       StoreActions.getVolumeDataAsync,
       StoreActions.saveVolumeDataAsync
-    ])
+    ]),
+    async saveVolume() {
+      await this.saveVolumeDataAsync();
+    }
   },
   computed: {
     ...mapState(Namespaces.volume, [
       States.VolumeStoreStates.volumeData,
       States.Root.isBusy
     ]),
-    volumeInternal: {
-      get: function () {
-        return this.volumeData?.avf?.volumeInternal;
-      },
-      set: function (newValue) {
-        if (this.volumeData && this.volumeData.avf) {
-          this.volumeData.avf.volumeInternal = newValue;
-        }
-      }
+    volumeInternal(): number | null {
+      return this.volumeData?.avf?.volumeInternal;
     },
-    volumeExternal: {
-      get: function () {
-        return this.volumeData?.avf?.volumeExternal;
-      },
-      set: function (newValue) {
-        if (this.volumeData && this.volumeData.avf) {
-          this.volumeData.avf.volumeExternal = newValue;
-        }
-      }
+    volumeExternal(): number | null {
+      return this.volumeData?.avf?.volumeExternal;
     },
-    volumeMicrophone: {
-      get: function () {
-        return this.volumeData?.avf?.volumeMicrophone;
-      },
-      set: function (newValue) {
-        if (this.volumeData && this.volumeData.avf) {
-          this.volumeData.avf.volumeMicrophone = newValue;
-        }
-      }
+    volumeMicrophone(): number | null {
+      return this.volumeData?.avf?.volumeMicrophone;
     }
   }
 });

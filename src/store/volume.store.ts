@@ -65,6 +65,13 @@ const actions: ActionTree<IVolumeStoreState, RootState> = {
     } finally {
       commit(StoreMutationTypes.GET_VOLUME_DATA_FINISHED);
     }
+  },
+
+  async [StoreActions.saveVolumeDataAsync](
+    { state, dispatch, commit, rootGetters },
+    volumeData
+  ) {
+    debugger;
   }
 };
 
