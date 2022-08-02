@@ -11,6 +11,7 @@
           track-color="orange"
           :value="this.value"
           @change="handleChange"
+          :disabled="disable"
         ></v-slider>
         <v-subheader class="slider-value">{{ value }}</v-subheader>
       </div>
@@ -29,7 +30,8 @@ export default Vue.extend({
   props: {
     title: { type: String, default: "" },
     hint: { type: String, default: "" },
-    value: { type: Number, default: 0 }
+    value: { type: Number, default: 0 },
+    disable: { type: Boolean, default: false }
   },
   methods: {
     handleChange(e: number) {

@@ -1,6 +1,9 @@
 <template>
-  <div class="page" :class="{ className }">
-    <slot />
+  <div>
+    <v-progress-linear indeterminate color="accent" v-if="showProgressBar" />
+    <div class="page" :class="{ className }">
+      <slot />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -8,7 +11,8 @@ import Vue from "vue";
 export default Vue.extend({
   name: "ContentPage",
   props: {
-    className: { type: String, default: "" }
+    className: { type: String, default: "" },
+    showProgressBar: { type: Boolean, default: false }
   }
 });
 </script>

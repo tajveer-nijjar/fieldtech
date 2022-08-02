@@ -1,11 +1,8 @@
 <template>
-  <ContentPage>
+  <ContentPage :showProgressBar="isBusy">
     <div class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden">
       <div class="content">
-        <PageHeader
-          :headerTitle="`Volume`"
-          :headerSubtitle="`SomeThing something`"
-        />
+        <PageHeader :headerTitle="`Volume`" :headerSubtitle="``" />
         <template>
           <div
             ref="content"
@@ -40,6 +37,7 @@
                         :title="`Inside`"
                         :hint="`Inside volume`"
                         v-model="volumeInternal"
+                        :disable="isBusy"
                       />
                       <v-divider
                         :class="[
@@ -56,6 +54,7 @@
                         :title="`Outside`"
                         :hint="`Outside volume`"
                         v-model="volumeExternal"
+                        :disable="isBusy"
                       />
                       <v-divider
                         :class="[
@@ -72,7 +71,9 @@
                         :title="`Mic`"
                         :hint="`Mic volume`"
                         v-model="volumeMicrophone"
-                      /><v-divider
+                        :disable="isBusy"
+                      />
+                      <v-divider
                         :class="[
                           { 'grey lighten-3': !$vuetify.theme.dark },
                           { black: $vuetify.theme.dark }
@@ -132,7 +133,7 @@ export default Vue.extend({
       StoreActions.saveVolumeDataAsync
     ]),
     async saveVolume() {
-      await this.saveVolumeDataAsync();
+      await this.saveVolumeDataAsync(this.volumeData);
     }
   },
   computed: {
@@ -140,14 +141,35 @@ export default Vue.extend({
       States.VolumeStoreStates.volumeData,
       States.Root.isBusy
     ]),
-    volumeInternal(): number | null {
-      return this.volumeData?.avf?.volumeInternal;
+    volumeInternal: {
+      get(): number {
+        return this.volumeData?.avf?.volumeInternal;
+      },
+      set(newValue: number) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeInternal = newValue;
+        }
+      }
     },
-    volumeExternal(): number | null {
-      return this.volumeData?.avf?.volumeExternal;
+    volumeExternal: {
+      get(): number {
+        return this.volumeData?.avf?.volumeExternal;
+      },
+      set(newValue: number) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeExternal = newValue;
+        }
+      }
     },
-    volumeMicrophone(): number | null {
-      return this.volumeData?.avf?.volumeMicrophone;
+    volumeMicrophone: {
+      get(): number {
+        return this.volumeData?.avf?.volumeMicrophone;
+      },
+      set(newValue: number) {
+        if (this.volumeData && this.volumeData.avf) {
+          this.volumeData.avf.volumeMicrophone = newValue;
+        }
+      }
     }
   }
 });

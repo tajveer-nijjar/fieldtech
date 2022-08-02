@@ -60,7 +60,7 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
   },
 
   [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FAILURE](state, errorMessage) {
-    state.errorMessage = "errorMessage";
+    state.errorMessage = errorMessage;
   },
 
   [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED](state) {

@@ -39,6 +39,21 @@ const mutations: MutationTree<IVolumeStoreState> = {
 
   [StoreMutationTypes.GET_VOLUME_DATA_FINISHED](state) {
     state.isBusy = false;
+  },
+  //#endregion
+
+  //#region SAVE VOLUME
+  [StoreMutationTypes.START_POST_VOLUME_DATA](state) {
+    state.isBusy = true;
+  },
+  [StoreMutationTypes.POST_VOLUME_DATA_SUCCESS](state, volumeData: Volume) {
+    state.volumeData = volumeData;
+  },
+  [StoreMutationTypes.POST_VOLUME_DATA_FAILURE](state, errorMessage: string) {
+    state.errorMessage = errorMessage;
+  },
+  [StoreMutationTypes.POST_VOLUME_DATA_FINISHED](state) {
+    state.isBusy = false;
   }
   //#endregion
 };
@@ -71,7 +86,20 @@ const actions: ActionTree<IVolumeStoreState, RootState> = {
     { state, dispatch, commit, rootGetters },
     volumeData
   ) {
-    debugger;
+    try {
+      commit(StoreMutationTypes.START_POST_VOLUME_DATA);
+      const response = await VolumeService.saveVolumeAsync(volumeData);
+      commit(StoreMutationTypes.POST_VOLUME_DATA_SUCCESS, response);
+    } catch (e) {
+      const errorMessage =
+        "[Volume] Error happened while saving Vehicle Configuration from the API.";
+      DebugUtils.error(errorMessage);
+      HttpUtils.showHttpError(e);
+
+      commit(StoreMutationTypes.POST_VOLUME_DATA_FAILURE);
+    } finally {
+      commit(StoreMutationTypes.POST_VOLUME_DATA_FINISHED);
+    }
   }
 };
 

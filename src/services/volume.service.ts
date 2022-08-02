@@ -8,3 +8,10 @@ export async function getVolumeDataAsnyc(): Promise<Volume[] | null> {
 
   return await HttpService.getAsync<Volume>(url.toString());
 }
+
+export async function saveVolumeAsync(data: Volume): Promise<Volume[] | null> {
+  const url = new URL("http://localhost:9090/api/volume");
+
+  const response = await HttpService.postAsync(url.toString(), data);
+  return response;
+}
