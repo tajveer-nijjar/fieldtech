@@ -89,7 +89,7 @@
                           color="accent"
                           small
                           @click="saveVolume()"
-                          :disabled="isBusy"
+                          :disabled="isBusy || !isDirty"
                         >
                           Save
                         </v-btn>
@@ -121,6 +121,11 @@ export default Vue.extend({
   async created() {
     await this.getVolumeDataAsync();
   },
+  data() {
+    return {
+      isDirty: false
+    };
+  },
   components: {
     ContentPage,
     PageHeader,
@@ -149,6 +154,7 @@ export default Vue.extend({
         if (this.volumeData && this.volumeData.avf) {
           this.volumeData.avf.volumeInternal = newValue;
         }
+        this.isDirty = true;
       }
     },
     volumeExternal: {
@@ -159,6 +165,7 @@ export default Vue.extend({
         if (this.volumeData && this.volumeData.avf) {
           this.volumeData.avf.volumeExternal = newValue;
         }
+        this.isDirty = true;
       }
     },
     volumeMicrophone: {
@@ -169,6 +176,7 @@ export default Vue.extend({
         if (this.volumeData && this.volumeData.avf) {
           this.volumeData.avf.volumeMicrophone = newValue;
         }
+        this.isDirty = true;
       }
     }
   }
