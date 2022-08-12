@@ -5,6 +5,7 @@ import Home from "@/views/Home.vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import VehicleConfigurations from "@/views/vehicleConfiguration/VehicleConfigurations.vue";
 import Volume from "@/views/Volume/Volume.vue";
+import MonitorControl from "@/views/MonitorControl/MonitorControl.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes: Array<RouteConfig> = [
     path: "/volume",
     name: PageNames.Volume,
     component: Volume
+  },
+  {
+    path: "/monitor-control",
+    name: PageNames.Volume,
+    component: MonitorControl
   }
 ];
 
