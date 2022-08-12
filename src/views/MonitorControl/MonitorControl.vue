@@ -13,15 +13,16 @@
               :value="index"
               :key="`tab-${index}`"
               v-for="(item, index) in menuItems"
-              @click="handleItemClicked(item)"
+              @click="handleItemClicked(item, index)"
               class="vertical-tab pl-8 text-caption font-weight-medium a-tab"
+              :class="{ active: tabIndex === index }"
             >
               {{ item.title }}
             </v-tab>
           </v-tabs>
         </div>
       </template>
-      <template v-slot:right> right </template>
+      <template v-slot:right> </template>
     </SplitView>
   </div>
 </template>
@@ -56,7 +57,9 @@ export default Vue.extend({
     };
   },
   methods: {
-    handleItemClicked(item: MenuItem): void {}
+    handleItemClicked(item: MenuItem, index: number): void {
+      this.tabIndex = index;
+    }
   }
 });
 </script>
@@ -67,5 +70,9 @@ export default Vue.extend({
 
 .right-container {
   height: calc(100vh - 64px - 48px);
+}
+
+.active {
+  background: #dde6ef !important;
 }
 </style>
