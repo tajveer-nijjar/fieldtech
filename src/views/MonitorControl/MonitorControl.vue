@@ -22,7 +22,10 @@
           </v-tabs>
         </div>
       </template>
-      <template v-slot:right> </template>
+      <template v-slot:right>
+        <Monitor v-if="tabIndex === 0" />
+        <Control v-if="tabIndex === 1" />
+      </template>
     </SplitView>
   </div>
 </template>
@@ -31,11 +34,15 @@ import Vue from "vue";
 
 import SplitView from "@/views/templates/page/SplitView.vue";
 import { MenuItem } from "@/interfaces/core";
+import Control from "./Components/Control.vue";
+import Monitor from "./Components/Monitor.vue";
 
 export default Vue.extend({
   name: "MonitorControl",
   components: {
-    SplitView
+    SplitView,
+    Control,
+    Monitor
   },
   data() {
     return {
@@ -51,7 +58,7 @@ export default Vue.extend({
           name: this.$route.name,
           title: "Controls",
           route: this.$route.path,
-          hash: "Control"
+          hash: "control"
         }
       ] as MenuItem[]
     };
@@ -59,6 +66,7 @@ export default Vue.extend({
   methods: {
     handleItemClicked(item: MenuItem, index: number): void {
       this.tabIndex = index;
+      this.$router.push({ hash: `#${item.hash}` });
     }
   }
 });
