@@ -1,7 +1,7 @@
 <template>
   <v-list-item two-line :class="classes" :dense="isDense">
     <v-list-item-icon v-if="icon">
-      <v-icon>icon</v-icon>
+      <v-icon>{{ icon }}</v-icon>
     </v-list-item-icon>
     <v-list-item-content>
       <v-list-item-title class="text-wrap">

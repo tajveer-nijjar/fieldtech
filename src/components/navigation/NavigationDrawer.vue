@@ -65,7 +65,6 @@
             { black: $vuetify.theme.dark }
           ]"
         />
-        <drawer-profile />
       </div>
     </v-responsive>
   </v-navigation-drawer>
@@ -75,7 +74,6 @@
 import DrawerHeader from "@/components/navigation/DrawerHeader.vue";
 import DrawerMenuGroup from "@/components/navigation/DrawerMenuGroup.vue";
 import DrawerMenuItem from "@/components/navigation/DrawerMenuItem.vue";
-import DrawerProfile from "@/components/navigation/DrawerProfile.vue";
 import { MenuItems, Namespaces, PageNames, Store } from "@/constants";
 import { MenuItem } from "@/interfaces/core";
 import Vue from "vue";
@@ -83,7 +81,6 @@ import { mapMutations, mapState } from "vuex";
 
 export default Vue.extend({
   components: {
-    DrawerProfile,
     DrawerMenuItem,
     DrawerMenuGroup,
     DrawerHeader
