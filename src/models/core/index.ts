@@ -12,6 +12,9 @@ import CanBitRate from "./canBitRate";
 import WifiConfigurations from "./wifiConfigurations";
 import EthernetConfiguration from "./ethernetConfiguration";
 import ServiceOption from "./serviceOption";
+import File from "./file";
+import Folder from "./folder";
+import Logs from "./logs";
 
 export {
   Avf,
@@ -27,5 +30,8 @@ export {
   CanBitRate,
   WifiConfigurations,
   EthernetConfiguration,
-  ServiceOption
+  ServiceOption,
+  File,
+  Folder,
+  Logs
 };

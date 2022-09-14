@@ -25,9 +25,10 @@
                   <SearchAndRefresh />
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row class="files-and-folders-content">
                 <v-col cols="12" lg="8" xl="12">
-                  <File
+                  <FolderAndFile />
+                  <!-- <File
                     :filename="`hal_20210826.log`"
                     :date="`2021-07-11 17:24`"
                     :size="`113 kb`"
@@ -36,7 +37,7 @@
                     :filename="`hal_20210826.log`"
                     :date="`2021-07-11 17:24`"
                     :size="`115 kb`"
-                  />
+                  /> -->
                 </v-col>
               </v-row>
             </v-card>
@@ -49,20 +50,41 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions, mapState } from "vuex";
 
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SearchAndRefresh from "@/components/SearchAndRefresh/SearchAndRefresh.vue";
 import File from "@/components/File/File.vue";
+import FolderAndFile from "@/components/FolderAndFile/FolderAndFile.vue";
+import { Namespaces, StoreActions } from "@/constants";
 
 export default Vue.extend({
   name: "Logs",
+  async created() {
+    await this.getLogs();
+  },
   components: {
     ContentPage,
     PageHeader,
     SearchAndRefresh,
-    File
+    // File,
+    FolderAndFile
   },
-  async created() {}
+  methods: {
+    ...mapActions(Namespaces.logs, [
+      StoreActions.getLogsAsync,
+      StoreActions.saveLogsAsync
+    ]),
+    async getLogs() {
+      await this.getLogsAsync();
+    }
+  }
 });
 </script>
+
+<style lang="scss" scoped>
+.files-and-folders-content {
+  margin-top: 0;
+}
+</style>
