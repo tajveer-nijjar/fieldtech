@@ -7,6 +7,7 @@ import connectionStatusStore from "@/store/connectionStatus.store";
 import vehicleConfigurationStore from "@/store/vehicleConfiguration.store";
 import volumeStore from "@/store/volume.store";
 import logsStore from "@/store/logs.store";
+import configurationFilesStore from "@/store/configurationFiles.store";
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     [Namespaces.connectionStatus]: connectionStatusStore,
     [Namespaces.vehicleConfiguration]: vehicleConfigurationStore,
     [Namespaces.volume]: volumeStore,
-    [Namespaces.logs]: logsStore
+    [Namespaces.logs]: logsStore,
+    [Namespaces.configurationFiles]: configurationFilesStore
   }
 });

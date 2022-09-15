@@ -27,7 +27,7 @@
               </v-row>
               <v-row class="files-and-folders-content">
                 <v-col cols="12" lg="8" xl="12">
-                  <FolderAndFile :data="logsData" />
+                  <FolderAndFile :data="configurationFilesData" />
                 </v-col>
               </v-row>
             </v-card>
