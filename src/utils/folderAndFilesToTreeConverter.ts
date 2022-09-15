@@ -1,33 +1,49 @@
 import { Logs, TreeStructure } from "@/models/core";
-import { Root } from "@/models/core/treeStructure";
 
 export default function folderAndFilesToTreeConverter(logs: Logs): any[] {
   const tree = new TreeStructure();
   let treee: any[] = [];
   logs?.folders?.forEach((folder) => {
-    if (folder.folders && folder.folders?.length > 0) {
-      const x = 1;
-    }
+    const childrens: any | any[] = [];
 
-    const childrens = folder.files?.map((c) => ({
+    let childFolders: any | any[] = [];
+    let childFiles: any | any[] = [];
+
+    // if (folder.folders && folder.folders?.length > 0) {
+    childFolders =
+      folder?.folders &&
+      folder?.folders.length > 0 &&
+      folder.folders.map((f) => ({
+        name: f.folderName,
+        isFile: false
+      }));
+    // }
+
+    // childrens = [...childrens, childFolders];
+
+    childFiles = folder.files?.map((c) => ({
       name: c.fileName,
       isFile: true
     }));
+
+    const x = childFolders;
+    const y = childFiles;
     debugger;
+
+    if (childFolders) {
+      childrens.push(...childFolders);
+    }
+
+    if (childFiles) {
+      childrens.push(...childFiles);
+    }
+
+    // childrens = [...childrens, childFolders, childFiles];
 
     const folderr = { name: folder.folderName, children: childrens };
     debugger;
 
     treee = [...treee, folderr];
-    // const root = new Root();
-    // root.folderName = folder.folderName;
-    // if (folder?.files && folder.files.length > 0) {
-    //   const a = folder.files;
-    //   const m = folder.files.map((a) => Object.assign({}, a));
-    //   const y = [...folder.files];
-    //   root.children = [...folder.files];
-    //   debugger;
-    // }
   });
 
   logs?.files?.forEach((file) => {

@@ -33,7 +33,7 @@ import DummyData from "./DummyData";
 export default Vue.extend({
   name: "FolderAndFile",
   data: () => ({
-    initiallyOpen: ["public"],
+    initiallyOpen: ["NetworkConfigFiles123"],
     files: {
       html: "mdi-language-html5",
       js: "mdi-nodejs",
@@ -55,6 +55,9 @@ export default Vue.extend({
       {
         name: "public",
         children: [
+          {
+            name: "dynamic"
+          },
           {
             name: "static",
             children: [
@@ -111,9 +114,8 @@ export default Vue.extend({
   methods: {
     calculate(): any[] {
       var y = DummyData();
-      debugger;
+      var z = this.items;
       var x = folderAndFilesToTreeConverter(y);
-      debugger;
       return x;
     }
   }
