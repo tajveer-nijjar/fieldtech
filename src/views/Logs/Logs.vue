@@ -22,7 +22,7 @@
             >
               <v-row id="search-and-refresh">
                 <v-col cols="12" lg="8" xl="12">
-                  <SearchAndRefresh />
+                  <SearchAndRefresh @onRefreshClicked="onRefreshLogsClicked" />
                 </v-col>
               </v-row>
               <v-row class="files-and-folders-content">
@@ -73,6 +73,9 @@ export default Vue.extend({
       StoreActions.getLogAsync
     ]),
     async getLogs() {
+      await this.getLogsAsync();
+    },
+    async onRefreshLogsClicked() {
       await this.getLogsAsync();
     }
   }

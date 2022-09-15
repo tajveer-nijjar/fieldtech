@@ -22,7 +22,9 @@
             >
               <v-row id="search-and-refresh">
                 <v-col cols="12" lg="8" xl="12">
-                  <SearchAndRefresh />
+                  <SearchAndRefresh
+                    @onRefreshClicked="onRefreshConfigurationFilesClicked"
+                  />
                 </v-col>
               </v-row>
               <v-row class="files-and-folders-content">
@@ -73,6 +75,9 @@ export default Vue.extend({
       StoreActions.getConfigurationFileAsync
     ]),
     async getConfigurationFiles() {
+      await this.getConfigurationFilesAsync();
+    },
+    async onRefreshConfigurationFilesClicked() {
       await this.getConfigurationFilesAsync();
     }
   }

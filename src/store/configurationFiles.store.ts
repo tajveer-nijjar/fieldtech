@@ -10,19 +10,26 @@ import {
 import { ConfigurationFilesService } from "@/services";
 import { ConfigurationFiles } from "@/models/core";
 import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
+import folderAndFilesToTreeConverter from "@/utils/folderAndFilesToTreeConverter";
 
 export interface IConfigurationFilesStoreState {
   [Store.States.ConfigurationFilesStoreStates
     .configurationFilesData]: ConfigurationFiles;
   [Store.States.ConfigurationFilesStoreStates.isBusy]: boolean;
   [Store.States.ConfigurationFilesStoreStates.errorMessage]: string;
+
+  [Store.States.ConfigurationFilesStoreStates
+    .configurationFilesTreeStructure]: any[];
 }
 
 const state: IConfigurationFilesStoreState = {
   [Store.States.ConfigurationFilesStoreStates.configurationFilesData]:
     new ConfigurationFiles(),
   [Store.States.ConfigurationFilesStoreStates.isBusy]: false,
-  [Store.States.ConfigurationFilesStoreStates.errorMessage]: ""
+  [Store.States.ConfigurationFilesStoreStates.errorMessage]: "",
+
+  [Store.States.ConfigurationFilesStoreStates.configurationFilesTreeStructure]:
+    []
 };
 
 const mutations: MutationTree<IConfigurationFilesStoreState> = {
@@ -36,6 +43,8 @@ const mutations: MutationTree<IConfigurationFilesStoreState> = {
     configurationFiles: ConfigurationFiles
   ) {
     state.configurationFilesData = configurationFiles;
+    state.configurationFilesTreeStructure =
+      folderAndFilesToTreeConverter(configurationFiles);
   },
 
   [StoreMutationTypes.GET_CONFIGURATION_FILES_FAILURE](state, errorMessage) {

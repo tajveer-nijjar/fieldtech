@@ -17,7 +17,7 @@
         />
       </v-col>
       <v-col cols="1" class="refresh-button">
-        <v-btn class="mx-2" plain>
+        <v-btn class="mx-2" plain @click="refreshClicked()">
           <v-icon dark> mdi-refresh </v-icon>
         </v-btn>
       </v-col>
@@ -29,7 +29,12 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "SearchAndRefresh"
+  name: "SearchAndRefresh",
+  methods: {
+    refreshClicked() {
+      this.$emit("onRefreshClicked");
+    }
+  }
 });
 </script>
 

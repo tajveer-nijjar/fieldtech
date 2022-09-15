@@ -48,7 +48,6 @@ export default Vue.extend({
   methods: {
     calculateItemsData(): any[] {
       // var y = DummyData();
-      // var z = this.items;
       var data = folderAndFilesToTreeConverter(this.data);
       // var data = folderAndFilesToTreeConverter(y);
       return data;
