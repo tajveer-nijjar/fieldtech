@@ -15,7 +15,6 @@ import ServiceOption from "./serviceOption";
 import File from "./file";
 import Folder from "./folder";
 import Logs from "./logs";
-import TreeStructure from "./treeStructure";
 
 export {
   Avf,
@@ -34,6 +33,5 @@ export {
   ServiceOption,
   File,
   Folder,
-  Logs,
-  TreeStructure
+  Logs
 };

@@ -3,7 +3,22 @@ export default function DummyData(): any {
     folders: [
       {
         folderName: "NetworkConfigFiles123",
-        folders: [{ folderName: "Abcd" }, { folderName: "Folder 2" }],
+        folders: [
+          {
+            folderName: "Abcd"
+          },
+          {
+            folderName: "Folder 2",
+            files: [
+              {
+                fileName: "can1.network123",
+                fileSize: 14,
+                lastModifiedDate: "2022-07-22T09:45:47.8597139+12:00",
+                fullPath: "C:\\etc\\systemd\\network\\can1.network"
+              }
+            ]
+          }
+        ],
         files: [
           {
             fileName: "can1.network",

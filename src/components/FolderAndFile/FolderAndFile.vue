@@ -16,9 +16,14 @@
       </template>
       <template v-slot:append="{ item }">
         <v-btn class="mx-2" plain>
-          <v-icon v-if="item.file"> mdi-download </v-icon>
+          <v-icon v-if="item.isFile"> mdi-download </v-icon>
         </v-btn>
       </template>
+      <!-- <template v-slot:label="{ item }">
+        <b>{{ item.name }} </b>
+        <br />
+        <i>{{ item.name }}</i>
+      </template> -->
     </v-treeview>
   </div>
 </template>
