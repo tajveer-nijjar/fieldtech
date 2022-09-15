@@ -101,7 +101,7 @@
           subtitle="IP address of Iris sensor"
           :ipAddresses="calculateIrisAddressesArray"
           v-if="avfData"
-          @onNewIPAddressAdded="onNewIPAddressAdded"
+          @onNewIPAddressAdded="onNewIrisIPAddressAdded"
         />
       </template>
       <!-- End Iris IP address -->
@@ -260,7 +260,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    onNewIPAddressAdded(text: string) {
+    onNewIrisIPAddressAdded(text: string) {
       const regExp = /^,/;
       var combinedText = `${this.avfData.irisAddress},${text}`
         .replace(regExp, "") //Replacing ,

@@ -20,9 +20,9 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item dense @click="editClicked(index)">
+              <!-- <v-list-item dense @click="editClicked(index)">
                 <v-list-item-title>Edit</v-list-item-title>
-              </v-list-item>
+              </v-list-item> -->
               <v-list-item dense @click="deleteClicked(index)">
                 <v-list-item-title>Delete</v-list-item-title>
               </v-list-item>

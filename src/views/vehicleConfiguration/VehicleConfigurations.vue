@@ -68,7 +68,9 @@
                 </div>
               </div>
               <v-card flat rounded="lg" class="mt-3 mb-6 overflow-hidden">
-                <canMultiplexer-component />
+                <canMultiplexer-component
+                  :canMultiplexerData="canMultiplexerData"
+                />
               </v-card>
             </v-col>
           </v-row>
