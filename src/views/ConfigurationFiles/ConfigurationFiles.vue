@@ -2,7 +2,7 @@
   <ContentPage :showProgressBar="isBusy">
     <div class="px-4 py-3 fill-height overflow-y-auto overflow-x-hidden">
       <div class="content">
-        <PageHeader :headerTitle="`Logs`" :headerSubtitle="``" />
+        <PageHeader :headerTitle="`Configuration Files`" :headerSubtitle="``" />
         <template>
           <div
             ref="content"
@@ -48,12 +48,12 @@ import SearchAndRefresh from "@/components/SearchAndRefresh/SearchAndRefresh.vue
 import FolderAndFile from "@/components/FolderAndFile/FolderAndFile.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
-import { Logs } from "@/models/core";
+import { ConfigurationFiles } from "@/models/core";
 
 export default Vue.extend({
   name: "Logs",
   async created() {
-    await this.getLogs();
+    await this.getConfigurationFiles();
   },
   components: {
     ContentPage,
@@ -62,18 +62,18 @@ export default Vue.extend({
     FolderAndFile
   },
   computed: {
-    ...mapState(Namespaces.logs, [
-      States.LogsStoreStates.logsData,
-      States.LogsStoreStates.isBusy
+    ...mapState(Namespaces.configurationFiles, [
+      States.ConfigurationFilesStoreStates.configurationFilesData,
+      States.ConfigurationFilesStoreStates.isBusy
     ])
   },
   methods: {
-    ...mapActions(Namespaces.logs, [
-      StoreActions.getLogsAsync,
-      StoreActions.getLogAsync
+    ...mapActions(Namespaces.configurationFiles, [
+      StoreActions.getConfigurationFilesAsync,
+      StoreActions.getConfigurationFileAsync
     ]),
-    async getLogs() {
-      await this.getLogsAsync();
+    async getConfigurationFiles() {
+      await this.getConfigurationFilesAsync();
     }
   }
 });

@@ -15,6 +15,7 @@ import ServiceOption from "./serviceOption";
 import File from "./file";
 import Folder from "./folder";
 import Logs from "./logs";
+import ConfigurationFiles from "./configurationFiles";
 
 export {
   Avf,
@@ -33,5 +34,6 @@ export {
   ServiceOption,
   File,
   Folder,
-  Logs
+  Logs,
+  ConfigurationFiles
 };

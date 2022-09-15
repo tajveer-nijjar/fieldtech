@@ -6,6 +6,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import VehicleConfigurations from "@/views/vehicleConfiguration/VehicleConfigurations.vue";
 import Volume from "@/views/Volume/Volume.vue";
 import Logs from "@/views/Logs/Logs.vue";
+import ConfigurationFiles from "@/views/ConfigurationFiles/ConfigurationFiles.vue";
 import MonitorControl from "@/views/MonitorControl/MonitorControl.vue";
 
 Vue.use(VueRouter);
@@ -20,7 +21,6 @@ const routes: Array<RouteConfig> = [
     path: "/vehicle-configurations",
     name: PageNames.VehicleConfigurations,
     component: VehicleConfigurations
-    // component: () => import("@/views/Page.vue")
   },
   {
     path: "/volume",
@@ -31,6 +31,11 @@ const routes: Array<RouteConfig> = [
     path: "/logs",
     name: PageNames.Logs,
     component: Logs
+  },
+  {
+    path: "/configuration-files",
+    name: PageNames.ConfigurationFiles,
+    component: ConfigurationFiles
   },
   {
     path: "/monitor-control",

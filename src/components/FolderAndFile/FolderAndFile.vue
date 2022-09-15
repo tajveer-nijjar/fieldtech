@@ -41,19 +41,15 @@ export default Vue.extend({
   data: () => ({
     tree: []
   }),
-  components: {
-    // SettingGroupItem
-  },
+  components: {},
   props: {
-    foldername: { type: String, default: "" },
-    date: { type: String, default: "" },
-    logs: { type: Object, default: new Logs() }
+    data: { type: Object, default: new Logs() }
   },
   methods: {
     calculateItemsData(): any[] {
       // var y = DummyData();
       // var z = this.items;
-      var data = folderAndFilesToTreeConverter(this.logs);
+      var data = folderAndFilesToTreeConverter(this.data);
       // var data = folderAndFilesToTreeConverter(y);
       return data;
     },

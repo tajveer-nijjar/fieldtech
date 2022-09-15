@@ -3,7 +3,7 @@ import * as ConnectionStatusStoreStates from "./connectionStatusStoreStates";
 import * as VehicleConfigurationStoreStates from "./vehicleConfigurationStoreStates";
 import * as VolumeStoreStates from "./volumeStoreStates";
 import * as LogsStoreStates from "./logsStoreStates";
-import * as ConfigurationFiles from "./configurationFilesStoreStates";
+import * as ConfigurationFilesStoreStates from "./configurationFilesStoreStates";
 
 export {
   Root,
@@ -11,5 +11,5 @@ export {
   VehicleConfigurationStoreStates,
   VolumeStoreStates,
   LogsStoreStates,
-  ConfigurationFiles
+  ConfigurationFilesStoreStates
 };
