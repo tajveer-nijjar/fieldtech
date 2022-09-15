@@ -120,11 +120,11 @@ export default Vue.extend({
   },
   methods: {
     calculateItemsData(): any[] {
-      var y = DummyData();
-      var z = this.items;
-      // var x = folderAndFilesToTreeConverter(this.logs);
-      var x = folderAndFilesToTreeConverter(y);
-      return x;
+      // var y = DummyData();
+      // var z = this.items;
+      var data = folderAndFilesToTreeConverter(this.logs);
+      // var data = folderAndFilesToTreeConverter(y);
+      return data;
     },
     formatDate(date: string): string {
       var myDate = new Date(date);
