@@ -102,6 +102,7 @@
           :ipAddresses="calculateIrisAddressesArray"
           v-if="avfData"
           @onNewIPAddressAdded="onNewIrisIPAddressAdded"
+          @onIPAddressDeleted="onIrisIPAddressDeleted"
         />
       </template>
       <!-- End Iris IP address -->
@@ -222,10 +223,12 @@
 </template>
 <script lang="ts">
 import Vue, { PropType } from "vue";
+import { mapActions, mapState } from "vuex";
 
 import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
 import MultipleSubItemsSettingGroupItem from "@/views/templates/settingGroups/MultipleSubItemsSettingGroupItem.vue";
 import { Avf } from "@/models/core";
+import { Namespaces, StoreActions } from "@/constants";
 
 export default Vue.extend({
   name: "Avf",
@@ -260,12 +263,18 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapActions(Namespaces.vehicleConfiguration, [
+      StoreActions.removeIrisIPAddress
+    ]),
     onNewIrisIPAddressAdded(text: string) {
       const regExp = /^,/;
       var combinedText = `${this.avfData.irisAddress},${text}`
         .replace(regExp, "") //Replacing ,
         .trim();
       this.avfData.irisAddress = combinedText;
+    },
+    onIrisIPAddressDeleted(item: number) {
+      this.removeIrisIPAddress(item);
     }
   }
 });

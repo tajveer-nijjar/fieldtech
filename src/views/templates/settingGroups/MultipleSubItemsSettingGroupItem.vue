@@ -23,7 +23,7 @@
               <!-- <v-list-item dense @click="editClicked(index)">
                 <v-list-item-title>Edit</v-list-item-title>
               </v-list-item> -->
-              <v-list-item dense @click="deleteClicked(index)">
+              <v-list-item dense @click="deleteClicked(item)">
                 <v-list-item-title>Delete</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -95,7 +95,7 @@ export default Vue.extend({
       debugger;
     },
     deleteClicked(index: number) {
-      debugger;
+      this.$emit("onIPAddressDeleted", index);
     }
   }
 });

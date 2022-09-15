@@ -10,6 +10,7 @@ import {
 import { VehicleConfigurationService } from "@/services";
 import { VehicleConfiguration } from "@/models/core";
 import Utils, { DateUtils, DebugUtils, HttpUtils } from "@/utils";
+import VehicleConfigurationData from "@/models/core/vehicleConfigurationData";
 
 export interface IVehicleConfigurationStoreState {
   [Store.States.VehicleConfigurationStoreStates
@@ -65,8 +66,20 @@ const mutations: MutationTree<IVehicleConfigurationStoreState> = {
 
   [StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED](state) {
     state.isBusy = false;
-  }
+  },
   //#endregion
+
+  [StoreMutationTypes.UPDATE_IRIS_IP_ADDRESSES](state, updatedIrisAddress) {
+    debugger;
+
+    const vehicleConfigurationAllData: VehicleConfigurationData =
+      state.vehicleConfigurationAllData;
+    const irisAddress =
+      vehicleConfigurationAllData.vechicleConfiguration?.avf?.irisAddress;
+
+    // state.vehicleConfigurationAllData.?vechicleConfiguration?.avf?.irisAddress =
+    // updatedIrisAddress;
+  }
 };
 
 const getters: GetterTree<IVehicleConfigurationStoreState, RootState> = {};
@@ -122,6 +135,23 @@ const actions: ActionTree<IVehicleConfigurationStoreState, RootState> = {
     } finally {
       commit(StoreMutationTypes.POST_VEHICLE_CONFIGURATION_FINISHED);
     }
+  },
+
+  [StoreActions.removeIrisIPAddress](
+    { state, dispatch, commit, rootGetters },
+    item
+  ) {
+    const vehicleConfigurationAllData: VehicleConfigurationData =
+      state.vehicleConfigurationAllData;
+    let updatedIrisAddress =
+      vehicleConfigurationAllData.vechicleConfiguration?.avf?.irisAddress;
+
+    updatedIrisAddress = updatedIrisAddress?.replace(item, "");
+    // vehicleConfigurationAllData?.vechicleConfiguration?.avf?.irisAddress =
+    // updatedIrisAddress;
+    debugger;
+    commit(StoreMutationTypes.UPDATE_IRIS_IP_ADDRESSES, updatedIrisAddress);
+    debugger;
   }
 };
 
