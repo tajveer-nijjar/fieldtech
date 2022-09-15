@@ -3,18 +3,16 @@
     <v-treeview
       v-model="tree"
       :open="initiallyOpen"
-      :items="items"
+      :items="calculate()"
       activatable
       item-key="name"
       open-on-click
     >
       <template v-slot:prepend="{ item, open }">
-        <v-icon v-if="!item.file">
+        <v-icon v-if="!item.isFile">
           {{ open ? "mdi-folder-open" : "mdi-folder" }}
         </v-icon>
-        <v-icon v-else>
-          {{ files[item.file] }}
-        </v-icon>
+        <v-icon v-else> mdi-file-document-outline </v-icon>
       </template>
       <template v-slot:append="{ item }">
         <v-btn class="mx-2" plain>
@@ -28,7 +26,9 @@
 <script lang="ts">
 import Vue from "vue";
 
-import SettingGroupItem from "@/views/templates/settingGroups/SettingGroupItem.vue";
+import { Logs } from "@/models/core";
+import folderAndFilesToTreeConverter from "@/utils/folderAndFilesToTreeConverter";
+import DummyData from "./DummyData";
 
 export default Vue.extend({
   name: "FolderAndFile",
@@ -105,8 +105,17 @@ export default Vue.extend({
   },
   props: {
     foldername: { type: String, default: "" },
-    date: { type: String, default: "" }
+    date: { type: String, default: "" },
+    logs: { type: Object, default: new Logs() }
   },
-  methods: {}
+  methods: {
+    calculate(): any[] {
+      var y = DummyData();
+      debugger;
+      var x = folderAndFilesToTreeConverter(y);
+      debugger;
+      return x;
+    }
+  }
 });
 </script>

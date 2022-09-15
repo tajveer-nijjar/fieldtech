@@ -49,9 +49,7 @@ const actions: ActionTree<ILogsStoreState, RootState> = {
   async [StoreActions.getLogsAsync]({ state, dispatch, commit, rootGetters }) {
     try {
       commit(StoreMutationTypes.START_GET_LOGS);
-      debugger;
       const logs = await LogsService.getLogsAsync();
-      debugger;
       commit(StoreMutationTypes.GET_LOGS_SUCCESS, logs);
     } catch (error) {
       const errorMessage =

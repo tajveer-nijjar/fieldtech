@@ -27,17 +27,7 @@
               </v-row>
               <v-row class="files-and-folders-content">
                 <v-col cols="12" lg="8" xl="12">
-                  <FolderAndFile />
-                  <!-- <File
-                    :filename="`hal_20210826.log`"
-                    :date="`2021-07-11 17:24`"
-                    :size="`113 kb`"
-                  />
-                  <File
-                    :filename="`hal_20210826.log`"
-                    :date="`2021-07-11 17:24`"
-                    :size="`115 kb`"
-                  /> -->
+                  <FolderAndFile :logs="logsData" />
                 </v-col>
               </v-row>
             </v-card>
@@ -55,9 +45,10 @@ import { mapActions, mapState } from "vuex";
 import ContentPage from "@/components/Page/ContentPage.vue";
 import PageHeader from "@/components/Page/PageHeader.vue";
 import SearchAndRefresh from "@/components/SearchAndRefresh/SearchAndRefresh.vue";
-import File from "@/components/File/File.vue";
 import FolderAndFile from "@/components/FolderAndFile/FolderAndFile.vue";
 import { Namespaces, StoreActions } from "@/constants";
+import { States } from "@/constants/store";
+import { Logs } from "@/models/core";
 
 export default Vue.extend({
   name: "Logs",
@@ -68,13 +59,18 @@ export default Vue.extend({
     ContentPage,
     PageHeader,
     SearchAndRefresh,
-    // File,
     FolderAndFile
+  },
+  computed: {
+    ...mapState(Namespaces.logs, [
+      States.LogsStoreStates.logsData,
+      States.LogsStoreStates.isBusy
+    ])
   },
   methods: {
     ...mapActions(Namespaces.logs, [
       StoreActions.getLogsAsync,
-      StoreActions.saveLogsAsync
+      StoreActions.getLogAsync
     ]),
     async getLogs() {
       await this.getLogsAsync();

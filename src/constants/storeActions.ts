@@ -11,11 +11,11 @@ export const saveVolumeDataAsync = "saveVolumeDataAsync";
 
 //Logs
 export const getLogsAsync = "getLogsAsync";
-export const saveLogsAsync = "saveLogsAsync";
+export const getLogAsync = "getLogAsync";
 
 //Configuration Files
 export const getConfigurationFilesAsync = "getConfigurationFilesAsync";
-export const saveConfigurationFilesAsync = "saveConfigurationFilesAsync";
+export const getConfigurationFileAsync = "getConfigurationFileAsync";
 
 export const showSystemMessageToast = "showSystemMessageToast";
 export const showMessageDialog = "showMessageDialog";
