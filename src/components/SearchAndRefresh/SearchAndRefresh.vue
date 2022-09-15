@@ -15,8 +15,6 @@
           class="text-body-2 rounded-lg"
           prepend-inner-icon="mdi-magnify"
         />
-        <!-- v-model="avfData.biAmpAddress"
-      v-if="avfData" -->
       </v-col>
       <v-col cols="1" class="refresh-button">
         <v-btn class="mx-2" plain>
