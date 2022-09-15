@@ -35,28 +35,35 @@ export default function folderAndFilesToTreeConverter(logs: Logs): any[] {
           subFolderChildren = f.files.map((c) => {
             return {
               name: c.fileName,
-              isFile: true
+              isFile: true,
+              fileSize: c.fileSize,
+              lastMdifiedDate: c.lastModifiedDate,
+              fullPath: c.fullPath
             };
           });
         }
 
-        return {
+        const x = {
           name: f.folderName,
           isFile: false,
           children: subFolderChildren
         };
-      });
 
-    //Iterating through all child files
-    childFiles = folder.files?.map((c) => ({
-      name: c.fileName,
-      isFile: true
-    }));
+        return x;
+      });
 
     if (childFolders) {
       childrens.push(...childFolders);
     }
 
+    //Iterating through all child files at level 1
+    childFiles = folder.files?.map((c) => ({
+      name: c.fileName,
+      isFile: true,
+      fileSize: c.fileSize,
+      lastMdifiedDate: c.lastModifiedDate,
+      fullPath: c.fullPath
+    }));
     if (childFiles) {
       childrens.push(...childFiles);
     }
@@ -68,11 +75,16 @@ export default function folderAndFilesToTreeConverter(logs: Logs): any[] {
 
   //Iterating through all the files at level 0
   logs?.files?.forEach((file) => {
-    const filee = { name: file.fileName, isFile: true };
+    const filee = {
+      name: file.fileName,
+      isFile: true,
+      fileSize: file.fileSize,
+      lastMdifiedDate: file.lastModifiedDate,
+      fullPath: file.fullPath
+    };
 
     tree = [...tree, filee];
   });
-  debugger;
 
   return tree;
 }

@@ -3,7 +3,7 @@
     <v-treeview
       v-model="tree"
       :open="initiallyOpen"
-      :items="calculate()"
+      :items="calculateItemsData()"
       activatable
       item-key="name"
       open-on-click
@@ -19,11 +19,13 @@
           <v-icon v-if="item.isFile"> mdi-download </v-icon>
         </v-btn>
       </template>
-      <!-- <template v-slot:label="{ item }">
-        <b>{{ item.name }} </b>
-        <br />
-        <i>{{ item.name }}</i>
-      </template> -->
+      <template v-slot:label="{ item }">
+        <div class="subtitle-2">{{ item.name }}</div>
+        <div class="caption subtitle-text" v-if="item.isFile">
+          <!-- {{ item.lastMdifiedDate }} -->
+          {{ formatDate(item.lastMdifiedDate) }}
+        </div>
+      </template>
     </v-treeview>
   </div>
 </template>
@@ -117,12 +119,22 @@ export default Vue.extend({
     logs: { type: Object, default: new Logs() }
   },
   methods: {
-    calculate(): any[] {
+    calculateItemsData(): any[] {
       var y = DummyData();
       var z = this.items;
+      // var x = folderAndFilesToTreeConverter(this.logs);
       var x = folderAndFilesToTreeConverter(y);
       return x;
+    },
+    formatDate(date: string): string {
+      var myDate = new Date(date);
+      return myDate.toLocaleString();
     }
   }
 });
 </script>
+<style lang="scss">
+.subtitle-text {
+  color: #8f8f8f;
+}
+</style>
