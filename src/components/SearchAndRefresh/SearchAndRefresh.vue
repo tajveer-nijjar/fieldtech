@@ -14,6 +14,9 @@
           direction="right"
           class="text-body-2 rounded-lg"
           prepend-inner-icon="mdi-magnify"
+          v-model="searchText"
+          @change="onChange()"
+          @keydown="onChange()"
         />
       </v-col>
       <v-col cols="1" class="refresh-button">
@@ -30,9 +33,18 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "SearchAndRefresh",
+  data() {
+    return {
+      searchText: ""
+    };
+  },
   methods: {
     refreshClicked() {
       this.$emit("onRefreshClicked");
+    },
+    onChange() {
+      debugger;
+      this.$emit("onSearchTextChange", this.searchText);
     }
   }
 });

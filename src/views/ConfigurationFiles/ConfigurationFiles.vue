@@ -24,6 +24,7 @@
                 <v-col cols="12" lg="8" xl="12">
                   <SearchAndRefresh
                     @onRefreshClicked="onRefreshConfigurationFilesClicked"
+                    @onSearchTextChange="onSearchTextChange"
                   />
                 </v-col>
               </v-row>
@@ -50,7 +51,6 @@ import SearchAndRefresh from "@/components/SearchAndRefresh/SearchAndRefresh.vue
 import FolderAndFile from "@/components/FolderAndFile/FolderAndFile.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
-import { ConfigurationFiles } from "@/models/core";
 
 export default Vue.extend({
   name: "Logs",
@@ -79,6 +79,9 @@ export default Vue.extend({
     },
     async onRefreshConfigurationFilesClicked() {
       await this.getConfigurationFilesAsync();
+    },
+    onSearchTextChange(searchText: string) {
+      debugger;
     }
   }
 });

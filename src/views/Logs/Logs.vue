@@ -48,7 +48,6 @@ import SearchAndRefresh from "@/components/SearchAndRefresh/SearchAndRefresh.vue
 import FolderAndFile from "@/components/FolderAndFile/FolderAndFile.vue";
 import { Namespaces, StoreActions } from "@/constants";
 import { States } from "@/constants/store";
-import { Logs } from "@/models/core";
 
 export default Vue.extend({
   name: "Logs",
